@@ -1,19 +1,62 @@
-\documentclass[11pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: $Id$
+%
+% Source document for the LaTeX workshop document. Feel free to use this as
+% an example.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is an article in 12pt on A4 paper.
+%
+\documentclass[12pt,a4paper]{article}
 
-\usepackage[margin=1in,pdftex]{geometry}
-\usepackage{verbatim}
-\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Start of preamble.
+%
+% Load a bunch o' packages.
+%
+\usepackage[T1]{fontenc}	% technical font stuff :)
+\usepackage{lmodern}		% more technical font stuff :)
+\usepackage{textcomp}		% some handy unusual symbols
+\usepackage[margin=1in,pdftex]{geometry}	% change margins to 1in
+\usepackage{verbatim}		% handy for typesetting code listings
+\usepackage{url}			% handles weird characters and line-breaks for URLs
+\usepackage{flafter}		% forces figures and tables to appear after they
+							% are first referenced
 
-
-\title{ISPG \LaTeX\ Workshop}
+%
+% Document title information.
+%
+\title{A Brief Introduction to \LaTeX}
 \author{Nigel Stanger}
 
+%
+% Define some useful commands.
+%
+% The PDFLaTeX logo.
 \newcommand{\PDFLaTeX}{\textsc{Pdf}\LaTeX}
-\newcommand{\instruction}[1]{\bigskip\noindent\fbox{\parbox{\columnwidth}{#1}}\bigskip}
+
+% Put a box around an arbitrary chunk of text.
+% Argument: the text to put inside the box.
+\newcommand{\instruction}[1]{\bigskip\noindent\fbox{\parbox{0.98\columnwidth}{#1}}\bigskip}
+
+% This is an example of a TeX macro. It generates the BibTeX logo.
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
+%
+% End of preamble.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Start of main document body. Here endeth the comments for now :)
+%
 \begin{document}
+
 
 \maketitle
 
@@ -34,17 +77,17 @@ will reveal a huge amount of information about \LaTeX.
 \LaTeX\ is a system for typesetting documents~\cite{UsersGuide}. It's
 been widely available since 1985, and amazingly, files created then can
 still be processed with the latest versions of \LaTeX\ (try doing that
-with Word!). \LaTeX\ is actually built on top of another tool, called
+with Word!). \LaTeX\ is actually built on top of another package called
 \TeX. You could sort of think of \TeX\ as the ``machine code''
 underlying \LaTeX\ (that's not really correct, but you get the idea).
 
-\LaTeX\ is actually a \emph{macro language} that provides commands for
-formatting documents in various ways. The source files are plain text
-with embedded markup. If you've ever manually created web pages using
-HTML, you'll already be familiar with the basic idea. In HTML you have
-tags that specify emphasised text, headings and so on. \LaTeX\ provides
-commands that perform similar functions, as shown in
-Figure~\ref{fig:HTMLcomparison}.
+\TeX\ is actually a \emph{macro language}, and \LaTeX\ is a large and
+complex set of \TeX\ macros for formatting documents in various ways.
+The source files are plain text with embedded markup. If you've ever
+manually created web pages using HTML, you'll already be familiar with
+the basic idea. In HTML you have tags that specify emphasised text,
+headings and so on. \LaTeX\ provides commands that perform similar
+functions, as shown in Figure~\ref{fig:HTMLcomparison}.
 
 \begin{figure}
 	\hrule\medskip
@@ -66,7 +109,7 @@ Greek letter chi ($\chi$), so the ``correct'' pronunciation is a sort of
 Pronunciations in common usage include the obvious ``\emph{lay}-teks'',
 but also ``\emph{lay}-tek'', ``\emph{lah}-tek'' and
 ``lah-\emph{tek}''~\cite{UsersGuide}. ``\emph{Lay}-tek''  and
-``lah-\emph{tek}''are the most commonly accepted pronunciations.
+``lah-\emph{tek}''are the most commonly accepted.
 
 
 \subsection{But doesn't Word already do everything I need?}
@@ -75,24 +118,25 @@ but also ``\emph{lay}-tek'', ``\emph{lah}-tek'' and
 Most people's initial reaction to \LaTeX\ is that it's a primitive
 reversion to the Bad Old Days of command-line interfaces. Why should you
 use something like \LaTeX\ when WYSIWYG word processors are so obviously
-superior?
+superior? There are several good reasons:
 
 \begin{itemize}
 
 	\item \LaTeX\ is designed from the ground up as a document
 	typesetting system, and is particularly suited to creating large,
 	complex documents (such as a thesis or book). The experience of many
-	postgraduate students within the department has been that once you
-	get past about 100 pages and have lots of figures, cross references
-	and the like, Word begins to behave even more weirdly than usual.
-	Word (and most other word processors) were originally designed for
-	small documents.
+	students within the department has been that once you get past about
+	50 pages and have lots of figures, cross references and the like,
+	Word begins to behave even more weirdly than it usually does. Word
+	(and most other word processors) are really designed for small,
+	simple documents, regardless of what Microsoft claims.
 
 	\item The WYSIWYG features of word processing tools can actually get
 	in the way of the writing process, because you are always tempted to
-	fiddle the formatting of the text as you write. \LaTeX\ forces you
-	to write in plain text, which means that you focus on the primary
-	activity: \emph{writing}.
+	fiddle with the formatting of the text as you write. \LaTeX\ forces
+	you to write in plain text, which means that you focus on the
+	primary activity: \emph{writing}. Appearance is really one of the
+	last things that you should consider.
 
 	\item \LaTeX\ automates a lot of the drudgery of constructing a
 	document, so that you don't have to worry about it. Many rules of
@@ -112,51 +156,51 @@ superior?
 	reasonably good, but it can't match the range of symbols or quality
 	of output that \LaTeX\ provides. All the major mathematical journals
 	specify \TeX\ or \LaTeX\ for paper submissions (as do many other
-	journals). If you're going to be doing equations, \LaTeX\ is really
-	the only serious option. However, we'll skip the mathematical
-	features here.
+	journals). If you're going to be doing equations, \TeX\ or \LaTeX\
+	are really the only serious options. However, we'll skip the
+	mathematical features in this document.
 
 	\item Because \TeX\ is effectively a kind of programming language,
 	you can do almost anything you want within the limits of the \TeX\
 	engine. One particularly useful feature is that you can define your
-	own commands, then use them again and again (very handy for
-	repetitive stuff). If you later decide to change the output of the
-	command, you only have to change it in one place. There are also a
-	huge number of extension packages for \TeX\ and \LaTeX\, handling
-	everything from musical typesetting through to graphics
-	manipulation. All of these are written in \TeX.
+	own macros, then use them again and again (very handy for repetitive
+	stuff). If you later decide to change the output of the macro, you
+	only have to change it in one place. There are also a huge number of
+	extension packages for \TeX\ and \LaTeX\, handling everything from
+	musical typesetting through to graphics manipulation. All of these
+	are written in \TeX.
 	
 	\item It's very easy to produce all sorts of weird accented
 	characters in \LaTeX~\cite{UsersGuide}: El se\~{n}or est\'{a} bien,
 	gar\c{c}on. \'{E}l est\'{a} aqu\'{i}.
-	\`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b{o}.
-	\LaTeX\ also automatically generates correct ``quotation marks''
-	(none of this ``smart quotes'' rubbish), and also inserts ligatures
-	where necessary (e.g., ``f{}i'' $\rightarrow$ ``fi'', ``f{}f''
-	$\rightarrow$ ``ff'', etc.)
+	\`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b
+	{o}. \LaTeX\ also automatically generates correct ``quotation
+	marks'' and apostrophes (none of this ``smart quotes'' rubbish), and
+	also inserts ligatures where necessary (e.g., ``f{}i''
+	\(\rightarrow\) ``fi'', ``f{}f'' \(\rightarrow\) ``ff'', etc.)
 
 	\item A document produced by \LaTeX\ won't suddenly change it's
 	formatting if you move it to another machine (as often happens with
 	Word documents). In fact, as long as you haven't done anything
-	weird, you can process a document created in 1985 and it will come
-	out looking identical to when it was originally written! \TeX\ and
-	\LaTeX\ are totally portable, because the documents are plain text
-	and \TeX\ has been ported to almost every platform in existence. If
-	you suddenly decide to switch to Linux, your \LaTeX\ documents will
-	come across without modification (except maybe changing the line
-	breaks). Modern \TeX\ distributions are fairly well standardised, so
-	you can expect similar functionality on any platform. If you don't
-	have a particular extension package, you can download it from any
-	one of a large number of \TeX\ archive mirror
-	sites~\cite{CTAN}.
+	really weird, you can process a document created in 1985 and it will
+	come out looking identical to when it was originally written! \TeX\
+	and \LaTeX\ are totally portable, because the documents are plain
+	text and \TeX\ has been ported to almost every platform in
+	existence. If you suddenly decide to switch to Linux, your \LaTeX\
+	documents will come across without modification (except perhaps for
+	changing DOS line breaks to Unix line breaks). Modern \TeX\
+	distributions are fairly well standardised, so you can expect
+	similar functionality on any platform. If you don't have a
+	particular extension package, you can download it from any one of a
+	large number of \TeX\ archive mirror sites~\cite{CTAN}.
 
 \end{itemize}
 
 The main disadvantage of \LaTeX\ (other than the initial learning curve)
 is that you don't have as much freedom over choice of font, style, etc.,
-as you would in Word. Some would, of course, argue that this is a good
-thing! \LaTeX\ comes with a default set of fonts known as Computer
-Modern (which this document uses), but you can use PostScript fonts like
+as you would in Word. Many would argue that this is a good thing!
+\LaTeX\ comes with a default set of fonts known as Computer Modern
+(which this document uses), but you can use PostScript fonts like
 {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont
 Helvetica} by loading an appropriate extension package. It can also
 sometimes be tricky to ``break out'' of the defaults if you want to do
@@ -182,9 +226,9 @@ so on. Most likely you will end up using either plain \LaTeX\ or
 Traditionally, \LaTeX\ is a command-line tool, but there are now many
 graphical front ends. We have one called WinShell installed in the labs,
 which is a front end to a \TeX\ distribution called fp\TeX. You should
-find WinShell under \textsf{Start} $\triangleright$ \textsf{Course
-Specific Resources} $\triangleright$ \textsf{Desktop Publishing}
-$\triangleright$ \textsf{Latex Editor}.
+find WinShell under \textsf{Start} \(\triangleright\) \textsf{Course
+Specific Resources} \(\triangleright\) \textsf{Desktop Publishing}
+\(\triangleright\) \textsf{Latex Editor}.
 
 WinShell provides a syntax-colouring text editor, and point-and-click
 access to all the major tools such as \LaTeX\ and \PDFLaTeX. There are
@@ -196,8 +240,12 @@ buttons.
 \subsection{A simple \LaTeX\ document}
 \label{sec:simple}
 
-\instruction{Download the file \textsf{small2e.tex} from the ISPG web
-site and open it with WinShell.}
+All the sample files mentioned in this document can be downloaded from
+\url{http://info-nts-12.otago.ac.nz/something/LaTeX/whatever}. You will
+also find in this directory a copy of this document and its source.
+
+\instruction{Download the file \textsf{small2e.tex} and open it with
+WinShell.}
 
 This is a simple document that shows you how to do some of the most
 basic things in \LaTeX, like how to emphasise words and create sections.
@@ -224,20 +272,20 @@ three of the special characters. You'll find out how to produce the
 remaining three in Section~\ref{sec:usefulstuff} below.
 
 Line 11 tells you what type of document this is (in this case, an
-article). The document class can be thought of as a document template
-that sets up a whole collection of defaults and standard formats. For
+article). The document class ifs effectively a document template that
+sets up a whole collection of defaults, formats and commands. For
 example, the \textsf{book} document class defines commands for chapters,
 while the \textsf{letter} class doesn't have chapters, but defines
-commands for specifying things like the address, the signature, and so on.
-The standard document classes are \textsf{article}, \textsf{book},
+commands for specifying things like the address, the signature, and so
+on. The standard document classes are \textsf{article}, \textsf{book},
 \textsf{slides}, \textsf{letter} and \textsf{report}.
 
 \instruction{Change the document class to \textsf{report} and see what
 effect this has on the generated document.}
 
 Most document classes also have a set of predefined options that you can
-specify. For example, document classes often default to a 10 point font.
-You can change this to 12 point by saying
+specify. For example, document classes usually default to a 10 point
+font. You can change this to 12 point by saying
 \verb+\documentclass[12pt]{article}+ (note that the only allowable
 values for typical documents are \textsf{10pt}, \textsf{11pt} and
 \textsf{12pt}). Other useful options include \textsf{a4paper} and
@@ -247,12 +295,12 @@ values for typical documents are \textsf{10pt}, \textsf{11pt} and
 
 \verb+\documentclass{article}+ is an example of a \LaTeX\ command.
 Commands are prefixed with a backslash (\verb+\+). The name of the
-command is \verb+documentclass+, and its argument (enclosed by braces) is
-\verb+article+. Looking further through the document, you'll see several
-more examples of commands, such as \verb+\emph+ and \verb+\textbf+. Most
-commands work similarly to these. Line 15 has an example of a sectioning
-command: \verb+\section+. This defines a logical section of the document.
-A subsection is defined on line 29.
+command is \verb+documentclass+, and its argument (enclosed by braces)
+is \verb+article+. Looking further through the document, you'll see
+several more examples of commands, such as \verb+\emph+ and
+\verb+\textbf+. Most commands work similarly to these. Line 15 has an
+example of a sectioning command: \verb+\section+. This defines a logical
+section of the document. A subsection is defined on line 29.
 
 Everything before the \verb+\begin{document}+ is known as the
 \emph{preamble}. The main document body appears between the
@@ -282,23 +330,26 @@ in sentences. Lines 26 and 27 show you how to \emph{emphasise} and
 	
 	\item \verb+\ldots+ produces an ellipsis: \ldots
 	
-	\item \verb+~+ alone is a non-breaking space.
+	\item \verb+~+ produces a non-breaking space.
 	
-	\item The special command \verb+\\+ inserts a line break (make sure
-	you put a space after it if you use it in the middle of a line).
+	\item The special command \verb+\\+ inserts a line break, although
+	there are some limits to where it can be used. Make sure you follow
+	it with a space if you use it in the middle of a line, or \LaTeX\
+	might interpret the following text as a command.
 	
 	\item To produce the three remaining special characters, use
-	\verb+$\backslash$+ for $\backslash$, \verb+\^{}+ for \^{} and
+	\verb+\(\backslash\)+ for \(\backslash\), \verb+\^{}+ for \^{} and
 	\verb+\~{}+ for \~{}.
 	
-	\item You can italicise text using \verb+\textit+. However, you're
-	generally better to use \verb+\emph+ to emphasise text. The nice
-	thing about \verb+\emph+ is that you can nest it, and the italics
-	will turn on and off as required: \emph{Use italics to emphasise
-	text, \emph{unless} you're already in italics}.
+	\item You can emphasise text using \verb+\textit+ for italics.
+	However, you're generally better to use \verb+\emph+ to emphasise
+	text. The nice thing about \verb+\emph+ is that you can nest it, and
+	the italics will turn on and off as required: \emph{Use italics to
+	emphasise text, \emph{unless} you're already in italics}.
 	
 	\item \verb+\textsf+ produces \textsf{sans-serif text}, while
-	\verb+\texttt+ produces \texttt{typewriter text}.
+	\verb+\texttt+ produces \texttt{typewriter text} (which is
+	monospaced and thus good for formatting code).
 	
 	\item Many commands require you to provide a length as an argument
 	(e.g., \texttt{2cm}). \LaTeX\ is quite flexible in the units that it
@@ -309,19 +360,33 @@ in sentences. Lines 26 and 27 show you how to \emph{emphasise} and
 	by \texttt{bp} (\texttt{1in} = \texttt{72bp}).
 	
 	\item \verb+\today+ will produce today's date. You have to be
-	careful using commands like this in the middle of a sentence, however,
-	because they ``eat'' any spaces that occur after them, e.g.,
-	\verb+\today is the day+ produces ``\today is the day''. This is
-	just a peculiarity of the way the engine works. You can fix this by
-	putting a backslash at the end of the command, i.e.,
+	careful using commands like this in the middle of a sentence,
+	however, because they ``eat'' any spaces that occur after them,
+	e.g., \verb+\today is the day+ produces ``\today is the day''. This
+	is just a peculiarity of the way the \TeX\ engine works. You can fix
+	this by putting a backslash at the end of the command, i.e.,
 	\verb+\today\ is the day+.
 	
-	\item Command names are case-sensitive, so \verb+\Today+ is
-	considered a different command from \verb+\today+. Command names can
-	also only contain letters; no numbers or unusual characters.
+	On a related note, when \LaTeX\ sees a period (``.'') followed by
+	whitespace, it assumes that this is the end of a sentence and
+	automatically inserts a little more space to distinguish it from the
+	normal inter-word spacing. However, this fails with things like
+	``J.\ F.\ Smith''; \LaTeX\ interprets this as three different
+	sentences, and consequently the spacing can sometimes look a bit
+	weird. To avoid this, put a backslash after periods that don't end a
+	sentence, i.e., \verb+J.\ F.\ Smith.+, which produces ``J.\ F.\
+	Smith'' (as opposed to ``J. F. Smith'').
 	
-	\item You can create a title for your document (similar to that
-	shown on page~\pageref{sec:intro} of this document). Use the commands
+	``\verb+\ +'' is actually a \TeX\ macro that inserts a normal
+	inter-word space.
+	
+	\item Command names are case-sensitive (so \verb+\Today+ is
+	different from \verb+\today+), and they can only contain letters; no
+	numbers or unusual characters. (\TeX\ macro names can contain just
+	about any character, but that's a whole other story.)
+	
+	\item You can create a title for your document, similar to that
+	shown on page~\pageref{sec:intro} of this document. Use the commands
 	\verb+\title+, \verb+\author+ and \verb+\date+ (defaults to
 	\verb+\today+ if omitted) in the document preamble, then
 	\verb+\maketitle+ in the document body, for example:
@@ -341,24 +406,24 @@ in sentences. Lines 26 and 27 show you how to \emph{emphasise} and
 \subsection{A more complex example}
 \label{sec:complex}
 
-\instruction{Download the file \textsf{sample2e.tex} from the ISPG web
-site, open it in WinShell and process it with \PDFLaTeX.}
+\instruction{Download the file \textsf{sample2e.tex}, open it in
+WinShell and process it with \PDFLaTeX.}
 
 This file is a somewhat longer document that includes most of the
-features discussed above, plus a few extras. It's a good source of
+features discussed above, plus a few more. It's a good source of
 examples of how to do most of the basics. We'll use it now to play
 around with some more advanced aspects of \LaTeX.
 
 We've already seen how commands work in \LaTeX. They're useful for
 applying formatting to relatively small chunks of text. However, most
-commands won't work across paragraphs, so what do we do if we want to
+commands don't work across paragraphs, so what do we do if we want to
 apply some formatting to an entire page of text? In addition to commands,
 \LaTeX\ has things called \emph{environments} that work with chunks of
 text of any size. Environments have a \verb+\begin+ command and an
 \verb+\end+ command. You've already seen an example of this with
 \verb+\begin{document}+ and \verb+\end{document}+. There are many
 environments, including equivalents of the various text formatting
-commands (e.g., a \textsf{em} environment that does the same as
+commands (e.g., an \textsf{em} environment that does the same as
 \verb+\emph+), figures and tables, quotations, lists and so on. We'll
 look at some of these now.
 
@@ -371,7 +436,7 @@ bullet-style lists, \textsf{enumerate} for numbered lists and
 \textsf{description} for lists with text labels. They all follow the
 same basic form, as shown in Table~\ref{tab:lists}. You can nest any
 kind of list inside any other, and \LaTeX\ will take care of adjusting
-the labels accordingly.
+the labels and indentation accordingly.
 
 \begin{table}
 	\centering
@@ -415,7 +480,7 @@ the labels accordingly.
 		\begin{minipage}{7cm}
 			\begin{enumerate}
 				\item foo
-				\item bar
+				\item\label{baritem} bar
 				\item blah blah blah
 			\end{enumerate}
 		\end{minipage}
@@ -458,7 +523,7 @@ list. Also try nesting lists inside others and see what happens
 \label{sec:tabular}
 
 Often you will want to create some kind of tabular structure with text
-or numbers aligned in columns (like Table~\ref{tab:lists} above). This
+or numbers aligned in columns (like Table~\ref{tab:lists}). This
 is achieved using the \textsf{tabular} environment:
 \begin{verbatim}
 \begin{tabular}{|l|c|r|}
@@ -474,7 +539,12 @@ is achieved using the \textsf{tabular} environment:
   \hline
 \end{tabular}
 \end{verbatim}
-This comes out looking like this:\bigskip
+
+
+\newpage
+
+
+\noindent This comes out looking like this:\bigskip
 
 \begin{tabular}{|l|c|r|}
   \hline
@@ -523,11 +593,12 @@ out the best location to place them based on various factors. In other
 words, they ``float'' around the document as necessary. You've already
 seen a couple of examples of these: see Figure~\ref{fig:HTMLcomparison}
 and Table~\ref{tab:lists}. Table~\ref{tab:lists} is a good example of
-the floating aspect: it has floated to the top of
-page~\pageref{tab:lists} and the main text has simply flowed itself
-around the table. We have some control over this (and occasionally
-\LaTeX\ does get it wrong), but it's usually safer to leave \LaTeX\
-alone.
+the floating aspect: in the source file, the table immediately follows
+the text of Section~\ref{sec:lists}, but the in the final output the
+table has floated to the top of page~\pageref{tab:lists}, and the main
+text has automatically flowed itself around the table. We have some
+control over this floating behaviour (and occasionally \LaTeX\ does get
+it wrong), but it's usually safest to leave \LaTeX\ alone in this area.
 
 
 \subsubsection{Cross-references}
@@ -536,9 +607,11 @@ alone.
 One of the nicest features of \LaTeX\ is that you can attach a unique
 label to anything that has a number associated with it (sections,
 figures, list items, etc.), then create cross-references to that item
-that are automatically kept up to date. You create labels by placing a
-\verb+\label+ command immediately after the item that you want to label.
-For example, the heading of this section looks like this:
+that are automatically kept up to date (for example, we can reference
+item~\ref{baritem} of the \textsf{enumerate} list in
+Table~\ref{tab:lists}). You create labels by placing a \verb+\label+
+command immediately after the item that you want to label. For example,
+the heading of this section looks like this:
 \begin{verbatim}
 \subsubsection{Cross-references}
 \label{sec:xref}
@@ -546,11 +619,11 @@ For example, the heading of this section looks like this:
 \verb+sec:xref+ is the name of the label attached to this section. Label
 names are case-sensitive.
 
-Once a label is defined, you can cross-reference the item using
-\verb+\ref+, e.g., \verb+\ref{sec:xref}+ will generate the number
-for this section (\ref{sec:xref}). If you change the position of this
-section in the document, the section number and all references to it
-will update automatically the next time you process the document. You
+Once a label is defined, you can cross-reference the item using the
+\verb+\ref+ command, e.g., \verb+\ref{sec:xref}+ will generate the
+number for this section (\ref{sec:xref}). If you change the position of
+this section in the document, the section number and all references to
+it will update automatically the next time you process the document. You
 may need to process the document twice to get it completely
 right---\LaTeX\ will tell you if you need to do so. \LaTeX\ will also
 warn you about any references it doesn't recognise.
@@ -563,7 +636,7 @@ Section~\ref{sec:xref} on page~\pageref{sec:xref}''.
 
 \instruction{Try creating a few cross-references to items in
 \textsf{sample2e.tex}, then move the labelled items around in the
-document.}
+document to see what happens.}
 
 
 \subsubsection{Bibliographies}
@@ -614,11 +687,11 @@ To cite a reference, use the \verb+\cite+ command, for example,
 \label{sec:packages}
 
 You can add new features to \LaTeX\ by loading a \emph{package} that
-defines a new set of commands. There are hundreds, if not thousands, of
+defines a new set of commands. There are literally thousands of
 packages available, and most major \TeX\ distributions include many of
 these by default. They are also available from the Comprehensive \TeX\
-Archive Network (CTAN)~\cite{CTAN}, which is a worldwide network
-of mirrored FTP sites for \TeX\ and \LaTeX. If you want something, it's
+Archive Network (CTAN)~\cite{CTAN}, which is a worldwide network of
+mirrored FTP sites for \TeX\ and \LaTeX. If you want something, it's
 almost certainly on CTAN.
 
 You can load a new package using the \verb+\usepackage+ command in the
@@ -649,12 +722,21 @@ useful \LaTeX\ packages are (in no particular order):
 	\item[\textsf{times}, \textsf{palatino}, etc.] These packages change
 	the default font set from Computer Modern to something else. For
 	example, the \textsf{times} package changes the main text font to
-	Times, the sans-serif font to Helvetica and the typewriter font to
-	Courier. The only problem with doing this is that maths mode still
-	uses the Computer Modern fonts, which can look a little odd. The
-	\textsf{mathptm} (Times) and \textsf{mathpple} (Palatino) packages
-	also change the fonts for maths mode, so if your document includes a
-	lot of maths, you might consider using one of these.
+	{\fontfamily{ptm}\selectfont Times}, the sans-serif font to
+	{\fontfamily{phv}\selectfont Helvetica} and the typewriter font to
+	{\fontfamily{pcr}\selectfont Courier}. The only problem with doing
+	this is that maths mode still uses the Computer Modern fonts, which
+	can look a little odd. The \textsf{mathptm} (Times) and
+	\textsf{mathpazo} (Palatino) packages change the fonts for maths
+	mode as well, so if your document includes a lot of maths, you might
+	consider using one of these.
+	
+	If you just use the standard Computer Modern fonts, one ``gotcha''
+	to look out for when producing PDFs is that you need to have Type 1
+	versions of the Computer Modern fonts installed, otherwise the
+	generated PDFs look terrible on-screen (they print fine, however).
+	Most modern \TeX\ distributions should have these installed as
+	standard, and will automatically use them if they are available.
 	
 	\item[\textsf{subfigure}] This package enables you to have captioned
 	subfigures within a larger figure, so that you can then do something
@@ -678,6 +760,11 @@ useful \LaTeX\ packages are (in no particular order):
 	provides the \verb+\url+ command that lets you avoid these problems.
 	(The \textsf{harvard} package also supports URLs in bibliographic
 	references.)
+	
+	\item[\textsf{beamer}] This package is designed as a replacement for
+	presentation software like PowerPoint. It enables you to create and
+	display professional-looking presentations using nothing more than
+	\LaTeX\ and a PDF viewer.
 
 \end{description}
 
@@ -735,10 +822,8 @@ useful \LaTeX\ packages are (in no particular order):
 \end{thebibliography}
 
 
-% bibliography items
-% LaTeX User's Guide and Reference Manual
-% The LaTeX Companion
-% LaTeX tutorials (search in Google)
-
-
 \end{document}
+%
+% End of main document body.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
