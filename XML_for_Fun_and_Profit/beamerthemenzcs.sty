@@ -146,9 +146,6 @@
   {\color{nzcsdarkorange!75!beamerstructure}\tiny\textbf{\insertsubsectionhead}}
 
 
-% \beamertemplatecircleminiframeinverted
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Entries in table of contents
@@ -169,17 +166,14 @@
   \vbox{%
     \tiny%
     \setbox\headbox=\hbox to 0.7\paperwidth{%
-      \raisebox{0.695mm}{%
-        \insertsectionnavigation{.35\paperwidth}{\hskip0pt plus1filll}{}%
-        {\color{nzcsdarkorange!75!beamerstructure}\vrule width1pt height1.25cm}%
-        \insertsubsectionnavigation{.35\paperwidth}{}{\hskip0pt plus1filll}\hfil%
-      }}%
-    \ht\headbox=1.39cm%
-    \dp\headbox=0pt%
-    \setbox\headbox=\vbox{\box\headbox}%
+    	\vbox to 1.39cm{\vfil\insertsectionnavigation{0.35\paperwidth}\vfil}%
+        {\color{nzcsdarkorange!75!beamerstructure}\vrule width1pt height1.39cm}%
+		\vbox to 1.39cm{\vfil\insertsubsectionnavigation{0.35\paperwidth}\vfil}%
+		\hfill%
+	}%
     \hbox to\paperwidth{%
       {\hskip-\beamer@leftmargin\rlap{\pgfuseimage{banner}}}%
-      \hskip0.3\paperwidth\box\headbox\hfill\hskip-\beamer@rightmargin%
+      \hskip 0.3\paperwidth\box\headbox\hfill\hskip-\beamer@rightmargin%
     }%
   }}
 
