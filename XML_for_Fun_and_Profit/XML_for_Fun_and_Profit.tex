@@ -15,6 +15,9 @@
 % \usepackage{pgf,pgfarrows,pgfnodes}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{calc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[normalem]{ulem}
 
 
 % listings setup
@@ -25,6 +28,11 @@
 
 % graphicx setup
 \graphicspath{{images/}}
+
+
+% textpos setup
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
 
 
 % document setup
@@ -43,10 +51,19 @@
 \begin{document}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame{\titlepage}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section*{Intro}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \frame
@@ -72,6 +89,9 @@
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame
 {
 	\frametitle{What am I going to talk about?}
@@ -79,14 +99,32 @@
 	\tableofcontents
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Historical context}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newlength{\yearposition}
+\newcounter{yearvalue}
+
 \newcommand{\timeline}[1]{%
-	\begin{center}
+	\begin{textblock}{10}(1.4,7.75)
+		\tiny
+		\setcounter{yearvalue}{#1-1960}
+		\setlength{\yearposition}{\value{yearvalue}cm/4}
 		\begin{pgfpicture}{0cm}{0cm}{10cm}{1cm}
-			\color{nzcslightorange}
+			\pgfsetlinewidth{1pt}
+			\color{beamerstructure}
+			\pgfline{\pgfpoint{\yearposition}{0cm}}{\pgfpoint{\yearposition}{0.5cm}}
+			\pgfputat{\pgfpoint{\yearposition}{0.55cm}}{\pgfbox[right,bottom]{#1}}
+			\color{nzcslightorange!75!nzcsdarkorange}
 			\pgfsetlinewidth{0.5pt}
-			\pgfrect[fill]{\pgfxy(0,0)}{\pgfxy(10,0.5)}
+			\pgfrect[fill]{\pgfxy(0,0)}{\pgfpoint{\yearposition}{0.5cm}}
 			\color{black}
 			\pgfrect[stroke]{\pgfxy(0,0)}{\pgfxy(10,0.5)}
 			\pgfxyline(0,0)(0,0.75)
@@ -94,61 +132,358 @@
 			\pgfxyline(5,0)(5,0.75)
 			\pgfxyline(7.5,0)(7.5,0.75)
 			\pgfxyline(10,0)(10,0.75)
+			\pgfputat{\pgfxy(0,1)}{\pgfbox[center,top]{1960}}
+			\pgfputat{\pgfxy(2.5,1)}{\pgfbox[center,top]{1970}}
+			\pgfputat{\pgfxy(5,1)}{\pgfbox[center,top]{1980}}
+			\pgfputat{\pgfxy(7.5,1)}{\pgfbox[center,top]{1990}}
+			\pgfputat{\pgfxy(10,1)}{\pgfbox[center,top]{2000}}
 		\end{pgfpicture}
-	\end{center}
+	\end{textblock}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{GML \& SGML}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame[containsverbatim]
 {
-	\frametitle{The Generalised Markup Language}
-	
-	\timeline{1969}
+	\frametitle{The Generalised Markup Language (GML)}
 
 	\begin{itemize}
 	
 		\item IBM
 		
 		\item First use of \verb|<tag>|\ldots\verb|</tag>|
+		
+		\note{These things are properly known as \emph{elements}.}
 	
 	\end{itemize}
+	
+	\timeline{1969}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Standard Generalised Markup Language (SGML)}
+
+	\begin{itemize}
+	
+		\item Markup language for general documents
+		
+		\item Document \emph{types} (DTD)
+		
+		\note{Document type \emph{declaration}.}
+		
+		\item Complex to use and process
+	
+	\end{itemize}
+	
+	\timeline{1986}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{Precursors to the web}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame
 {
-	\timeline{1969}
+	\frametitle{File Transfer Protocol (FTP)}
+
+	\begin{itemize}
+	
+		\item Postel \& Reynolds
+	
+		\item Easy sharing of files and documents
+		
+		\item Remote login + file system metaphor
+	
+	\end{itemize}
+	
+	\timeline{1985}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{gopher-BG}}
+
+\frame
+{
+	\frametitle{Gopher}
+	
+	\begin{itemize}
+	
+		\item University of Minnesota
+		
+		\item Hierarchical menu structure for organising distributed
+		documents
+		
+		\item Killed by licensing fees (1993) and relative inflexibility
+		vs.\ web
+	
+	\end{itemize}
+
+	\timeline{1991}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Wide Area Information Server (WAIS)}
+	
+	\begin{itemize}
+	
+		\item Thinking Machines, Inc.
+		
+		\item Distributed text searching system
+		
+		\item Killed by bankruptcy (1995); more primitive than web
+	
+	\end{itemize}
+
+	\timeline{1991}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{The web \& HTML}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame
 {
-	\timeline{1969}
+	\frametitle{The World Wide Web (WWW)}
+	
+	\begin{itemize}
+	
+		\item Berners-Lee (1989)
+		
+		\item Networks of hyperlinked documents
+		
+		\note{cf.\ Vannevar Bush's \emph{Memex} (1945?).}
+		
+		\item Mosaic web browser (1993) \(\Rightarrow\) wide acceptance
+		
+		\item Documents constructed using \emph{HTML}
+	
+	\end{itemize}
+
+	\timeline{1991}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Hypertext Markup Language (HTML)}
+	
+	\begin{itemize}
+	
+		\item An SGML document type for hypertext documents
+		
+		\item Separation of meaning and presentation
+		
+		\note{HTML was originally designed so that it was up to the web
+		browser as to how a document would be displayed. The document
+		author had little control over document appearance. In other
+		words, HTML was originally designed as a semantic markup
+		language rather than a presentation markup language. This has been lost
+		over the years.}
+		
+		\item Fixed set of elements
+	
+	\end{itemize}
+
+	\timeline{1991}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{browser-icons-BG}}
+
+\frame[containsverbatim]
+{
+	\frametitle{HTML goes to war}
+	
+	\begin{itemize}
+	
+		\item Netscape vs.\ Microsoft
+		
+		\note[item]{Remember the \verb|<blink>| tag?}
+		
+		\item Confusion of meaning with presentation
+		
+		\note[item]{Primarily driven by designers who were used to
+		precise control of document page layout and appearance.}
+		
+		\item Enhanced requirements
+		
+		\note[item]{Examples: shopping carts \(\Rightarrow\) cookies;
+		page layout \(\Rightarrow\) HTML tables; etc.}
+	
+	\end{itemize}
+
+	\timeline{1994}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{energizer-bunny-BG}}
+
+\frame
+{
+	\frametitle{HTML runs out of steam}
+	
+	\begin{itemize}
+	
+		\item Need for dynamic web documents
+		
+		\note<1>[item]{This includes both documents that are dynamically
+		generated, and documents that change on the fly as they are
+		manipulated (DHTML).}
+		
+		\item Complex client-side validation
+		
+		\note<1>[item]{These days typically handled by JavaScript.}
+		
+		\item Database connectivity
+		
+		\item Data transport
+		
+		\item Flexible and extensible semantics
+		
+		\item<2>[\(\Rightarrow\)] \emph{XML}
+	
+	\end{itemize}
+
+	\timeline{1997}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{The rise of XML}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame
 {
-	\timeline{1969}
+	\frametitle{Extensible Markup Language (XML)}
+	
+	\begin{itemize}
+	
+		\item Effectively a simplified version of SGML
+		
+		\item User-definable elements \(\Rightarrow\) domain-specific
+		markup languages
+		
+	\end{itemize}
+
+	\timeline{1998}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{HTML is now an \uline{XML} document type}
+	
+	\begin{itemize}
+	
+		\item XHTML
+		
+		\item 
+	
+	\end{itemize}
+
+	\timeline{2000}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{XML 101: The basics}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection*{Elements \& attributes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{Structure}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Advanced usage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{Schemas}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection*{Transformations}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Applications of XML}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \frame
@@ -160,6 +495,9 @@
 		\pgfellipse[stroke]{\pgfxy(0.761,3.929)}{\pgfxy(0,2.45)}{\pgfxy(1.412,0)}
 	\end{pgfpicture}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % \frame
@@ -734,6 +1072,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % $Log$
+% Revision 1.3  2004/08/23 10:45:19  nstanger
+% - Added initial section headings.
+% - Started adding content.
+% - Added timeline drawing macro.
+%
 % Revision 1.2  2004/08/23 05:03:46  nstanger
 % - Added makefile (still broken).
 % - Tweaked source to use driver approach.
