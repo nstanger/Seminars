@@ -9,7 +9,7 @@
 SHELL = /bin/sh
 
 .SUFFIXES:
-.SUFFIXES: .pdf .tex .png .tiff .gif .sxd
+.SUFFIXES: .pdf .tex .png .tiff .gif .sxd .graffle
 
 
 # directories
@@ -22,17 +22,22 @@ vpath %.png $(IMGDIR)
 vpath %.tif $(IMGDIR)
 vpath %.gif $(IMGDIR)
 vpath %.sxd $(IMGDIR)
+vpath %.graffle $(IMGDIR)
 
 
 # files
-SLIDE_IMAGES = NZCSbanner.png w3-shot.png
+SLIDE_IMAGES = NZCSbanner.png w3-shot.png $(XML_WORKFLOW_IMAGES)
 
 SLIDE_BACKGROUNDS = gopher-BG.png browser-icons-BG.png energizer-bunny-BG.png \
-	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png
+	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png query-BG.png nelson-BG.png
 
 FIG_IMAGES = $(BTREE) $(INDEXORGANISED) $(REVERSEKEY) \
 	OracleArchitecture.pdf OracleStructures.pdf OrderERD.pdf
 	
+XML_WORKFLOW_IMAGES = XML-Workflow-TSV.pdf XML-Workflow-Web.pdf
+
+# source images that the images above are built from
+XML_WORKFLOW_SRC = WebBrowser.png Spreadsheet.png
 
 
 # miscellaneous variables
@@ -88,25 +93,9 @@ $(NOTES).pdf: slides-notes.pdf
 NZCSbanner.png: NZCSbanner-original.gif
 	convert -crop 737x80+0+0 $< $(IMGDIR)/$@
 
-# $(BTREE): BTreeParameters.graffle
-# 	@echo "$(notdir $<): regenerate $(notdir $@)"
-# 	@exit 1
-# 
-# $(REVERSEKEY): ReverseKeyIndexes.graffle
-# 	@echo "$(notdir $<): regenerate $(notdir $@)"
-# 	@exit 1
-# 
-# $(INDEXORGANISED): IndexOrganisedTables.graffle
-# 	@echo "$(notdir $<): regenerate $(notdir $@)"
-# 	@exit 1
-# 
-# $(PHYSICALSTORAGE): PhysicalStorage.graffle
-# 	@echo "$(notdir $<): regenerate $(notdir $@)"
-# 	@exit 1
-# 
-# $(CLUSTERS): Clustering.graffle
-# 	@echo "$(notdir $<): regenerate $(notdir $@)"
-# 	@exit 1
+$(XML_WORKFLOW_IMAGES): XML-Workflow.graffle
+	@echo "$(notdir $<): regenerate $(notdir $@)"
+	@exit 1
 
 
 # test document
@@ -134,6 +123,10 @@ targets:
 # default rules
 %.png: %.tif
 	convert "$<" $(IMGDIR)/$@
+
+%.pdf: %.graffle
+	@echo "$(notdir $<): regenerate $(notdir $@)"
+	@exit 1
 
 %.pdf: %.sxd
 	@announce "Remember to close OpenOffice first!!"
