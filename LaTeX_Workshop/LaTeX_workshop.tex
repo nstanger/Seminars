@@ -9,7 +9,7 @@
 %
 % This is an article in 12pt on A4 paper.
 %
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper,pdftex]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -17,20 +17,27 @@
 %
 % Load a bunch o' packages.
 %
-\usepackage[T1]{fontenc}	% technical font stuff :)
-\usepackage{lmodern}		% more technical font stuff :)
-\usepackage{textcomp}		% some handy unusual symbols
-\usepackage[margin=1in,pdftex]{geometry}	% change margins to 1in
-\usepackage{verbatim}		% handy for typesetting code listings
-\usepackage{url}			% handles weird characters and line-breaks for URLs
-\usepackage{flafter}		% forces figures and tables to appear after they
-							% are first referenced
+\usepackage[T1]{fontenc}	% Technical font stuff :)
+\usepackage{lmodern}		% More technical font stuff :)
+\usepackage{textcomp}		% Some handy unusual symbols.
+\usepackage[margin=1in]{geometry}	% Change margins to 1in.
+\usepackage{verbatim}		% Handy for typesetting code listings.
+\usepackage{url}			% Handles weird characters and line-breaks for URLs.
+\usepackage{flafter}		% Forces figures and tables to appear after they
+							% are first referenced.
+\usepackage{hyperref}		% Lets you do clever things with your PDF, like
+							% include bookmarks, etc. Always load this one last!
 
 %
 % Document title information.
 %
 \title{A Brief Introduction to \LaTeX}
 \author{Nigel Stanger}
+
+%
+% Setup for hyperref package.
+%
+\hypersetup{colorlinks=false}
 
 %
 % Define some useful commands.
@@ -102,7 +109,7 @@ functions, as shown in Figure~\ref{fig:HTMLcomparison}.
 	\label{fig:HTMLcomparison}
 \end{figure}
 
-One thing that always confuses people is how to pronounce \LaTeX.
+One thing that always confuses people is how to pronounce ``\LaTeX''.
 Technically speaking, the final ``X'' in the name is derived from the
 Greek letter chi ($\chi$), so the ``correct'' pronunciation is a sort of
 ``cchhh'' sound (a bit like saying \emph{blecchhh})~\cite{TeXBook}.
@@ -143,11 +150,11 @@ superior? There are several good reasons:
 	typesetting are built into \LaTeX\, and it automatically takes care
 	of things like paragraph alignment and hyphenation (but you can
 	always tweak them manually if necessary). Sections, figures and
-	tables are automatically numbered, and cross-references to these
-	items are automatically updated when they are moved, no matter how
-	big the document is (again, compare this with Word). Generating a
-	table of contents is trivial, and generating a list of references or
-	an index is relatively simple.
+	tables are automatically (and consistently!) numbered, and
+	cross-references to these items are automatically updated when they
+	are moved, no matter how big the document is (again, compare this
+	with Word). Generating a table of contents is trivial, and
+	generating a list of references or an index is relatively simple.
 
 	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of
 	mathematical typesetting, so you can generate journal-quality
@@ -173,11 +180,11 @@ superior? There are several good reasons:
 	\item It's very easy to produce all sorts of weird accented
 	characters in \LaTeX~\cite{UsersGuide}: El se\~{n}or est\'{a} bien,
 	gar\c{c}on. \'{E}l est\'{a} aqu\'{i}.
-	\`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b
-	{o}. \LaTeX\ also automatically generates correct ``quotation
-	marks'' and apostrophes (none of this ``smart quotes'' rubbish), and
-	also inserts ligatures where necessary (e.g., ``f{}i''
-	\(\rightarrow\) ``fi'', ``f{}f'' \(\rightarrow\) ``ff'', etc.)
+	\`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b{o}.
+	\LaTeX\ also generates correct ``quotation marks'' and apostrophes
+	(none of this ``smart quotes'' rubbish), and also inserts ligatures
+	where necessary (e.g., ``f{}i'' \(\rightarrow\) ``fi'', ``f{}f''
+	\(\rightarrow\) ``ff'', etc.)
 
 	\item A document produced by \LaTeX\ won't suddenly change it's
 	formatting if you move it to another machine (as often happens with
@@ -197,8 +204,8 @@ superior? There are several good reasons:
 \end{itemize}
 
 The main disadvantage of \LaTeX\ (other than the initial learning curve)
-is that you don't have as much freedom over choice of font, style, etc.,
-as you would in Word. Many would argue that this is a good thing!
+is that you don't have quite as much freedom over choice of font, style,
+etc., as you would in Word. Many would argue that this is a good thing!
 \LaTeX\ comes with a default set of fonts known as Computer Modern
 (which this document uses), but you can use PostScript fonts like
 {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont
@@ -241,6 +248,7 @@ buttons.
 \label{sec:simple}
 
 All the sample files mentioned in this document can be downloaded from
+the following URL:
 \url{http://info-nts-12.otago.ac.nz/something/LaTeX/whatever}. You will
 also find in this directory a copy of this document and its source.
 
@@ -374,7 +382,7 @@ in sentences. Lines 26 and 27 show you how to \emph{emphasise} and
 	``J.\ F.\ Smith''; \LaTeX\ interprets this as three different
 	sentences, and consequently the spacing can sometimes look a bit
 	weird. To avoid this, put a backslash after periods that don't end a
-	sentence, i.e., \verb+J.\ F.\ Smith.+, which produces ``J.\ F.\
+	sentence, i.e., \verb+J.\ F.\ Smith+, which produces ``J.\ F.\
 	Smith'' (as opposed to ``J. F. Smith'').
 	
 	``\verb+\ +'' is actually a \TeX\ macro that inserts a normal
@@ -441,8 +449,7 @@ the labels and indentation accordingly.
 \begin{table}
 	\centering
 	\begin{tabular}{|l|l|}
-		\hline
-		\textbf{Input}	&	\textbf{Result}	\\
+		\multicolumn{1}{c}{\textbf{Input}}	&	\multicolumn{1}{c}{\textbf{Result}}	\\
 		\hline
 		\begin{minipage}{7cm}
 			\begin{verbatim}
@@ -570,10 +577,10 @@ the text.
 While you can have free-standing graphics and tables in a \LaTeX\
 document (like the \textsf{tabular} example above), for academic writing
 you will usually want to display them with a caption and a number so
-that you can reference them. \LaTeX\ provides two environments for doing
-this: \textsf{figure} and \textsf{table}. \textsf{Figure} is generally
-used for graphical material and \textsf{table} for tabular material, but
-that's just by convention---\LaTeX\ doesn't really care.
+that you can cross-reference them. \LaTeX\ provides two environments for
+doing this: \textsf{figure} and \textsf{table}. \textsf{Figure} is
+generally used for graphical material and \textsf{table} for tabular
+material, but that's just by convention---\LaTeX\ doesn't really care.
 
 All figures and tables are automatically numbered, and you can provide
 an optional caption using the \verb+\caption+ command. Here's an example
@@ -592,13 +599,14 @@ The \textsf{figure} and \textsf{table} environments are examples of
 out the best location to place them based on various factors. In other
 words, they ``float'' around the document as necessary. You've already
 seen a couple of examples of these: see Figure~\ref{fig:HTMLcomparison}
-and Table~\ref{tab:lists}. Table~\ref{tab:lists} is a good example of
-the floating aspect: in the source file, the table immediately follows
-the text of Section~\ref{sec:lists}, but the in the final output the
-table has floated to the top of page~\pageref{tab:lists}, and the main
-text has automatically flowed itself around the table. We have some
-control over this floating behaviour (and occasionally \LaTeX\ does get
-it wrong), but it's usually safest to leave \LaTeX\ alone in this area.
+on page~\pageref{fig:HTMLcomparison} and Table~\ref{tab:lists} on
+page~\pageref{tab:lists}. Table~\ref{tab:lists} is a good example of the
+floating aspect: in the source file, the table immediately follows the
+text of Section~\ref{sec:lists}, but the in the final output the table
+has floated to the top of page~\pageref{tab:lists}, and the main text
+has automatically flowed itself around the table. We have some control
+over this floating behaviour (and occasionally \LaTeX\ does get it
+wrong), but it's usually safest to leave \LaTeX\ alone in this area.
 
 
 \subsubsection{Cross-references}
@@ -626,7 +634,8 @@ this section in the document, the section number and all references to
 it will update automatically the next time you process the document. You
 may need to process the document twice to get it completely
 right---\LaTeX\ will tell you if you need to do so. \LaTeX\ will also
-warn you about any references it doesn't recognise.
+warn you about any references it doesn't recognise or labels that have
+been defined more than once.
 
 Even better, you can get the page number for the item as well using
 \verb+\pageref+, so the command \verb+\pageref{sec:xref}+ will generate
@@ -644,7 +653,7 @@ document to see what happens.}
 \LaTeX\ also has very powerful bibliography building tools. If you
 really want to do things properly, you should use \BibTeX, which is a
 simple bibliographic database with tools that provide automatic
-formatting of references. Using \BibTeX\ involves several steps,
+formatting of references. Using \BibTeX\ involves several extra steps,
 however, so we'll only look at how to do it by hand.
 
 The first thing you need to do is issue a \verb+\bibliographystyle+
@@ -679,7 +688,7 @@ Individual items are identified by the \verb+\bibitem+ command, which
 takes a unique label name as an argument.
 
 To cite a reference, use the \verb+\cite+ command, for example,
-\verb+\cite{UsersGuide}+ will produce the citation
+\verb+\cite{UsersGuide}+ (in this document) will produce the citation
 ``\cite{UsersGuide}''.
 
 
@@ -701,7 +710,8 @@ useful \LaTeX\ packages are (in no particular order):
 
 	\item[\textsf{geometry}] It's surprisingly difficult to change the
 	default margins in \LaTeX. You've probably already noticed that the
-	default margins are quite large---this has to do with various
+	default margins are quite large (or more accurately, the default
+	text width is relatively small). This has to do with various
 	typesetting and readability principles. The \textsf{geometry}
 	package provides a flexible way of changing the margins of a
 	document in quite complex ways, for example:
@@ -716,8 +726,8 @@ useful \LaTeX\ packages are (in no particular order):
 	JPEGs that you want to use as a figure, or that Excel graph. Typical
 	formats supported are EPS, JPEG, GIF, PNG and PDF, although this
 	varies depending on which \LaTeX\ tool you're using (e.g.,
-	\PDFLaTeX\ doesn't support EPS). The main command provided by this
-	packages is \verb+\includegraphics+.
+	\PDFLaTeX\ only supports PDF, PNG and JPEG). The main command
+	provided by this packages is \verb+\includegraphics+.
 
 	\item[\textsf{times}, \textsf{palatino}, etc.] These packages change
 	the default font set from Computer Modern to something else. For
@@ -747,6 +757,16 @@ useful \LaTeX\ packages are (in no particular order):
 	requirements for theses, e.g.: ``(Petersen 1996)''. it also provides
 	handy commands like \verb+\possessivecite+, which lets you create
 	citations like ``\ldots{}in Petersen's (1996) system\ldots''.
+	
+	\item[\textsf{verbatim}] \LaTeX\ already provides a built-in
+	environment called \textsf{verbatim} that typesets its contents in a
+	monospaced font and without any interpretation (so you can use all
+	the weird characters that you would normally not be able to use).
+	This can be very handy for typesetting code listings. However, the
+	built-in \textsf{verbatim} environment isn't very flexible, so you
+	might consider using the extended \textsf{verbatim} package, which
+	adds features like the ability to read the verbatim text from an
+	external file.
 
 	\item[\textsf{lgrind} or \textsf{listings}] These are packages that
 	let you include ``pretty-printed'' program source code listings
@@ -766,6 +786,14 @@ useful \LaTeX\ packages are (in no particular order):
 	display professional-looking presentations using nothing more than
 	\LaTeX\ and a PDF viewer.
 
+	\item[\textsf{hyperref}] This package gives you access to all sorts
+	of clever PDF features, such as active hyperlinks, bookmarks, etc.
+	(see \cite{WebCompanion} for more information). For example, this
+	document uses the \textsf{hyperref} package, and as a result all the
+	citations and cross-references are actually live links (try it and
+	see). Because this package redefines many of \LaTeX's internal
+	macros, you should always load it last.
+
 \end{description}
 
 
@@ -781,13 +809,15 @@ useful \LaTeX\ packages are (in no particular order):
 	files in (often called \texttt{texmf}), try looking in
 	\verb+<texmf>/doc/latex/base+.
 
-	\item Buy yourself a copy of Lamport's book~\cite{UsersGuide}, and
-	preferably also \emph{The \LaTeX\ Companion}~\cite{Companion}.
+	\item Buy a copy of Lamport's book~\cite{UsersGuide}, and preferably
+	also \emph{The \LaTeX\ Companion}~\cite{Companion}.
 	
 	\item You'll find documentation for most packages buried somewhere
-	in the \texttt{texmf} documentation tree. If you need to do complex
-	graphics, you'll want a copy of \emph{The \LaTeX\ Graphics
-	Companion}~\cite{Graphics}.
+	in the \texttt{texmf} documentation tree (typically somewhere under
+	\verb+<texmf>/doc/latex+).
+	
+	\item If you need to do complex graphics, you'll want a copy of
+	\emph{The \LaTeX\ Graphics Companion}~\cite{Graphics}.
 
 \end{itemize}
 
@@ -818,6 +848,11 @@ useful \LaTeX\ packages are (in no particular order):
 	(1997).\emph{The \LaTeX\ Graphics Companion}, Addison-Wesley, ISBN
 	0-201-85469-4. This covers in great detail various ways of doing
 	graphics with \LaTeX.
+	
+	\bibitem{WebCompanion} M.\ Goossens and S.\ Rahtz (1999).\emph{The
+	\LaTeX\ Web Companion}, Addison-Wesley, ISBN 0-201-43311-7. This
+	book covers how to integrate \LaTeX\ with the WWW and related
+	technologies such as XML.
 	
 \end{thebibliography}
 
