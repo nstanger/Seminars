@@ -249,8 +249,9 @@ buttons.
 
 All the sample files mentioned in this document can be downloaded from
 the following URL:
-\url{http://info-nts-12.otago.ac.nz/something/LaTeX/whatever}. You will
-also find in this directory a copy of this document and its source.
+\href{http://info-nts-12.otago.ac.nz/courses/latex/}{\textsf{http://info-nts-12.otago.ac.nz/courses/latex/}}.
+You will also find in this directory a copy of this document and its
+source.
 
 \instruction{Download the file \textsf{small2e.tex} and open it with
 WinShell.}
@@ -776,23 +777,24 @@ useful \LaTeX\ packages are (in no particular order):
 	
 	\item[\textsf{url}] URLs tend to contain all sorts of weird
 	characters that have special meanings in \LaTeX\ (e.g., \~{}), which
-	makes it difficult to include them in documents. This package
-	provides the \verb+\url+ command that lets you avoid these problems.
-	(The \textsf{harvard} package also supports URLs in bibliographic
-	references.)
+	makes it difficult to include them in \LaTeX\ documents. This
+	package provides the \verb+\url+ command that lets you avoid these
+	problems. (The \textsf{harvard} package also supports URLs in
+	bibliographic references.) Note that the \textsf{hyperref} package
+	(see below) also handles URLs.
 	
+	\item[\textsf{hyperref}] This package gives you access to all sorts
+	of clever PDF features, such as active hyperlinks (including URLs),
+	bookmarks, etc. (see \cite{WebCompanion} for more information). For
+	example, this document uses the \textsf{hyperref} package, and as a
+	result all the URLs, citations and cross-references are actually
+	live links (try it and see). Because this package redefines many of
+	\LaTeX's internal macros, you should always load it last.
+
 	\item[\textsf{beamer}] This package is designed as a replacement for
 	presentation software like PowerPoint. It enables you to create and
 	display professional-looking presentations using nothing more than
 	\LaTeX\ and a PDF viewer.
-
-	\item[\textsf{hyperref}] This package gives you access to all sorts
-	of clever PDF features, such as active hyperlinks, bookmarks, etc.
-	(see \cite{WebCompanion} for more information). For example, this
-	document uses the \textsf{hyperref} package, and as a result all the
-	citations and cross-references are actually live links (try it and
-	see). Because this package redefines many of \LaTeX's internal
-	macros, you should always load it last.
 
 \end{description}
 
@@ -855,6 +857,10 @@ useful \LaTeX\ packages are (in no particular order):
 	technologies such as XML.
 	
 \end{thebibliography}
+
+
+\vfill
+{\tiny \hfill \verb+$Id$+}
 
 
 \end{document}
