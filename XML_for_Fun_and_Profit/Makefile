@@ -86,10 +86,10 @@ $(NOTES).pdf: slides-notes.pdf
 # images
 %-BG.png: %.tif
 	convert -blur 0.5 $< $(IMGDIR)/$*.png
-	convert $(IMGDIR)/$*.png -threshold 0,0 - | composite -dissolve 15% $(IMGDIR)/$*.png - $(IMGDIR)/$@
+	convert $(IMGDIR)/$*.png -threshold 0,0 - | composite -dissolve 25% $(IMGDIR)/$*.png - $(IMGDIR)/$@
 
 # %-BG.jpg: $(ANALOGY_IMGDIR)/%.jpg
-# 	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 15% $< - $(IMGDIR)/$@
+# 	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 25% $< - $(IMGDIR)/$@
 
 NZCSbanner.png: NZCSbanner-original.gif
 	convert -crop 737x80+0+0 $< $(IMGDIR)/$@
