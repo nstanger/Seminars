@@ -52,7 +52,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame{\titlepage}
+\frame
+{
+	\titlepage	
+
+	\note{~}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,6 +68,8 @@
 	\frametitle{Overview}
 	
 	\tableofcontents
+	
+	\note{~}
 }
 
 
@@ -157,6 +164,8 @@
 	\end{itemize}
 	
 	\timeline{1986}
+	
+	\note{~}
 }
 
 
@@ -169,22 +178,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame<all:0>
-{
-	\frametitle{File Transfer Protocol (FTP)}
-
-	\begin{itemize}
-	
-		\item Postel \& Reynolds
-	
-		\item Easy sharing of files and documents
-		
-		\item Remote login + file system metaphor
-	
-	\end{itemize}
-	
-	\timeline{1985}
-}
+% \frame<all:0>
+% {
+% 	\frametitle{File Transfer Protocol (FTP)}
+% 
+% 	\begin{itemize}
+% 	
+% 		\item Postel \& Reynolds
+% 	
+% 		\item Easy sharing of files and documents
+% 		
+% 		\item Remote login + file system metaphor
+% 	
+% 	\end{itemize}
+% 	
+% 	\timeline{1985}
+% 	
+% 	\note{~}
+% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -209,6 +220,8 @@
 	\end{itemize}
 
 	\timeline{1991}
+	
+	\note{~}
 }
 
 \usebackgroundtemplate{}
@@ -232,6 +245,8 @@
 	\end{itemize}
 
 	\timeline{1991}
+	
+	\note{~}
 }
 
 
@@ -299,7 +314,7 @@
 
 \usebackgroundtemplate{\includegraphics{browser-icons-BG}}
 
-\frame[containsverbatim]
+\frame
 {
 	\frametitle{HTML falls in with the wrong crowd}
 	
@@ -307,7 +322,7 @@
 	
 		\item Netscape vs.\ Microsoft
 		
-		\note[item]{Remember the \verb|<blink>| tag?}
+		\note[item]{Remember the \texttt{<blink>} tag?}
 		
 		\item ``Error recovery'' \(\Rightarrow\) inconsistent rendering
 		
@@ -394,6 +409,8 @@
 	\end{itemize}
 
 	\timeline{1998}
+	
+	\note{~}
 }
 
 
@@ -458,7 +475,7 @@
 		
 		\item Extremely verbose
 		
-		\note{In fact, deliberately so.}
+		\note{In fact, deliberately verbose.}
 	
 	\end{itemize}
 }
@@ -527,6 +544,8 @@
 			\end{itemize}
 		\end{column}
 	\end{columns}
+	
+	\note{~}
 }
 
 
@@ -629,6 +648,8 @@
   </line-items>
 </purchase-order>
 	\end{verbatim}
+	
+	\note{~}
 }
 
 
@@ -749,6 +770,8 @@
 		\verb|/courseapproval/paperlist/paper[points="6"]|
 	
 	\end{itemize}
+	
+	\note{~}
 }
 
 
@@ -894,7 +917,7 @@
 		\end{column}
 	\end{columns}
 	
-	\note{The XML will often be generated from the database with the aid
+	\note<1>{The XML will often be generated from the database with the aid
 	of an XML schema that describes how to map the original relational
 	structures onto equivalent XML structures. Note that the generated
 	XML will almost certainly be quite a different structure from the
@@ -922,8 +945,6 @@
 		\item Single-source dynamic document publication with multiple
 		outputs
 		
-		\note[item]{See previous slide.}
-
 		\item Data interchange
 		
 		\note[item]{Basically anything that requires the storage and
@@ -941,10 +962,11 @@
 		all applications
 
 	\end{itemize}
+	
+	\note[item]{Note at this point that you're not 100\% familiar with
+	everything that follows.}
 }
 
-\note{Note at this point that you're not 100\% familiar with everything
-that follows.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1012,6 +1034,8 @@ that follows.}
 		\(\Rightarrow\) standard interchange formats
 
 	\end{itemize}
+	
+	\note{~}
 }
 
 
@@ -1045,6 +1069,8 @@ that follows.}
 		\item Major component of \emph{Semantic Web}
 
 	\end{itemize}
+	
+	\note<2>{~}
 }
 
 \usebackgroundtemplate{}
@@ -1109,41 +1135,38 @@ that follows.}
 	
 		\item Controversial
 		
-		\note[item]{Fabian Pascal argues fairly convincingly that XML
-		databases are just a return to the hierarchical databases of
-		old. XML is really better suited to storing \emph{document}
-		structured data.}
+		\note[item]{\footnotesize Fabian Pascal argues fairly
+		convincingly that XML databases are just a return to the
+		hierarchical databases of old. XML is really better suited to
+		storing \emph{document} structured data.}
 		
 		\item ``Structured'' vs.\ ``semi-structured'' vs.\
 		``unstructured''
 		
-		\note[item]{These terms are rather badly misused.
+		\note[item]{\footnotesize These terms are rather badly misused.
 		``Unstructured'', if interpreted literally, means ``random''.
-		This is obviously not the case, however. Oracle seems to
-		particularly abuse these terms: ``structured'' = mostly XML,
-		whereas ``unstructured'' = no XML! So relational data are
-		``unstructured''?!?!}
+		This is obviously not the case, however.}
 		
 		\item Relational: CLOB vs. ``shredding'' into relations
 		
-		\note[item]{\Oracle{} provides XML support in the form of the
-		XMLType data type, which is a specialised CLOB type. Shredding
-		is usually only possible if there is an XML schema to describe
-		the mapping; SQL Server provides native support for this. The
-		``big three'' all have direct XML support.}
+		\note[item]{\footnotesize Oracle provides XML support in the
+		form of the XMLType data type, which is a specialised CLOB type.
+		Shredding is usually only possible if there is an XML schema to
+		describe the mapping; SQL Server provides native support for
+		this. The ``big three'' all have similar XML support.}
 		
 		\item Non-relational: flat files vs.\ ``native'' XML database
 		(eXist, Xindice, Tamino, \ldots)
 
 		\item Document Object Model (DOM): XML-oriented API
 		
-		\note[item]{Note that the DOM is not a database API. It can just
-		as easily be used to access plain XML documents (text files),
-		and this is its most common use at present (Mozilla provides a
-		DOM-based XML document browser in its sidebar). It is quite
-		feasible however to provide a DOM wrapper to, say, a relational
-		database, so that it looks like an XML data source to
-		applications accessing it.}
+		\note[item]{\footnotesize Note that the DOM is not a database
+		API. It can just as easily be used to access plain XML documents
+		(text files), and this is its most common use at present
+		(Mozilla provides a DOM-based XML document browser in its
+		sidebar). It is quite feasible however to provide a DOM wrapper
+		to, say, a relational database, so that it looks like an XML
+		data source to applications accessing it.}
 	
 	\end{itemize}
 }
@@ -1168,11 +1191,11 @@ that follows.}
 	
 		\item Web-accessible service providing programs
 		
-		\note[item]{Examples: stock quotes, search engines,
-		authentication (Microsoft Passport, credit cards), The Captain
-		Haddock Insult Generator, basically anything that can be
-		encapsulated in a chunk of code and called remotely. Really just
-		XML-enabled RPC over HTTP.}
+		\note<2>[item]{Examples: stock quotes, search engines,
+		authentication (Microsoft Passport, credit cards), and my
+		personal favourite, the Captain Haddock Insult Generator;
+		basically anything that can be encapsulated in a chunk of code
+		and called remotely. Really just XML-enabled RPC over HTTP.}
 		
 		\item Typically small
 		
@@ -1180,7 +1203,7 @@ that follows.}
 		
 		\item Sun (Java) vs.\ Microsoft (.NET)
 		
-		\note[item]{Microsoft and Sun have clashed over standards for
+		\note<2>[item]{Microsoft and Sun have clashed over standards for
 		web services. Java and .NET web services are not guaranteed to
 		be interoperable (different interpretations of data types,
 		etc.). The WS-I (Web Services Interoperability) consortium is an
@@ -1213,6 +1236,8 @@ that follows.}
 		\item XML interface specification (WSDL)
 		
 	\end{itemize}
+	
+	\note{~}
 }
 
 
@@ -1239,6 +1264,8 @@ that follows.}
 		\item[J2EE] Java 2 Enterprise Edition
 		
 	\end{description}
+	
+	\note{~}
 }
 
 
@@ -1365,6 +1392,8 @@ that follows.}
 		web services)
 	
 	\end{itemize}
+	
+	\note{~}
 }
 
 
@@ -1377,6 +1406,18 @@ that follows.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % $Log$
+% Revision 1.9  2004/08/26 04:00:06  nstanger
+% - Added XML->XML workflow diagram.
+% - Added Captain Haddock image.
+% - Added web service logos.
+% - Tweaked a bunch of stuff.
+% - Added web services slides.
+% - Added conclusion slides.
+% - Added more notes.
+% - Modified XML example.
+% - Added document publication workflow slide.
+% - Delayed appearance of some backgrounds.
+%
 % Revision 1.8  2004/08/25 10:39:26  nstanger
 % - Added hyperref setup to main document to fix colour of TOC entries.
 % - Fixed vertical alignment of section entries in top banner.

@@ -107,9 +107,8 @@ test.pdf: test.tex
 
 # clean up: get rid of all the temporary files
 tidy:
-	rm -f *.dvi *.tmp *.aux *.out *.log *.nav *.toc *.snm \
-		*.head slides-driver.tex slides-handout.pdf \
-		$(IMGDIR)/*-BG.*
+	rm -f *.tmp *.aux *.out *.log *.nav *.toc *.snm \
+		*.head slides-notes.pdf $(IMGDIR)/*-BG.png
 
 # clean up: get rid of everything except the original source
 clean: tidy
