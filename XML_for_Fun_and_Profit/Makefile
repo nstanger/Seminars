@@ -26,7 +26,7 @@ vpath %.graffle $(IMGDIR)
 
 
 # files
-SLIDE_IMAGES = NZCSbanner.png w3-shot.png v2_workflow.pdf $(XML_WORKFLOW_IMAGES)
+SLIDE_IMAGES = w3-shot.png v2_workflow.pdf $(XML_WORKFLOW_IMAGES)
 
 SLIDE_BACKGROUNDS = gopher-BG.png browser-icons-BG.png energizer-bunny-BG.png \
 	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png query-BG.png nelson-BG.png \
@@ -63,7 +63,7 @@ all: slides notes
 # slides for presentation
 slides: $(SLIDES).pdf
 
-$(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS) beamerthemenzcs.sty
+$(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS)
 	pdflatex --jobname=$(SLIDES) '\documentclass[$(LATEX_OPTS)]{beamer}\input{$(SLIDES)}'
 	pdflatex --jobname=$(SLIDES) '\documentclass[$(LATEX_OPTS)]{beamer}\input{$(SLIDES)}'
 
@@ -71,7 +71,7 @@ $(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS) beamerthemenzc
 # slides with notes
 slides-notes: slides-notes.pdf
 
-slides-notes.pdf: $(SLIDES).tex $(SLIDE_IMAGES) beamerthemenzcs.sty
+slides-notes.pdf: $(SLIDES).tex $(SLIDE_IMAGES)
 	pdflatex --jobname=slides-notes '\documentclass[$(LATEX_OPTS),notes=onlyslideswithnotes]{beamer}\input{$(SLIDES)}'
 	pdflatex --jobname=slides-notes '\documentclass[$(LATEX_OPTS),notes=onlyslideswithnotes]{beamer}\input{$(SLIDES)}'
 
@@ -88,12 +88,6 @@ $(NOTES).pdf: slides-notes.pdf
 	convert -blur 0.5 $< $(IMGDIR)/$*.png
 	convert $(IMGDIR)/$*.png -threshold 0,0 - | composite -dissolve 25% $(IMGDIR)/$*.png - $(IMGDIR)/$@
 
-# %-BG.jpg: $(ANALOGY_IMGDIR)/%.jpg
-# 	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 25% $< - $(IMGDIR)/$@
-
-NZCSbanner.png: NZCSbanner-original.gif
-	convert -crop 737x80+0+0 $< $(IMGDIR)/$@
-
 $(XML_WORKFLOW_IMAGES): XML-Workflow.graffle
 	@echo "$(notdir $<): regenerate $(notdir $@)"
 	@exit 1
@@ -108,7 +102,7 @@ test.pdf: test.tex
 # clean up: get rid of all the temporary files
 tidy:
 	rm -f *.tmp *.aux *.out *.log *.nav *.toc *.snm \
-		*.head slides-notes.pdf $(IMGDIR)/*-BG.png
+		*.head slides-notes.pdf $(IMGDIR)/*.png
 
 # clean up: get rid of everything except the original source
 clean: tidy
