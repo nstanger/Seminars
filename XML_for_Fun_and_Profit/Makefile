@@ -27,7 +27,8 @@ vpath %.sxd $(IMGDIR)
 # files
 SLIDE_IMAGES = NZCSbanner.png w3-shot.png
 
-SLIDE_BACKGROUNDS = gopher-BG.png
+SLIDE_BACKGROUNDS = gopher-BG.png browser-icons-BG.png energizer-bunny-BG.png \
+	IBM-logo-BG.png
 
 FIG_IMAGES = $(BTREE) $(INDEXORGANISED) $(REVERSEKEY) \
 	OracleArchitecture.pdf OracleStructures.pdf OrderERD.pdf
@@ -77,12 +78,9 @@ $(NOTES).pdf: slides-notes.pdf
 
 
 # images
-gopher.png: gopher.tif
-	convert -blur 0.5 $< $(IMGDIR)/$@
-
 %-BG.png: %.tif
 	convert -blur 0.5 $< $(IMGDIR)/$*.png
-	convert $(IMGDIR)/$*.png -threshold 0,0 -depth 16 - | composite -dissolve 15% $(IMGDIR)/$*.png - $(IMGDIR)/$@
+	convert $(IMGDIR)/$*.png -threshold 0,0 - | composite -dissolve 15% $(IMGDIR)/$*.png - $(IMGDIR)/$@
 
 # %-BG.jpg: $(ANALOGY_IMGDIR)/%.jpg
 # 	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 15% $< - $(IMGDIR)/$@
