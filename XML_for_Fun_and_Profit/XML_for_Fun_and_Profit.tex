@@ -321,7 +321,7 @@
 		\note[item]{Primarily driven by designers who were used to
 		precise control of document page layout and appearance.}
 		
-		\item Enhanced requirements
+		\item Enhanced functionality requirements
 		
 		\note[item]{Examples: shopping carts \(\Rightarrow\) cookies;
 		page layout \(\Rightarrow\) HTML tables; etc.}
@@ -522,7 +522,7 @@
 			
 				\item W3C have at least 32 different XML-related specs
 				
-				\item OASIS have at least 47!
+				\item OASIS have over 40!
 			
 			\end{itemize}
 		\end{column}
@@ -553,7 +553,7 @@
 				
 				\item SyncML
 				
-				\item ebXML
+				\item ebXML (e-Business)
 				
 				\item LegalXML
 				
@@ -581,17 +581,21 @@
 				
 				\item SAML (security)
 				
-				\item UBL
+				\item UBL (business docs)
 			
 			\end{itemize}
 		\end{column}
 	\end{columns}
 	
-	\note{ebXML, LegalXML and DocBook are all managed by OASIS
+	\note[item]{ebXML, LegalXML, DocBook and UBL are all managed by OASIS
 	(Organisation for the Advancement of Structured Information
 	Standards), an open XML standards organisation. Several of the
 	others are managed by the World Wide Web Consortium. Also seen:
 	e-government, emergency management, voice, accessibility, \ldots}
+	
+	\note[item]{ebXML is a collection of XML standards for electronic
+	business. UBL provides a standard library of business documents
+	(purchase orders, invoices, etc.).}
 }
 
 
@@ -611,14 +615,14 @@
 	\footnotesize
 	\begin{verbatim}
 <?xml version="1.0"?>
-<purchase-order ID="8892737451">
-  <customer ID="12345">
-    <name>Bilbo Baggins</name>
-    <address>Bag End, Hobbiton</address>
-  </customer>
+<purchase-order ID="8892737451" date="2004-08-26">
+  <supplier ID="12345">
+    <name>The Dark Lord Sauron</name>
+    <address>c/o Peter Jackson, Miramar</address>
+  </supplier>
   <line-items>
-    <item ID="KPX8829">
-      <description>Gold ring</description>
+    <item ID="RNG1111">
+      <description>The One Ring</description>
       <quantity>1</quantity>
       <unit-price currency="NZD">12.95</unit-price>
     </item>
@@ -736,7 +740,7 @@
 		\item Any XML document can be represented as a tree
 		
 		\item Hierarchical document structure \(\Leftrightarrow\)
-		hierarchichal file system directory structure
+		hierarchical file system directory structure
 		
 		\item Specify paths within document from root:
 		
@@ -771,11 +775,19 @@
 	
 	\begin{itemize}
 	
-		\item XQuery
+		\item XQuery (W3C)
 		
 		\item XQL
 		
 		\item SiXDML
+		
+		\note[item]{XQuery is the ``official'' XML query language
+		sanctioned by W3C.}
+		
+		\note[item]{XQL is a query language closely derived from XPath.}
+		
+		\note[item]{SiXDML = Simple XML Data Manipulation Language. Looks
+		a bit like an XML-enabled SQL.}
 	
 	\end{itemize}
 }
@@ -831,7 +843,7 @@
 	
 	\begin{itemize}
 	
-		\item \uline{XSL} \uline{T}ransformations
+		\item XSL Transformations
 		
 		\item Yet another XML dialect
 		
@@ -870,16 +882,23 @@
 
 \frame
 {
-	\frametitle{A typical XML/XSLT workflow}
+	\frametitle{Typical XML/XSLT workflows}
 	
 	\begin{columns}
 		\begin{column}{12cm}
 			\begin{pgfpicture}{0cm}{0cm}{12cm}{6.25cm}
 				\only<1>{\pgfputat{\pgfxy(6,3.125)}{\pgfbox[center,center]{\includegraphics[width=12cm,keepaspectratio]{XML-Workflow-Web}}}}
-				\only<2| handout:0>{\pgfputat{\pgfxy(6,3.125)}{\pgfbox[center,center]{\includegraphics[width=12cm,keepaspectratio]{XML-Workflow-TSV}}}}
+				\only<2>{\pgfputat{\pgfxy(6,3.125)}{\pgfbox[center,center]{\includegraphics[width=12cm,keepaspectratio]{XML-Workflow-TSV}}}}
+				\only<3>{\pgfputat{\pgfxy(6,3.125)}{\pgfbox[center,center]{\includegraphics[width=12cm,keepaspectratio]{XML-Workflow-IS}}}}
 			\end{pgfpicture}
 		\end{column}
 	\end{columns}
+	
+	\note{The XML will often be generated from the database with the aid
+	of an XML schema that describes how to map the original relational
+	structures onto equivalent XML structures. Note that the generated
+	XML will almost certainly be quite a different structure from the
+	original (relationally-structured) data.}
 }
 
 
@@ -931,6 +950,38 @@ that follows.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\subsection*{Single-source document publication}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{XML can be used to publish documents}
+	
+	\centering
+	
+	\begin{columns}
+	
+		\begin{column}{12cm}
+	
+			\centering
+			\includegraphics[height=6.5cm,keepaspectratio]{v2_workflow}
+		
+		\end{column}
+		
+	\end{columns}
+	
+	\note{Everything to the right of the thick dashed grey line is part
+	of the day-to-day workflow. The stuff on the left on occurs when the
+	master format is changed.}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection*{Data interchange}
 
 
@@ -973,10 +1024,10 @@ that follows.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\usebackgroundtemplate{\includegraphics{nelson-BG}}
-
 \frame
 {
+	\only<2->{\usebackgroundtemplate{\includegraphics{nelson-BG}}}
+
 	\frametitle{XML can be used to represent metadata}
 	
 	\begin{itemize}
@@ -1082,9 +1133,9 @@ that follows.}
 		``big three'' all have direct XML support.}
 		
 		\item Non-relational: flat files vs.\ ``native'' XML database
+		(eXist, Xindice, Tamino, \ldots)
 
-		\item \uline{D}ocument \uline{O}bject \uline{M}odel (DOM):
-		XML-oriented API
+		\item Document Object Model (DOM): XML-oriented API
 		
 		\note[item]{Note that the DOM is not a database API. It can just
 		as easily be used to access plain XML documents (text files),
@@ -1109,13 +1160,211 @@ that follows.}
 
 \frame
 {
-	\frametitle{Web services}
+	\only<2->{\usebackgroundtemplate{\includegraphics{haddock-BG}}}
+
+	\frametitle{XML is the basis for web services}
 		
-% 	\begin{itemize}
-% 	
-% 		\item Controversial
-% 		
-% 	\end{itemize}
+	\begin{itemize}
+	
+		\item Web-accessible service providing programs
+		
+		\note[item]{Examples: stock quotes, search engines,
+		authentication (Microsoft Passport, credit cards), The Captain
+		Haddock Insult Generator, basically anything that can be
+		encapsulated in a chunk of code and called remotely. Really just
+		XML-enabled RPC over HTTP.}
+		
+		\item Typically small
+		
+		\item A ``hot'' application of XML
+		
+		\item Sun (Java) vs.\ Microsoft (.NET)
+		
+		\note[item]{Microsoft and Sun have clashed over standards for
+		web services. Java and .NET web services are not guaranteed to
+		be interoperable (different interpretations of data types,
+		etc.). The WS-I (Web Services Interoperability) consortium is an
+		attempt to resolve such problems.}
+		
+	\end{itemize}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{A more technical definition}
+		
+	\begin{itemize}
+	
+		\item Remote procedure calls using XML and HTTP
+		
+		\item Transport protocol: HTTP
+		
+		\item Interaction protocols: \alert{XML-RPC}, \alert{SOAP},
+		CORBA
+		
+		\item XML message format
+		
+		\item XML interface specification (WSDL)
+		
+	\end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Alphabet soup}
+		
+	\begin{description}
+	
+		\item[RPC] Remote Procedure Call (\(\Rightarrow\) XML-RPC)
+
+		\item[SOAP] Simple Object Access Protocol
+
+		\item[UDDI] Universal Description, Discovery and Integration
+		(web service directory)
+
+		\item[WSDL] Web Services Description Language
+
+		\item[SAML] Security Assertion Markup Language
+
+		\item[J2EE] Java 2 Enterprise Edition
+		
+	\end{description}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{web-services-BG}}
+
+\frame
+{
+	\frametitle{Specific technology}
+		
+	\begin{description}
+	
+		\item[SOAP] for passing XML messages from one application to
+		another, based on XML-RPC
+
+		\item[WSDL] for specifying web service interfaces
+
+		\item[Tools] Microsoft's .NET, J2EE (Java Beans), IBM's
+		WebSphere, Oracle Application Server
+		
+		\note{Not suprisingly, a large number of web services are being
+		implemented using .NET.}
+		
+	\end{description}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Conclusion}
+	
+	\begin{itemize}
+	
+		\item XML specs \& tools now sufficiently mature
+		
+		\note{A problem with a lot of the tools was that the specs were
+		still being developed, and were therefore something of a moving
+		target. Things have now stabilised sufficiently for real work to
+		be done, but the tools are still lagging behind the standards
+		(but that is fairly typical).}
+		
+		\item XML reached critical mass about a year ago?
+		
+		\item Web services a ``hot technology''
+			
+	\end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{What's going to happen next?}
+	
+	\begin{itemize}
+	
+		\item Consolidation of existing specs and standards
+		
+		\item New versions of existing standards
+		
+		\note[item]{For example, a new version of XHTML that is a
+		complete departure from XHTML 1.0, XSLT 2.0, etc.}
+		
+		\item Widespread adoption of interoperability standards such as
+		ebXML
+		
+		\item Web services go mainstream
+		
+		\note[item]{It could be argued that web services already
+		\emph{are} mainstream. We started teaching them this year.}
+		
+		\item New uses for XML keep emerging
+		
+		\note[item]{Water is one of the more unexpected uses of XML: an
+		actual programming language using XML-like syntax!}
+			
+	\end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+	\frametitle{Some useful sites}
+	
+	\textbf{XML-related standards}
+		
+	\begin{itemize}
+	
+		\item \url{<http://www.w3.org/>} (WWW Consortium)
+		
+		\item \url{<http://www.oasis-open.org/>} (OASIS)
+		
+		\item \url{<http://www.xml.org/>}
+		
+	\end{itemize}
+	
+	\textbf{Web services}
+	
+	\begin{itemize}
+		
+		\item \url{<http://www.webservices.org/>}
+	
+		\item \url{<http://www.ws-i.org/>} (interoperability)
+		
+		\item \url{<http://services.xmethods.net/>} (publicly available
+		web services)
+	
+	\end{itemize}
 }
 
 
@@ -1124,9 +1373,14 @@ that follows.}
 
 \end{document}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % $Log$
+% Revision 1.8  2004/08/25 10:39:26  nstanger
+% - Added hyperref setup to main document to fix colour of TOC entries.
+% - Fixed vertical alignment of section entries in top banner.
+%
 % Revision 1.7  2004/08/25 05:17:52  nstanger
 % - Shifted position of some background images.
 % - Added yet more backgrounds!

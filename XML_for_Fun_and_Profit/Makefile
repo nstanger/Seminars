@@ -26,15 +26,16 @@ vpath %.graffle $(IMGDIR)
 
 
 # files
-SLIDE_IMAGES = NZCSbanner.png w3-shot.png $(XML_WORKFLOW_IMAGES)
+SLIDE_IMAGES = NZCSbanner.png w3-shot.png v2_workflow.pdf $(XML_WORKFLOW_IMAGES)
 
 SLIDE_BACKGROUNDS = gopher-BG.png browser-icons-BG.png energizer-bunny-BG.png \
-	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png query-BG.png nelson-BG.png
+	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png query-BG.png nelson-BG.png \
+	web-services-BG.png haddock-BG.png
 
 FIG_IMAGES = $(BTREE) $(INDEXORGANISED) $(REVERSEKEY) \
 	OracleArchitecture.pdf OracleStructures.pdf OrderERD.pdf
 	
-XML_WORKFLOW_IMAGES = XML-Workflow-TSV.pdf XML-Workflow-Web.pdf
+XML_WORKFLOW_IMAGES = XML-Workflow-TSV.pdf XML-Workflow-Web.pdf XML-Workflow-IS.pdf
 
 # source images that the images above are built from
 XML_WORKFLOW_SRC = WebBrowser.png Spreadsheet.png
