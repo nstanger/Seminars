@@ -28,7 +28,7 @@ vpath %.sxd $(IMGDIR)
 SLIDE_IMAGES = NZCSbanner.png w3-shot.png
 
 SLIDE_BACKGROUNDS = gopher-BG.png browser-icons-BG.png energizer-bunny-BG.png \
-	IBM-logo-BG.png
+	IBM-logo-BG.png big-tick-BG.png big-cross-BG.png
 
 FIG_IMAGES = $(BTREE) $(INDEXORGANISED) $(REVERSEKEY) \
 	OracleArchitecture.pdf OracleStructures.pdf OrderERD.pdf

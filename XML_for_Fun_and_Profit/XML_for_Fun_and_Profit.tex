@@ -12,18 +12,11 @@
 
 
 \usepackage{beamerthemenzcs}
-% \usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{pgf,pgfarrows,pgfnodes}
 \usepackage{graphicx}
-\usepackage{listings}
 \usepackage{calc}
 \usepackage[absolute,overlay]{textpos}
 \usepackage[normalem]{ulem}
-
-
-% listings setup
-\renewcommand{\ttdefault}{blg}
-\lstset{basicstyle=\ttfamily,showstringspaces=false}
-\lstloadlanguages{XML}
 
 
 % graphicx setup
@@ -37,6 +30,7 @@
 
 % document setup
 \colorlet{dullgreen}{green!60!black}
+\renewcommand{\ttdefault}{blg}
 
 \footerleft{XML for Fun \& Profit}
 \footercenter{August 26, 2004}
@@ -68,33 +62,7 @@
 
 \frame
 {
-	\frametitle{What am I going to talk about?}
-	
-	\begin{itemize}
-	
-		\item Document publication in web and print formats using XML
-		as the base source.
-		
-		\item Used for many course documents:
-		
-		\begin{itemize}
-		
-			\item Currently INFO 321 and INFO 405
-			
-			\item INFO 212 is next
-			
-		\end{itemize}
-	
-	\end{itemize}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\frame
-{
-	\frametitle{What am I going to talk about?}
+	\frametitle{Overview}
 	
 	\tableofcontents
 }
@@ -118,9 +86,7 @@
 		\setcounter{yearvalue}{#1-1960}
 		\setlength{\yearposition}{\value{yearvalue}cm/4}
 		\begin{pgfpicture}{0cm}{0cm}{10cm}{1cm}
-			\pgfsetlinewidth{1pt}
 			\color{beamerstructure}
-			\pgfline{\pgfpoint{\yearposition}{0cm}}{\pgfpoint{\yearposition}{0.5cm}}
 			\pgfputat{\pgfpoint{\yearposition}{0.55cm}}{\pgfbox[right,bottom]{#1}}
 			\color{nzcslightorange!75!nzcsdarkorange}
 			\pgfsetlinewidth{0.5pt}
@@ -205,7 +171,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame
+\frame<all:0>
 {
 	\frametitle{File Transfer Protocol (FTP)}
 
@@ -337,13 +303,20 @@
 
 \frame[containsverbatim]
 {
-	\frametitle{HTML goes to war}
+	\frametitle{HTML gets into trouble}
 	
 	\begin{itemize}
 	
 		\item Netscape vs.\ Microsoft
 		
 		\note[item]{Remember the \verb|<blink>| tag?}
+		
+		\item ``Error recovery'' \(\Rightarrow\) inconsistent rendering
+		
+		\note[item]{Attempts by browser vendors to display as wide a
+		range pages as possible (including syntactically incorrect ones)
+		means that you never quite know how a particular page is going
+		to appear in any given browser.}
 		
 		\item Confusion of meaning with presentation
 		
@@ -437,7 +410,11 @@
 	
 		\item XHTML
 		
-		\item 
+		\item Web pages now also XML documents
+		
+		\note{Technically speaking, at least.}
+		
+		\item Stricter syntax \(\Rightarrow\) consistent rendering
 	
 	\end{itemize}
 
@@ -449,6 +426,97 @@
 
 
 \section{XML 101: The basics}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{big-tick-BG}}
+
+\frame
+{
+	\frametitle{What XML \uline{is}}
+	
+	\begin{itemize}
+	
+		\item ``SGML lite''
+	
+		\item Plain text (easy to manipulate)
+		
+		\item Free-form
+		
+		\item Extensible (define your own tags)
+		
+		\item Content-neutral markup
+		
+		\item Extremely verbose
+	
+	\end{itemize}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usebackgroundtemplate{\includegraphics{big-cross-BG}}
+
+\frame
+{
+	\frametitle{What XML \uline{isn't}}
+	
+	\begin{itemize}
+	
+		\item A language (!)
+		
+		\note[item]{Not in the programming sense, at least. It's really
+		more of a mechanism for defining different varieties of markup.}
+	
+		\item A replacement for HTML
+		
+		\note[item]{Although this was the original intent, XML has
+		developed into much more than this.}
+		
+		\item Intended for human consumption
+		
+		\note[item]{Being plain text, however, the temptation is there
+		to make the markup human-readable. Handy for debugging, but
+		technically unnecessary (and just makes things more verbose).}
+		
+		\item A silver bullet
+	
+	\end{itemize}
+}
+
+\usebackgroundtemplate{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame[containsverbatim]
+{
+	\frametitle{A simple example}
+	
+	\footnotesize
+	\begin{verbatim}
+<?xml version="1.0"?>
+<purchase-order ID="8892737451">
+  <customer ID="12345">
+    <name>Bilbo Baggins</name>
+    <address>Bag End, Hobbiton</address>
+  </customer>
+  <line-items>
+    <item ID="KPX8829">
+      <description>Gold ring</description>
+      <quantity>1</quantity>
+      <unit-price currency="NZD">12.95</unit-price>
+    </item>
+  </line-items>
+</purchase-order>
+	\end{verbatim}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1076,6 +1144,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % $Log$
+% Revision 1.5  2004/08/24 06:26:19  nstanger
+% - Added IBM logo background image.
+%
 % Revision 1.4  2004/08/24 04:44:51  nstanger
 % - Added history slides.
 %
