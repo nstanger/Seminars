@@ -1,0 +1,608 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: $Id$
+%
+% Change log at end.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[pdftex]{beamer}
+
+
+\usepackage{beamerthemeotago}
+% \usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{listings}
+
+
+% listings setup
+\renewcommand{\ttdefault}{blg}
+\lstset{basicstyle=\ttfamily,showstringspaces=false}
+\lstloadlanguages{XML}
+
+
+% graphicx setup
+\graphicspath{{images/}}
+
+
+% document setup
+\colorlet{dullgreen}{green!60!black}
+
+\footerleft{Dr. StrangeBook}
+\footercenter{CIS Seminar 2004}
+\footerright{\insertframenumber}
+
+\author{Nigel Stanger}
+\title{Dr. StrangeBook \\ \footnotesize or: How I Learned to Stop Worrying and Love XML}
+\institute{Department of Information Science}
+\date{May 7, 2004}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\frame
+{
+	\frametitle{What am I going to talk about?}
+	
+	\begin{itemize}
+	
+		\item Document publication in web and print formats using XML
+		as the base source.
+		
+		\item Used for many course documents:
+		
+		\begin{itemize}
+		
+			\item Currently INFO 321 and INFO 405
+			
+			\item INFO 212 is next
+			
+		\end{itemize}
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{What am I going to talk about?}
+	
+	\tableofcontents
+}
+
+
+\frame
+{
+	\frametitle{Aren't you talking about DocBook?}
+	
+	
+	\begin{center}
+	
+		\begin{uncoverenv}<2>
+
+			{\Huge\alert{SH!}}
+			
+			\vspace*{1cm}
+		
+			Not yet!
+		
+		\end{uncoverenv}
+	
+	\end{center}	
+}
+
+
+\frame
+{
+	\frametitle{Disclaimer}
+	
+	\begin{center}
+	
+		{\LARGE\alert{This presentation was not produced \\
+		from an XML document!}}
+		
+		\vspace*{1cm}
+		
+		\emph{Beamer} is much better at this for now.
+	
+	\end{center}
+}
+
+
+\frame
+{
+	\frametitle{But first, a word from our sponsors\ldots}
+	
+	\begin{description}
+	
+		\item[Chris Edwards] did the entire first implementation and
+		much of the basic infrastructure for the second version.
+	
+		\item[Richard Pascoe] got me back into \LaTeX\ again, and also
+		introduced it to Chris along with the idea of producing multiple
+		output targets from the same source.
+		
+		\item[Richard O'Keefe] presented a seminar on using SGML for
+		exam papers, which got Chris thinking about using XML for
+		document production.
+	
+	\end{description}
+}
+
+
+\section[History]{The initial stages}
+
+
+\frame
+{
+	\frametitle{What we wanted to do}
+	
+	\begin{itemize}
+	
+		\item All course documents in the same source format.
+		
+		\item Cross-platform (at least Win32 \& Mac OS X).
+		
+		\note{Cross-platform tends to imply (but doesn't mandate) open
+		source tools.}
+		
+		\item Produce both print and HTML versions.
+		
+		\item Multiple versions of the same document:
+		
+		\begin{itemize}
+		
+			\item Questions for students
+			
+			\item Model answers for students
+			
+			\item Notes for teachers
+			
+			\item Individual documents vs.\ combined course handbook
+		
+		\end{itemize}
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{\parbox[t]{\textwidth}{We used to use Word\ldots \\
+		\normalfont\tiny (\(\rightarrow\) ca.\ 1998)}}
+	
+	\begin{itemize}
+	
+		\item OK, but a typical Microsoft product.
+		
+		\note[item]{Supported hyperlinks, styles \& hidden text.}
+		
+		\item Print output typically pretty ugly; HTML even worse :(
+		
+		\item Messy for managing questions vs.\ answers vs.\ notes.
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{\parbox[t]{\textwidth}{\ldots then we moved to \LaTeX \\
+		\normalfont\tiny (ca.\ 1999--2002)}}
+	
+	\begin{itemize}
+	
+		\item No GUI, but so what? It doesn't have that !\$@\%\^\$!
+		paper clip.
+		
+		\item Beautiful print output.
+		
+		\item Web output mostly OK (\LaTeX{}2HTML), but still not ideal.
+		
+		\note{It was much better than Word! But there were many niggling
+		issues, such as handling of images under certain circumstances.}
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{\parbox[t]{\textwidth}{\ldots then Chris began to think about XML \\
+		\normalfont\tiny (late 2002)}}
+	
+	\begin{itemize}
+	
+		\item Content-neutral format.
+		
+		\item Potentially better HTML output using XSLT.
+		
+		\note{Or at least, more reliable HTML output.}
+		
+		\item We were starting to teach XML + XSLT anyway
+		\(\Rightarrow\) good learning exercise!
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{So why didn't you use DocBook?}
+	
+	
+	\begin{center}
+	
+		\begin{uncoverenv}<2>
+
+			{\Huge\alert{SH!}}
+			
+			\vspace*{1cm}
+		
+			I told you, not yet!!
+		
+		\end{uncoverenv}
+	
+	\end{center}	
+}
+
+
+\frame
+{
+	\frametitle{\parbox[t]{\textwidth}{The first version of the framework \\
+		\normalfont\tiny (S1 2003)}}
+	
+	\begin{itemize}
+	
+		\item Lab \& tutorial documents, INFO 321 2003.
+		
+		\item Two monolithic XSL style sheets: XML \(\rightarrow\) HTML,
+		XML \(\rightarrow\) \LaTeX.
+		
+		\item Existing \LaTeX\ tool chain for print output (\LaTeX{}
+		[\(\rightarrow\) DVI \(\rightarrow\) PS] \(\rightarrow\) PDF).
+		
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{Workflow for version 1}
+	
+	\centering
+	
+	\includegraphics[height=6.5cm,keepaspectratio]{v1_workflow}
+}
+
+
+\frame
+{
+	\frametitle{But not all was well\ldots}
+	
+	\begin{itemize}
+	
+		\item Not designed for general documents (i.e., other than labs
+		or tutorials).
+	
+		\item Two separate stylesheets \(\Rightarrow\) harder to
+		maintain consistency.
+	
+	\end{itemize}
+}
+
+
+\section[Version 2]{The second version of our authoring framework}
+
+
+\frame
+{
+	\frametitle{\parbox[t]{\textwidth}{The second version of the framework \\
+		\normalfont\tiny (2004)}}
+	
+	\begin{itemize}
+	
+		\item Single monolithic master format document combining both
+		HTML and \LaTeX\ XSLT templates.
+		
+		\item Master format document processed through separate XSL
+		master style sheets to produce XML \(\rightarrow\) HTML \&
+		XML \(\rightarrow\) \LaTeX style sheets.
+		
+		\note{Nicely recursive---using a style sheet to generate style
+		sheets!}
+		
+		\item Generalised to other types of documents.
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{Workflow for version 2}
+}
+
+
+\frame
+{
+	\frametitle{Features}
+	
+	\begin{itemize}
+	
+		\item The usual paragraph formatting, etc.
+		
+		\item Moderately complex tabular structures (including
+		multi-column \& multi-row cells).
+		
+		\item Hyperlinks \& cross-references.
+		
+		\item Floating matter (figures, tables).
+		
+		\note{Figures and tables don't float in HTML.}
+		
+		\item Images in various formats.
+		
+		\item \emph{Very} basic maths.
+		
+		\item Conditional processing based on format (\LaTeX/HTML).
+	
+		\item Raw code for that \emph{really} crufty stuff.
+		
+		\item etc\ldots
+		
+	\end{itemize}
+}
+
+
+\frame
+{
+	\centering\Huge\alert{Examples}
+	
+	\note[item]{INFO 321 Analogy document (general document).}
+	
+	\note[item]{Lab 3 is a good example of a lab document, with
+	graphics, etc.}
+}
+
+
+\frame
+{
+	\frametitle{BUT WHAT ABOUT DOCBOOK?}
+	
+	\begin{onlyenv}<2>
+	
+		\centering All right, all right!!
+	
+	\end{onlyenv}
+	
+	\begin{itemize}
+	
+		\item<3-> DocBook is a set of comprehensive SGML \& XSL style
+		sheets for producing technical computing documents from XML
+		source, managed by OASIS. {\scriptsize (see
+		\texttt{http://www.docbook.org/})}
+		
+		\item<3-> Why didn't we use it? \uncover<4->{\alert<4>{We didn't know about
+		it!}}
+		
+		\item<5-> Our framework is remarkably similar but not quite as
+		powerful.
+		
+		\note{For example, their tabulars are much more powerful!}
+		
+		\item<5-> But we seem to do some things a little better :)
+		
+		\note{For example, handling of special characters. Our handling
+		of hyperlinks also seems a bit more flexible and intuitive.}
+		
+		\item<5-> Use formatting objects to output direct to PDF.
+		
+	\end{itemize}
+}
+
+
+\section[Problems]{Problems encountered}
+
+
+\frame
+{
+	\frametitle{Problems encountered with version 2}
+	
+	\begin{itemize}
+	
+		\item Sometimes need to be careful about white space.
+		
+		\note[item]{For example, tabulars that followed each other in
+		the source and were intended to be separate paragraphs, ended up
+		on the same line in the PDF because the white space between them
+		got eaten by the transformation.}
+		
+		\item Sometimes things just don't work \(\Rightarrow\) embedded
+		raw code.
+		
+		\item \LaTeX-only vs.\ HTML-only features can be a nuisance.
+		
+		\item Master format document needs to be modularised.
+		
+		\note[item]{Master format is currently about 2000 lines.}
+		
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{Platform issues}
+	
+	\begin{itemize}
+	
+		\item Different \TeX\ distributions (fp\TeX\ vs.\ te\TeX).
+		
+		\note[item]{We now both use te\TeX.}
+		
+		\item Different XSLT processors (SAXON vs.\ Xalan-C vs.\
+		Xalan-Java) with different command-line conventions.
+		
+		\note[item]{Solved the XSLT processor problem by defining an
+		XSLT environment variable as appropriate on each machine, then
+		defining a set of functions in our Makefiles to call the
+		appropriate processor with the correct command line.}
+		
+		\item Line breaks!
+		
+		\note[item]{Line breaks pretty much resolved by storing
+		everything in CVS.}
+		
+		\item Compatible vector drawing tools.
+		
+		\item Differing directory path conventions.
+		
+		\note[item]{Solved the path problem by using Cygwin on the Win32
+		side.}
+		
+		\item Where to find the style sheets?
+		
+		\note[item]{Can resolve the style sheet location issue using
+		either environment variables, symlinks or just copying the files
+		into the local directory, but none of these are ideal. A nicer
+		solution is to use the XML-commons resolver.}
+	
+	\end{itemize}
+}
+
+
+\section[Software]{What you need to do this yourself}
+
+
+\frame
+{
+	\frametitle{The essential software}
+	
+	\begin{itemize}
+	
+		\item The XSL style sheets!
+	
+		\item XSLT processor (we use Apache Xalan or SAXON).
+		
+		\item A \TeX\ distribution (te\TeX).
+		
+		\item Something to edit XML with (GVim, BBEdit).
+		
+	\end{itemize}
+}
+
+
+\frame
+{
+	\frametitle{Nice to have}
+	
+	\begin{itemize}
+	
+		\item GhostScript.
+		
+		\item GNU make.
+		
+		\item Vector drawing tool (Visio, OmniGraffle).
+		
+		\item Graphics manipulation tools (epstool, ImageMagick, \ldots).
+		
+		\item \LaTeX\ spelling checker (aspell, Excalibur).
+		
+		\item Version control (CVS).
+		
+		\item Apache XML-commons resolver for locating style sheets on
+		the fly.
+		
+		\note[item]{The resolver enables you to locate style sheets and
+		DTDs on the fly using catalog files.}
+	
+	\end{itemize}
+}
+
+
+\section[Future]{Where to next?}
+
+
+\frame
+{
+	\frametitle{Did we achieve our goals?}
+	
+	\begin{itemize}
+	
+		\item Cross-platform (Win32/Cygwin, Mac OS X, should work fine
+		on any Unix derivative).
+		
+		\item \LaTeX\ gives high-quality print output.
+		
+		\item Good (and improving) HTML output.
+		
+		\item Customisable \& extensible.
+		
+		\item Geeky :)
+		
+	\end{itemize}
+	
+	\begin{center}
+	
+		\uncover<2>{\Huge\alert{YES}}
+	
+	\end{center}
+}
+
+
+\frame
+{
+	\frametitle{Beyond the current version}
+	
+	\begin{itemize}
+	
+		\item Roll out for INFO 212 (S2 2004).
+		
+		\item Investigate moving to DocBook (investigations in
+		progress):
+		
+		\begin{itemize}
+		
+			\item Should be relatively easy to write an XSL style sheet
+			to convert our markup to DocBook
+			
+			\item Need a customisation layer for ``our'' stuff
+			
+			\item Default PDF output too Word-like; also needs
+			customisation (Apache Fop vs.\ Passive\TeX\ vs.\ ??)
+			
+		\end{itemize}
+		
+		\item Find a good cross-platform vector drawing tool! PGF?
+		Sodipodi? Skencil? Kivio? Others?
+		
+		\item SVG for graphics?
+		
+		\item Lecture slides in XML?
+		
+		\note{I can see advantages to having the lecture slides in XML,
+		as it's going to be a lot easier to produce an HTML version from
+		an XML original than from the \LaTeX/Beamer files that I have
+		now.}
+	
+	\end{itemize}
+}
+
+
+\frame
+{
+	\centering\Huge{\alert{Questions?}}
+}
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Log$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
