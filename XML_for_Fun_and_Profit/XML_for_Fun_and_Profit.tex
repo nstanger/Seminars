@@ -4,9 +4,11 @@
 %
 % Change log at end.
 %
+% NOTE LACK OF DOCUMENT CLASS!
+% This file must be \input into a "driver" file that sets the required
+% beamer class options (notes, handout, etc.).
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass[pdftex]{beamer}
 
 
 \usepackage{beamerthemenzcs}
@@ -29,7 +31,7 @@
 \colorlet{dullgreen}{green!60!black}
 
 \footerleft{XML for Fun \& Profit}
-\footercenter{NZCS 2004-08-26}
+\footercenter{August 26, 2004}
 \footerright{\insertframenumber}
 
 \author{Nigel Stanger}
@@ -75,6 +77,17 @@
 	\frametitle{What am I going to talk about?}
 	
 	\tableofcontents
+}
+
+
+\frame
+{
+	\frametitle{Lots of standards}
+	
+	\begin{pgfpicture}{0cm}{0cm}{5.6cm}{6.5cm}
+		\pgfputat{\pgfxy(0,0)}{\includegraphics[height=6.5cm,keepaspectratio]{w3_shot}}
+		\pgfellipse[stroke]{\pgfxy(0.761,3.929)}{\pgfxy(0,2.45)}{\pgfxy(1.412,0)}
+	\end{pgfpicture}
 }
 
 
@@ -650,4 +663,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % $Log$
+% Revision 1.1.1.1  2004/08/23 00:30:26  nstanger
+% - Added XML presentation.
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
