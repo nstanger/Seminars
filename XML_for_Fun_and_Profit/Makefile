@@ -56,7 +56,7 @@ all: slides notes
 # slides for presentation
 slides: $(SLIDES).pdf
 
-$(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS)
+$(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS) beamerthemenzcs.sty
 	pdflatex --jobname=$(SLIDES) '\documentclass[$(LATEX_OPTS)]{beamer}\input{$(SLIDES)}'
 	pdflatex --jobname=$(SLIDES) '\documentclass[$(LATEX_OPTS)]{beamer}\input{$(SLIDES)}'
 
@@ -64,7 +64,7 @@ $(SLIDES).pdf: $(SLIDES).tex $(SLIDE_IMAGES) $(SLIDE_BACKGROUNDS)
 # slides with notes
 slides-notes: slides-notes.pdf
 
-slides-notes.pdf: $(SLIDES).tex $(SLIDE_IMAGES)
+slides-notes.pdf: $(SLIDES).tex $(SLIDE_IMAGES) beamerthemenzcs.sty
 	pdflatex --jobname=slides-notes '\documentclass[$(LATEX_OPTS),notes=onlyslideswithnotes]{beamer}\input{$(SLIDES)}'
 	pdflatex --jobname=slides-notes '\documentclass[$(LATEX_OPTS),notes=onlyslideswithnotes]{beamer}\input{$(SLIDES)}'
 
@@ -77,11 +77,12 @@ $(NOTES).pdf: slides-notes.pdf
 
 
 # images
-gopher.png: $(IMGDIR)/gopher.tif
+gopher.png: gopher.tif
 	convert -blur 0.5 $< $(IMGDIR)/$@
 
-%-BG.png: $(IMGDIR)/%.png
-	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 15% $< - $(IMGDIR)/$@
+%-BG.png: %.tif
+	convert -blur 0.5 $< $(IMGDIR)/$*.png
+	convert $(IMGDIR)/$*.png -threshold 0,0 -depth 16 - | composite -dissolve 15% $(IMGDIR)/$*.png - $(IMGDIR)/$@
 
 # %-BG.jpg: $(ANALOGY_IMGDIR)/%.jpg
 # 	convert $< -threshold 0,0 -depth 16 - | composite -dissolve 15% $< - $(IMGDIR)/$@
