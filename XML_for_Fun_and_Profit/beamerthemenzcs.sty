@@ -26,11 +26,15 @@
 %
 % Set up NZCS colours.
 %
-\definecolor{nzcsdarkorange}{cmyk}{0.12,0.61,0.96,0}
-\definecolor{nzcslightorange}{cmyk}{0.06,0.45,0.75,0}
+% \definecolor{nzcsdarkorange}{cmyk}{0.12,0.61,0.97,0}
+% \definecolor{nzcslightorange}{cmyk}{0.05,0.45,0.74,0}
+% \definecolor{nzcspurple}{cmyk}{0.68,0.97,0.65,0}
+\definecolor{nzcsdarkorange}{rgb}{0.882,.0388,0.028}
+\definecolor{nzcslightorange}{rgb}{0.945,0.549,0.229}
+\definecolor{nzcspurple}{rgb}{0.322,0.031,0.349}
 
 % Set beamer to use Otago colours where appropriate.
-% \definecolor{beamerstructure}{cmyk}{1,0.85,0.1,0}
+\definecolor{beamerstructure}{rgb}{0.322,0.031,0.349}
 % \definecolor{beameralert}{cmyk}{0,0.9,0.85,0}
 
 
@@ -134,12 +138,12 @@
 % Sections in headline
 %
 \usesectionheadtemplate%
-  {\hfill\color{black}\tiny\textbf{\insertsectionhead}}%
-  {\hfill\color{nzcsdarkorange!75!black}\tiny\textbf{\insertsectionhead}}
+  {\hfill\color{beamerstructure}\tiny\textbf{\insertsectionhead}}%
+  {\hfill\color{nzcsdarkorange!75!beamerstructure}\tiny\textbf{\insertsectionhead}}
 
 \usesubsectionheadtemplate%
-  {\color{black}\tiny\textbf{\insertsubsectionhead}}%
-  {\color{nzcsdarkorange!75!black}\tiny\textbf{\insertsubsectionhead}}
+  {\color{beamerstructure}\tiny\textbf{\insertsubsectionhead}}%
+  {\color{nzcsdarkorange!75!beamerstructure}\tiny\textbf{\insertsubsectionhead}}
 
 
 % \beamertemplatecircleminiframeinverted
@@ -167,7 +171,7 @@
     \setbox\headbox=\hbox to 0.7\paperwidth{%
       \raisebox{0.695mm}{%
         \insertsectionnavigation{.35\paperwidth}{\hskip0pt plus1filll}{}%
-        {\color{nzcsdarkorange!75!black}\vrule width1pt height1.25cm}%
+        {\color{nzcsdarkorange!75!beamerstructure}\vrule width1pt height1.25cm}%
         \insertsubsectionnavigation{.35\paperwidth}{}{\hskip0pt plus1filll}\hfil%
       }}%
     \ht\headbox=1.39cm%
