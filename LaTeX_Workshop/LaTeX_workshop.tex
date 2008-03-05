@@ -69,17 +69,17 @@
 
 
 \section{Introduction}
-\label{sec:intro}
+\label{sec-intro}
 
 In this workshop you will learn a little about using \LaTeX\ to produce documents. We're really only going to scratch the surface of what's possible, but the good news is that once you've mastered the basics, it's not too difficult to expand your knowledge. A quick Google search will reveal a huge amount of information about \LaTeX.
 
 
 \subsection{What is it?}
-\label{sec:what}
+\label{sec-what}
 
 \LaTeX\ is a system for typesetting documents~\cite{UsersGuide}. It's been widely available since 1985, and amazingly, files created then can still be processed with the latest versions of \LaTeX\ (try doing that with Word!). \LaTeX\ is actually built on top of another package called \TeX. You could sort of think of \TeX\ as the ``machine code'' underlying \LaTeX\ (that's not really correct, but you get the idea).
 
-\TeX\ is actually a \emph{macro language}, and \LaTeX\ is a large and complex set of \TeX\ macros for formatting documents in various ways. The source files are plain text with embedded markup. If you've ever manually created web pages using HTML, you'll already be familiar with the basic idea. In HTML you have tags that specify emphasised text, headings and so on. \LaTeX\ provides commands that perform similar functions, as shown in Figure~\ref{fig:HTMLcomparison}.
+\TeX\ is actually a \emph{macro language} for typesetting, and \LaTeX\ is a large and complex set of \TeX\ macros for formatting documents in various ways. The source files are plain text with embedded markup. If you've ever manually created web pages using HTML, you'll already be familiar with the basic idea. In HTML you have tags that specify emphasised text, headings and so on. \LaTeX\ provides commands that perform similar functions, as shown in Figure~\ref{fig-HTMLcomparison}.
 
 \begin{figure}
 	\hrule\medskip
@@ -91,14 +91,14 @@ In this workshop you will learn a little about using \LaTeX\ to produce document
 \verbatiminput{LaTeXExample.tex}
 	\hrule
 	\caption{HTML vs. \LaTeX\ markup.}
-	\label{fig:HTMLcomparison}
+	\label{fig-HTMLcomparison}
 \end{figure}
 
 One thing that always confuses people is how to pronounce ``\LaTeX''. Technically speaking, the final ``X'' in the name is derived from the Greek letter chi ($\chi$), so the ``correct'' pronunciation is a sort of ``cchhh'' sound (a bit like saying \emph{blecchhh})~\cite{TeXBook}. Pronunciations in common usage include the obvious ``\emph{lay}-teks'', but also ``\emph{lay}-tek'', ``\emph{lah}-tek'' and ``lah-\emph{tek}''~\cite{UsersGuide}. ``\emph{Lay}-tek''  and ``lah-\emph{tek}''are the most commonly accepted.
 
 
 \subsection{But doesn't Word already do everything I need?}
-\label{sec:Word}
+\label{sec-Word}
 
 Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to the Bad Old Days of command-line interfaces. Why should you use something like \LaTeX\ when WYSIWYG word processors are so obviously superior? There are several good reasons:
 
@@ -110,27 +110,27 @@ Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to 
 	
 	\item \LaTeX\ automates a lot of the drudgery of constructing a document, so that you don't have to worry about it. Many rules of typesetting are built into \LaTeX\, and it automatically takes care of things like paragraph alignment and hyphenation (but you can always tweak them manually if necessary). Sections, figures and tables are automatically (and consistently!) numbered, and cross-references to these items are automatically updated when they are moved, no matter how big the document is (again, compare this with Word). Generating a table of contents is trivial, and generating a list of references or an index is relatively simple.
 	
-	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate journal-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the range of symbols or quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you're going to be doing equations, \TeX\ or \LaTeX\ are really the only serious options. However, we'll skip the mathematical features in this document.
+	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate journal-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the range of symbols or quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you need to do equations, \TeX\ or \LaTeX\ are really the only serious options. However, we'll skip the mathematical features in this document.
 	
-	\item Because \TeX\ is effectively a kind of programming language, you can do almost anything you want within the limits of the \TeX\ engine. One particularly useful feature is that you can define your own macros, then use them again and again (very handy for repetitive stuff). If you later decide to change the output of the macro, you only have to change it in one place. There are also a huge number of extension packages for \TeX\ and \LaTeX\, handling everything from musical typesetting through to graphics manipulation. All of these are written in \TeX.
+	\item Because \TeX\ is effectively a kind of programming language, you can do almost anything you want within the limits of the \TeX\ engine. One particularly useful feature is that you can define your own macros, then use them again and again (very handy for repetitive stuff). If you later decide to change the output of the macro, you only have to change it in one place. There are also a huge number of extension packages for \TeX\ and \LaTeX\, handling everything from musical notation through to graphics manipulation. All of these are written in \TeX.
 	
-	\item It's very easy to produce all sorts of weird accented characters in \LaTeX~\cite{UsersGuide}: El se\~{n}or est\'{a} bien, gar\c{c}on. \'{E}l est\'{a} aqu\'{i}. \`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b{o}. \LaTeX\ also generates correct ``quotation marks'' and apostrophes (none of this ``smart quotes'' rubbish), and also inserts ligatures where necessary (e.g., ``f{}i'' \(\rightarrow\) ``fi'', ``f{}f'' \(\rightarrow\) ``ff'', etc.)
+	\item It's very easy to produce all sorts of accented characters in \LaTeX~\cite{UsersGuide}: El se\~{n}or est\'{a} bien, gar\c{c}on. \'{E}l est\'{a} aqu\'{i}. \`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b{o}. \LaTeX\ also generates correct ``quotation marks'' and apostrophes (none of this ``smart quotes'' rubbish), and also inserts ligatures where necessary (e.g., ``f{}i'' \(\rightarrow\) ``fi'', ``f{}f'' \(\rightarrow\) ``ff'', etc.)
 	
-	\item A document produced by \LaTeX\ won't suddenly change it's formatting if you move it to another machine (as often happens with Word documents). In fact, as long as you haven't done anything really weird, you can process a document created in 1985 and it will come out looking identical to when it was originally written! \TeX\ and \LaTeX\ are totally portable, because the documents are plain text and \TeX\ has been ported to almost every platform in existence. If you suddenly decide to switch to Linux, your \LaTeX\ documents will come across without modification (except perhaps for changing DOS line breaks to Unix line breaks). Modern \TeX\ distributions are fairly well standardised, so you can expect similar functionality on any platform. If you don't have a particular extension package, you can download it from any one of a large number of \TeX\ archive mirror sites~\cite{CTAN}.
+	\item A document produced by \LaTeX\ won't suddenly change it's formatting if you move it to another machine (as often happens with Word documents). In fact, as long as you haven't done anything really weird, you can process a document created in 1985 and it will come out looking identical to when it was originally written! \TeX\ and \LaTeX\ are totally portable, because the documents are plain text and \TeX\ has been ported to almost every platform in existence. If you suddenly decide to switch to Linux, your \LaTeX\ documents will come across without modification (except perhaps for changing DOS line breaks to Unix line breaks). Modern \TeX\ distributions are well standardised, so you can expect similar functionality on any platform. If you don't have a particular extension package, you can download it from any one of a large number of \TeX\ archive mirror sites~\cite{CTAN}.
 
 \end{itemize}
 
-The main disadvantage of \LaTeX\ (other than the initial learning curve) is that you don't have quite as much freedom over choice of font, style, etc., as you would in Word. Many would argue that this is a good thing! \LaTeX\ comes with a default set of fonts known as Computer Modern (which this document uses), but you can use PostScript fonts like {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont Helvetica} by loading an appropriate extension package. It can also sometimes be tricky to ``break out'' of the defaults if you want to do something unusual.
+The main disadvantage of \LaTeX\ (other than the initial learning curve) is that you don't have quite as much freedom over choice of font, style, etc., as you would in Word. Many would argue that this is a good thing! \LaTeX\ comes with a default set of fonts known as Computer Modern, but you can use PostScript fonts like {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont Helvetica} by loading an appropriate extension package. It can also sometimes be tricky to ``break out'' of the defaults if you want to do something unusual.
 
 
 \subsection{\LaTeX\ tools}
-\label{sec:tools}
+\label{sec-tools}
 
 There is a wide range of tools in the \LaTeX\ family. There is of course \LaTeX\ itself, but there are several variants designed for specific purposes. \PDFLaTeX\ is a variant that directly produces PDF documents (\LaTeX\ normally produces something known as a \emph{device independent file}, or \emph{.dvi}, which you then have to convert into something like PostScript or PDF). Omega is a variant that supports Unicode, and so on. Most likely you will end up using either plain \LaTeX\ or \PDFLaTeX, depending on your needs.
 
 
 \section{Using \LaTeX}
-\label{sec:using}
+\label{sec-using}
 
 Traditionally, \LaTeX\ is a command-line tool, but there are now many graphical front ends. We have one called WinShell installed in the labs, which is a front end to a \TeX\ distribution called fp\TeX. You should find WinShell under \textsf{Start} \(\triangleright\) \textsf{Course Specific Resources} \(\triangleright\) \textsf{Desktop Publishing} \(\triangleright\) \textsf{Latex Editor}.
 
@@ -138,7 +138,7 @@ WinShell provides a syntax-colouring text editor, and point-and-click access to 
 
 
 \subsection{A simple \LaTeX\ document}
-\label{sec:simple}
+\label{sec-simple}
 
 All the sample files mentioned in this document can be downloaded from the following URL: \href{http://info-nts-12.otago.ac.nz/courses/latex/}{\textsf{http://info-nts-12.otago.ac.nz/courses/latex/}}. You will also find in this directory a copy of this document and its source.
 
@@ -153,7 +153,7 @@ You'll see some messages go scrolling past at the bottom of the screen as \LaTeX
 
 \instruction{Open the PDF and compare the original with the result.}
 
-Now let's go through the file in a little more detail. Notice the list of prohibited characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec:usefulstuff} below.
+Now let's go through the file in a little more detail. Notice the list of prohibited characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
 
 Line 11 tells you what type of document this is (in this case, an article). The document class is effectively a document template that sets up a whole collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for specifying things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
 
@@ -175,7 +175,7 @@ Lines 21 and 22 show you how to produce correct opening and closing quotes. Line
 
 
 \subsubsection{Some other useful things}
-\label{sec:usefulstuff}
+\label{sec-usefulstuff}
 
 \begin{itemize}
 
@@ -186,6 +186,8 @@ Lines 21 and 22 show you how to produce correct opening and closing quotes. Line
 	\item \verb+~+ produces a non-breaking space.
 	
 	\item The special command \verb+\\+ inserts a line break, although there are some limits to where it can be used. Make sure you follow it with a space if you use it in the middle of a line, or \LaTeX\ might interpret the following text as a command.
+	
+	\item \verb+\newpage+ inserts a page break. Use sparingly!
 	
 	\item To produce the three remaining special characters, use \verb+\(\backslash\)+ for \(\backslash\), \verb+\^{}+ for \^{} and \verb+\~{}+ for \~{}.
 	
@@ -203,7 +205,7 @@ Lines 21 and 22 show you how to produce correct opening and closing quotes. Line
 	
 	\item Command names are case-sensitive (so \verb+\Today+ is different from \verb+\today+), and they can only contain letters; no numbers or unusual characters. (\TeX\ macro names can contain just about any character, but that's a whole other story.)
 	
-	\item You can create a title for your document, similar to that shown on page~\pageref{sec:intro} of this document. Use the commands \verb+\title+, \verb+\author+ and \verb+\date+ (defaults to \verb+\today+ if omitted) in the document preamble, then \verb+\maketitle+ in the document body, for example:
+	\item You can create a title for your document, similar to that shown on page~\pageref{sec-intro} of this document. Use the commands \verb+\title+, \verb+\author+ and \verb+\date+ (defaults to \verb+\today+ if omitted) in the document preamble, then \verb+\maketitle+ in the document body, for example:
 	\begin{verbatim}
 \title{A boring paper}
 \author{J.A. Dull}
@@ -218,19 +220,19 @@ Lines 21 and 22 show you how to produce correct opening and closing quotes. Line
 
 
 \subsection{A more complex example}
-\label{sec:complex}
+\label{sec-complex}
 
 \instruction{Download the file \textsf{sample2e.tex}, open it in WinShell and process it with \PDFLaTeX.}
 
-This file is a somewhat longer document that includes most of the features discussed above, plus a few more. It's a good source of examples of how to do most of the basics. We'll use it now to play around with some more advanced aspects of \LaTeX.
+\noindent This file is a somewhat longer document that includes most of the features discussed above, plus a few more. It's a good source of examples of how to do most of the basics. We'll use it now to play around with some more advanced aspects of \LaTeX.
 
 We've already seen how commands work in \LaTeX. They're useful for applying formatting to relatively small chunks of text. However, most commands don't work across paragraphs, so what do we do if we want to apply some formatting to an entire page of text? In addition to commands, \LaTeX\ has things called \emph{environments} that work with chunks of text of any size. Environments have a \verb+\begin+ command and an \verb+\end+ command. You've already seen an example of this with \verb+\begin{document}+ and \verb+\end{document}+. There are many environments, including equivalents of the various text formatting commands (e.g., an \textsf{em} environment that does the same as \verb+\emph+), figures and tables, quotations, lists and so on. We'll look at some of these now.
 
 
 \subsubsection{Lists}
-\label{sec:lists}
+\label{sec-lists}
 
-\LaTeX\ has three main list creation environments: \textsf{itemize} for bullet-style lists, \textsf{enumerate} for numbered lists and \textsf{description} for lists with text labels. They all follow the same basic form, as shown in Table~\ref{tab:lists}. You can nest any kind of list inside any other, and \LaTeX\ will take care of adjusting the labels and indentation accordingly.
+\LaTeX\ has three main list creation environments: \textsf{itemize} for bullet-style lists, \textsf{enumerate} for numbered lists and \textsf{description} for lists with text labels. They all follow the same basic form, as shown in Table~\ref{tab-lists}. You can nest any kind of list inside any other, and \LaTeX\ will take care of adjusting the labels and indentation accordingly.
 
 \begin{table}
 	\centering
@@ -303,16 +305,16 @@ We've already seen how commands work in \LaTeX. They're useful for applying form
 		\hline
 	\end{tabular}
 	\caption{Examples of list environments.}
-	\label{tab:lists}
+	\label{tab-lists}
 \end{table}
 
 \instruction{The file \textsf{sample2e.tex} already contains an \textsf{itemize} list. Try changing it into one of the other types of list. Also try nesting lists inside others and see what happens (\textsf{sample2e.tex} has an example of this).}
 
 
 \subsubsection{Tabular layout}
-\label{sec:tabular}
+\label{sec-tabular}
 
-Often you will want to create some kind of tabular structure with text or numbers aligned in columns (like Table~\ref{tab:lists}). This is achieved using the \textsf{tabular} environment:
+Often you will want to create some kind of tabular structure with text or numbers aligned in columns (like Table~\ref{tab-lists}). This is achieved using the \textsf{tabular} environment:
 \begin{verbatim}
 \begin{tabular}{|l|c|r|}
   \hline
@@ -352,36 +354,36 @@ Often you will want to create some kind of tabular structure with text or number
 
 
 \subsubsection{Floating bodies: Figures and tables}
-\label{sec:floats}
+\label{sec-floats}
 
 While you can have free-standing graphics and tables in a \LaTeX\ document (like the \textsf{tabular} example above), for academic writing you will usually want to display them with a caption and a number so that you can cross-reference them. \LaTeX\ provides two environments for doing this: \textsf{figure} and \textsf{table}. \textsf{Figure} is generally used for graphical material and \textsf{table} for tabular material, but that's just by convention---\LaTeX\ doesn't really care.
 
-All figures and tables are automatically numbered, and you can provide an optional caption using the \verb+\caption+ command. Here's an example of a very simple \textsf{figure}:
+Figures and tables are automatically numbered, and you can provide an optional caption using the \verb+\caption+ command. Here's an example of a very simple \textsf{figure}:
 \begin{verbatim}
 \begin{figure}
   blah blah blah this is the figure body blah blah blah
 
   \caption{This is the very boring caption.}
-  \label{fig:boring}
+  \label{fig-boring}
 \end{figure}
 \end{verbatim}
 
-The \textsf{figure} and \textsf{table} environments are examples of \emph{floating bodies}. This is because \LaTeX\ intelligently figures out the best location to place them based on various factors. In other words, they ``float'' around the document as necessary. You've already seen a couple of examples of these: see Figure~\ref{fig:HTMLcomparison} on page~\pageref{fig:HTMLcomparison} and Table~\ref{tab:lists} on page~\pageref{tab:lists}. Table~\ref{tab:lists} is a good example of the floating aspect: in the source file, the table immediately follows the text of Section~\ref{sec:lists}, but the in the final output the table has floated to the top of page~\pageref{tab:lists}, and the main text has automatically flowed itself around the table. We have some control over this floating behaviour (and occasionally \LaTeX\ does get it wrong), but it's usually safest to leave \LaTeX\ alone in this area.
+The \textsf{figure} and \textsf{table} environments are examples of \emph{floating bodies}. This is because \LaTeX\ intelligently figures out the best location to place them based on various factors. In other words, they ``float'' around the document as necessary. You've already seen a couple of examples of these: see Figure~\ref{fig-HTMLcomparison} on page~\pageref{fig-HTMLcomparison} and Table~\ref{tab-lists} on page~\pageref{tab-lists}. Table~\ref{tab-lists} is a good example of the floating aspect: in the source file, the table immediately follows the text of Section~\ref{sec-lists}, but the in the final output the table has floated to the top of page~\pageref{tab-lists}, and the main text has automatically flowed itself around the table. We have some control over this floating behaviour (and occasionally \LaTeX\ does get it wrong), but it's usually safest to leave \LaTeX\ alone in this area.
 
 
 \subsubsection{Cross-references}
-\label{sec:xref}
+\label{sec-xref}
 
-One of the nicest features of \LaTeX\ is that you can attach a unique label to anything that has a number associated with it (sections, figures, list items, etc.), then create cross-references to that item that are automatically kept up to date (for example, we can reference item~\ref{baritem} of the \textsf{enumerate} list in Table~\ref{tab:lists}). You create labels by placing a \verb+\label+ command immediately after the item that you want to label. For example, the heading of this section looks like this:
+One of the nicest features of \LaTeX\ is that you can attach a unique label to anything that has a number associated with it (sections, figures, list items, etc.), then create cross-references to that item that are automatically kept up to date (for example, we can reference item~\ref{baritem} of the \textsf{enumerate} list in Table~\ref{tab-lists}). You create labels by placing a \verb+\label+ command immediately after the item that you want to label. For example, the heading of this section looks like this:
 \begin{verbatim}
 \subsubsection{Cross-references}
-\label{sec:xref}
+\label{sec-xref}
 \end{verbatim}
-\verb+sec:xref+ is the name of the label attached to this section. Label names are case-sensitive.
+\verb+sec-xref+ is the name of the label attached to this section. Label names are case-sensitive, and can contain a wider range of characters than command names.
 
-Once a label is defined, you can cross-reference the item using the \verb+\ref+ command, e.g., \verb+\ref{sec:xref}+ will generate the number for this section (\ref{sec:xref}). If you change the position of this section in the document, the section number and all references to it will update automatically the next time you process the document. You may need to process the document twice to get it completely right---\LaTeX\ will tell you if you need to do so. \LaTeX\ will also warn you about any references it doesn't recognise or labels that have been defined more than once.
+Once a label is defined, you can cross-reference the item using the \verb+\ref+ command, e.g., \verb+\ref{sec-xref}+ will generate the number for this section (\ref{sec-xref}). If you change the position of this section in the document, the section number and all references to it will update automatically the next time you process the document. You may need to process the document twice to get it completely right---\LaTeX\ will tell you if you need to do so. \LaTeX\ will also warn you about any references it doesn't recognise or labels that have been defined more than once.
 
-Even better, you can get the page number for the item as well using \verb+\pageref+, so the command \verb+\pageref{sec:xref}+ will generate the page number that this section starts on (page~\pageref{sec:xref}). It thus becomes very easy to generate cross references like ``see Section~\ref{sec:xref} on page~\pageref{sec:xref}''.
+Even better, you can get the page number for the item as well using \verb+\pageref+, so the command \verb+\pageref{sec-xref}+ will generate the page number that this section starts on (page~\pageref{sec-xref}). It thus becomes very easy to generate cross references like ``see Section~\ref{sec-xref} on page~\pageref{sec-xref}''.
 
 \instruction{Try creating a few cross-references to items in \textsf{sample2e.tex}, then move the labelled items around in the document to see what happens.}
 
@@ -390,7 +392,7 @@ Even better, you can get the page number for the item as well using \verb+\pager
 
 \LaTeX\ also has very powerful bibliography building tools. If you really want to do things properly, you should use \BibTeX, which is a simple bibliographic database with tools that provide automatic formatting of references. Using \BibTeX\ involves several extra steps, however, so we'll only look at how to do it by hand.
 
-The first thing you need to do is issue a \verb+\bibliographystyle+ command somewhere in your document body, e.g., \verb+\bibliographystyle{plain}+. Plain style is what this document uses. There are many other styles available as extension packages; see Section~\ref{sec:packages}.
+First, you need to issue a \verb+\bibliographystyle+ command somewhere in your document body, e.g., \verb+\bibliographystyle{plain}+. Plain style is what this document uses. There are many other styles available as extension packages; see Section~\ref{sec-packages}.
 
 Next, you need to create the bibliography itself using a \textsf{thebibliography} environment. This is a variation on the standard list environments, and looks something like this (this is actually part of the bibliography for this document):
 \begin{verbatim}
@@ -415,7 +417,7 @@ To cite a reference, use the \verb+\cite+ command, for example, \verb+\cite{User
 
 
 \section{Useful extension packages}
-\label{sec:packages}
+\label{sec-packages}
 
 You can add new features to \LaTeX\ by loading a \emph{package} that defines a new set of commands. There are literally thousands of packages available, and most major \TeX\ distributions include many of these by default. They are also available from the Comprehensive \TeX\ Archive Network (CTAN)~\cite{CTAN}, which is a worldwide network of mirrored FTP sites for \TeX\ and \LaTeX. If you want something, it's almost certainly on CTAN.
 
@@ -429,7 +431,7 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	\end{verbatim}
 	Note that \textsf{geometry} only allows you to change the margins for the entire document, not on a page-by-page basis.
 	
-	\item[\textsf{graphicx}] This package lets you load in graphics in various formats and perform simple manipulations on them like scaling, rotating and cropping. Very useful for including those JPEGs that you want to use as a figure, or that Excel chart. Typical formats supported are EPS, JPEG, GIF, PNG and PDF, although this varies depending on which \LaTeX\ tool you're using (e.g., \PDFLaTeX\ only supports PDF, PNG and JPEG). The main command provided by this packages is \verb+\includegraphics+.
+	\item[\textsf{graphicx}] This package lets you load in graphics in various formats and perform simple manipulations like scaling, rotating and cropping. Very useful for including those JPEGs that you want to use as a figure, or that Excel chart. Typical formats supported are EPS, JPEG, GIF, PNG and PDF, although this varies depending on which \LaTeX\ tool you're using (e.g., \PDFLaTeX\ only supports PDF, PNG and JPEG). The main command provided by this packages is \verb+\includegraphics+.
 	
 	\item[\textsf{times}, \textsf{palatino}, etc.] These packages change the default font set from Computer Modern to something else. For example, the \textsf{times} package changes the main text font to {\fontfamily{ptm}\selectfont Times}, the sans-serif font to {\fontfamily{phv}\selectfont Helvetica} and the typewriter font to {\fontfamily{pcr}\selectfont Courier}. The only problem with doing this is that maths mode still uses the Computer Modern fonts, which can look a little odd. The \textsf{mathptm} (Times) and \textsf{mathpazo} (Palatino) packages change the fonts for maths mode as well, so if your document includes a lot of maths, you might consider using one of these.
 	
@@ -453,7 +455,7 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 
 
 \section{Where to go next}
-\label{sec:next}
+\label{sec-next}
 
 \begin{itemize}
 
@@ -482,7 +484,7 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	
 	\bibitem{CTAN} \emph{The Comprehensive \TeX\ Archive Network (CTAN)}. \\ \textbf{URL:} \href{http://www.ctan.org/}{\textsf{http://www.ctan.org/}}
 	
-	\bibitem{Graphics} M.\ Goossens, S.\ Rahtz and F.\ Mittelbach (1997).\emph{The \LaTeX\ Graphics Companion}, Addison-Wesley, ISBN 978-0-201-85469-4. This covers in great detail various ways of doing graphics with \LaTeX. The second edition is due out in June 2007.
+	\bibitem{Graphics} M.\ Goossens, F.\ Mittelbach, D.\ Roegel and H.\ Vo\ss\ (2007). \emph{The \LaTeX\ Graphics Companion}, second edition, Addison-Wesley, ISBN 978-0-321-50892-8. This covers in great detail various ways of doing graphics with \LaTeX.
 	
 	\bibitem{WebCompanion} M.\ Goossens and S.\ Rahtz (1999).\emph{The \LaTeX\ Web Companion}, Addison-Wesley, ISBN 978-0-201-43311-7. This book covers how to integrate \LaTeX\ with the WWW and related technologies such as XML.
 	
