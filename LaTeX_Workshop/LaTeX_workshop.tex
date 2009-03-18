@@ -104,19 +104,19 @@ Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to 
 
 \begin{itemize}
 
-	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you get past about 50 pages and have lots of figures, cross references and the like, Word begins to behave even more weirdly than it usually does. Word (and most other word processors) are really designed for small, simple documents, regardless of what Microsoft claims.
+	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you get past about 50 pages and have lots of figures, cross references and the like, Word begins to behave even more weirdly than it normally does. Word (and most other word processors) are really designed for small, simple documents, regardless of what Microsoft claims.
 	
 	\item The WYSIWYG features of word processing tools can actually get in the way of the writing process, because you are always tempted to fiddle with the formatting of the text as you write. \LaTeX\ forces you to write in plain text, which means that you focus on the primary activity: \emph{writing}. Appearance is really one of the last things that you should consider.
 	
-	\item \LaTeX\ automates a lot of the drudgery of constructing a document, so that you don't have to worry about it. Many rules of typesetting are built into \LaTeX\, and it automatically takes care of things like paragraph alignment and hyphenation (but you can always tweak them manually if necessary). Sections, figures and tables are automatically (and consistently!) numbered, and cross-references to these items are automatically updated when they are moved, no matter how big the document is (again, compare this with Word). Generating a table of contents is trivial, and generating a list of references or an index is relatively simple.
+	\item \LaTeX\ automates a lot of the drudgery of constructing a document, so that you don't have to worry about it. Many rules of typesetting are built into \LaTeX\, and it automatically takes care of things like paragraph alignment and hyphenation (but you can always tweak them manually if necessary). Sections, lists, figures and tables are automatically (and consistently!) numbered, and cross-references to these items are automatically updated when they are moved, no matter how big the document is (again, compare this with Word). Generating a table of contents is trivial, and generating a list of references or an index is relatively simple.
 	
-	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate journal-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the range of symbols or quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you need to do equations, \TeX\ or \LaTeX\ are really the only serious options. However, we'll skip the mathematical features in this document.
+	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate publication-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the range of symbols or quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you need to do equations, \TeX\ or \LaTeX\ are really the only serious options. However, we'll skip the mathematical features in this document.
 	
 	\item Because \TeX\ is effectively a kind of programming language, you can do almost anything you want within the limits of the \TeX\ engine. One particularly useful feature is that you can define your own macros, then use them again and again (very handy for repetitive stuff). If you later decide to change the output of the macro, you only have to change it in one place. There are also a huge number of extension packages for \TeX\ and \LaTeX\, handling everything from musical notation through to graphics manipulation. All of these are written in \TeX.
 	
 	\item It's very easy to produce all sorts of accented characters in \LaTeX~\cite{UsersGuide}: El se\~{n}or est\'{a} bien, gar\c{c}on. \'{E}l est\'{a} aqu\'{i}. \`{O}\'{o}\^{o}\"{o}\~{o}\={o}\.{o}\u{o}\v{o}\H{o}\t{oo}\c{o}\d{o}\b{o}. \LaTeX\ also generates correct ``quotation marks'' and apostrophes (none of this ``smart quotes'' rubbish), and also inserts ligatures where necessary (e.g., ``f{}i'' \(\rightarrow\) ``fi'', ``f{}f'' \(\rightarrow\) ``ff'', etc.)
 	
-	\item A document produced by \LaTeX\ won't suddenly change it's formatting if you move it to another machine (as often happens with Word documents). In fact, as long as you haven't done anything really weird, you can process a document created in 1985 and it will come out looking identical to when it was originally written! \TeX\ and \LaTeX\ are totally portable, because the documents are plain text and \TeX\ has been ported to almost every platform in existence. If you suddenly decide to switch to Linux, your \LaTeX\ documents will come across without modification (except perhaps for changing DOS line breaks to Unix line breaks). Modern \TeX\ distributions are well standardised, so you can expect similar functionality on any platform. If you don't have a particular extension package, you can download it from any one of a large number of \TeX\ archive mirror sites~\cite{CTAN}.
+	\item A document produced by \LaTeX\ won't suddenly change it's formatting if you move it to another machine (as often happens with Word documents). In fact, as long as you haven't done anything really weird, you can process a document created in 1985 and it will come out looking identical to when it was originally written! \TeX\ and \LaTeX\ are totally portable, because the documents are plain text and \TeX\ has been ported to almost every platform in existence. If you suddenly decide to switch to Linux, your \LaTeX\ documents will come across without modification (except perhaps for changing DOS line breaks to Unix line breaks). Modern \TeX\ distributions are standardised, so you can expect similar functionality on any platform. If you don't have a particular extension package, you can download it from any one of a large number of \TeX\ archive mirror sites~\cite{CTAN}.
 
 \end{itemize}
 
@@ -126,7 +126,7 @@ The main disadvantage of \LaTeX\ (other than the initial learning curve) is that
 \subsection{\LaTeX\ tools}
 \label{sec-tools}
 
-There is a wide range of tools in the \LaTeX\ family. There is of course \LaTeX\ itself, but there are several variants designed for specific purposes. \PDFLaTeX\ is a variant that directly produces PDF documents (\LaTeX\ normally produces something known as a \emph{device independent file}, or \emph{.dvi}, which you then have to convert into something like PostScript or PDF). Omega is a variant that supports Unicode, and so on. Most likely you will end up using either plain \LaTeX\ or \PDFLaTeX, depending on your needs.
+There are many tools in the \LaTeX\ family. There is of course \LaTeX\ itself, but there are several variants designed for specific purposes. \PDFLaTeX\ is a variant that directly produces PDF documents (\LaTeX\ normally produces something known as a \emph{device independent file}, or \emph{.dvi}, which you then have to convert into something like PostScript or PDF). Omega is a variant that supports Unicode, and so on. Most likely you will end up using either plain \LaTeX\ or \PDFLaTeX, depending on your needs.
 
 
 \section{Using \LaTeX}
@@ -134,7 +134,7 @@ There is a wide range of tools in the \LaTeX\ family. There is of course \LaTeX\
 
 Traditionally, \LaTeX\ is a command-line tool, but there are now many graphical front ends. We have one called WinShell installed in the labs, which is a front end to a \TeX\ distribution called fp\TeX. You should find WinShell under \textsf{Start} \(\triangleright\) \textsf{Course Specific Resources} \(\triangleright\) \textsf{Desktop Publishing} \(\triangleright\) \textsf{Latex Editor}.
 
-WinShell provides a syntax-colouring text editor, and point-and-click access to all the major tools such as \LaTeX\ and \PDFLaTeX. There are toolbars for the many symbols that you might want to use (such as arrows or mathematical symbols), and you can also create your own customised buttons.
+WinShell provides a syntax-colouring text editor, and point-and-click access to all the major tools such as \LaTeX\ and \PDFLaTeX. There are toolbars for the many symbols that you might want to use (such as arrows or mathematical symbols), and you can also create your own custom toolbar buttons.
 
 
 \subsection{A simple \LaTeX\ document}
@@ -155,7 +155,7 @@ You'll see some messages go scrolling past at the bottom of the screen as \LaTeX
 
 Now let's go through the file in a little more detail. Notice the list of prohibited characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
 
-Line 11 tells you what type of document this is (in this case, an article). The document class is effectively a document template that sets up a whole collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for specifying things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
+Line 11 tells you what type of document this is (in this case, an ``article''). The document class is a template that sets up a large collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for specifying things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
 
 \instruction{Change the document class to \textsf{report} and see what effect this has on the generated document.}
 
@@ -171,7 +171,7 @@ Everything before the \verb+\begin{document}+ is known as the \emph{preamble}. T
 
 You'll notice that \LaTeX\ automatically handles hyphenation (as long as your text is reasonably intelligible!) and formatting of the paragraphs.
 
-Lines 21 and 22 show you how to produce correct opening and closing quotes. Line 24 shows you how to produce a long dash---useful for pauses in sentences. Lines 26 and 27 show you how to \emph{emphasise} and \textbf{bold} text, respectively.
+Lines 21 and 22 show you how to produce correct opening (``) and closing ('') quotes. Line 24 shows you how to produce a long dash---useful for pauses in sentences. Lines 26 and 27 show you how to \emph{emphasise} and \textbf{bold} text, respectively.
 
 
 \subsubsection{Some other useful things}
@@ -189,7 +189,7 @@ Lines 21 and 22 show you how to produce correct opening and closing quotes. Line
 	
 	\item \verb+\newpage+ inserts a page break. Use sparingly!
 	
-	\item To produce the three remaining special characters, use \verb+\(\backslash\)+ for \(\backslash\), \verb+\^{}+ for \^{} and \verb+\~{}+ for \~{}.
+	\item To produce the three remaining special characters in normal text, use \verb+\^{}+ for \^{}, \verb+\~{}+ for \~{} and \verb+\(\backslash\)+ for \(\backslash\).
 	
 	\item You can emphasise text using \verb+\textit+ for italics. However, you're generally better to use \verb+\emph+ to emphasise text. The nice thing about \verb+\emph+ is that you can nest it, and the italics will turn on and off as required: \emph{Use italics to emphasise text, \emph{unless} you're already in italics}.
 	
@@ -368,7 +368,7 @@ Figures and tables are automatically numbered, and you can provide an optional c
 \end{figure}
 \end{verbatim}
 
-The \textsf{figure} and \textsf{table} environments are examples of \emph{floating bodies}. This is because \LaTeX\ intelligently figures out the best location to place them based on various factors. In other words, they ``float'' around the document as necessary. You've already seen a couple of examples of these: see Figure~\ref{fig-HTMLcomparison} on page~\pageref{fig-HTMLcomparison} and Table~\ref{tab-lists} on page~\pageref{tab-lists}. Table~\ref{tab-lists} is a good example of the floating aspect: in the source file, the table immediately follows the text of Section~\ref{sec-lists}, but the in the final output the table has floated to the top of page~\pageref{tab-lists}, and the main text has automatically flowed itself around the table. We have some control over this floating behaviour (and occasionally \LaTeX\ does get it wrong), but it's usually safest to leave \LaTeX\ alone in this area.
+The \textsf{figure} and \textsf{table} environments are examples of \emph{floating bodies}. This is because \LaTeX\ intelligently figures out the best location to place them based on various factors. In other words, they ``float'' around the document as necessary. You've already seen a couple of examples of these: see Figure~\ref{fig-HTMLcomparison} on page~\pageref{fig-HTMLcomparison} and Table~\ref{tab-lists} on page~\pageref{tab-lists}. Table~\ref{tab-lists} is a good example of the floating aspect: in the source file, the table immediately follows the text of Section~\ref{sec-lists}, but the in the final output the table has floated to the top of page~\pageref{tab-lists}, and the main text has automatically flowed itself around the table. We have some control over this floating behaviour (and occasionally \LaTeX\ does get it wrong), but it's usually best to leave \LaTeX\ alone in this area.
 
 
 \subsubsection{Cross-references}
@@ -439,7 +439,7 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	
 	\item[\textsf{subfigure}] This package enables you to have captioned subfigures within a larger figure, so that you can then do something like ``see Figure~2.3(a)''.
 	
-	\item[\textsf{harvard}] With the \verb+[dcucite]+ option, this package provides a bibliography style that fits very well with Otago requirements for theses, e.g.: ``(Petersen 1996)''. it also provides handy commands like \verb+\possessivecite+, which lets you create citations like ``\ldots{}in Petersen's (1996) experiment\ldots''.
+	\item[\textsf{harvard}] With the \verb+[dcucite]+ option, this package provides a bibliography style that fits very well with Otago requirements for theses, e.g.: ``(Petersen 1996)''. it also provides handy commands like \verb+\possessivecite+, which lets you create citations like ``\ldots{}in Petersen's (1996) experiment\ldots''. The \textsf{natbib} package is a good alternative to \textsf{harvard}.
 	
 	\item[\textsf{verbatim}] \LaTeX\ already provides a built-in environment called \textsf{verbatim} that typesets its contents in a monospaced font and without any interpretation (so you can use all the weird characters that you would normally not be able to use). This can be very handy for typesetting code listings. However, the built-in \textsf{verbatim} environment isn't very flexible, so you might consider using the extended \textsf{verbatim} package, which adds features like the ability to read the verbatim text from an external file.
 	
