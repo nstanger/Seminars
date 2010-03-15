@@ -1,15 +1,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% File: $Id$
+% $Id$
 %
 % Source document for the LaTeX workshop document. Feel free to use this as
 % an example.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% This is an article in 12pt on A4 paper.
+% This is an article in 12pt on A4 paper. It's intended to be processed with
+% PDF(La)TeX.
 %
 \documentclass[12pt,a4paper,pdftex]{article}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -58,6 +60,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Start of main document body. Here endeth the comments for now :)
@@ -79,7 +82,7 @@ In this workshop you will learn a little about using \LaTeX\ to produce document
 
 \LaTeX\ is a system for typesetting documents~\cite{UsersGuide}. It's been widely available since 1985, and amazingly, files created then can still be processed with the latest versions of \LaTeX\ (try doing that with Word!). \LaTeX\ is actually built on top of another package called \TeX. You could sort of think of \TeX\ as the ``machine code'' underlying \LaTeX\ (that's not really correct, but you get the idea).
 
-\TeX\ is actually a \emph{macro language} for typesetting, and \LaTeX\ is a large and complex set of \TeX\ macros for formatting documents in various ways. The source files are plain text with embedded markup. If you've ever manually created web pages using HTML, you'll already be familiar with the basic idea. In HTML you have tags that specify emphasised text, headings and so on. \LaTeX\ provides commands that perform similar functions, as shown in Figure~\ref{fig-HTMLcomparison}.
+\TeX\ is actually a \emph{macro language} for typesetting, and \LaTeX\ is a large and complex set of \TeX\ macros for formatting documents in various ways. The source files are plain text with embedded markup. If you've ever manually created web pages using HTML, you'll already be familiar with the basic concept. In HTML you have tags that specify emphasised text, headings and so on. \LaTeX\ provides commands that perform similar functions, as shown in Figure~\ref{fig-HTMLcomparison}.
 
 \begin{figure}
 	\hrule\medskip
@@ -104,13 +107,13 @@ Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to 
 
 \begin{itemize}
 
-	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you get past about 50 pages and have lots of figures, cross references and the like, Word begins to behave even more weirdly than it normally does. Word (and most other word processors) are really designed for small, simple documents, regardless of what Microsoft claims.
+	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you get past about 50 pages and have lots of figures, cross references and the like, Word begins to behave even more weirdly than usual. Word (and most other word processors) are really designed for small, simple documents, regardless of what vendors claim.
 	
 	\item The WYSIWYG features of word processing tools can actually get in the way of the writing process, because you are always tempted to fiddle with the formatting of the text as you write. \LaTeX\ forces you to write in plain text, which means that you focus on the primary activity: \emph{writing}. Appearance is really one of the last things that you should consider.
 	
-	\item \LaTeX\ automates a lot of the drudgery of constructing a document, so that you don't have to worry about it. Many rules of typesetting are built into \LaTeX\, and it automatically takes care of things like paragraph alignment and hyphenation (but you can always tweak them manually if necessary). Sections, lists, figures and tables are automatically (and consistently!) numbered, and cross-references to these items are automatically updated when they are moved, no matter how big the document is (again, compare this with Word). Generating a table of contents is trivial, and generating a list of references or an index is relatively simple.
+	\item \LaTeX\ automates a lot of the drudgery of constructing a document, so that you don't have to worry about it. Many rules of typesetting are built into \LaTeX\, and it automatically takes care of things like paragraph alignment and hyphenation (but you can always tweak them manually if necessary). Sections, lists, figures and tables are automatically (and consistently!) formatted and numbered, and cross-references to these items are automatically updated when they are moved, no matter how big the document is (again, compare this with Word). Generating a table of contents is trivial, and generating a list of references or an index is relatively simple.
 	
-	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate publication-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the range of symbols or quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you need to do equations, \TeX\ or \LaTeX\ are really the only serious options. However, we'll skip the mathematical features in this document.
+	\item \TeX\ (and by extension \LaTeX) incorporates all the rules of mathematical typesetting, so you can generate publication-quality equations with relative ease, e.g., \(\sum_{i=1}^{n} x_{i} = \int_{0}^{1} f\)~\cite{UsersGuide}. Word's Equation Editor is reasonably good, but it can't match the quality of output that \LaTeX\ provides. All the major mathematical journals specify \TeX\ or \LaTeX\ for paper submissions (as do many other journals). If you need to do serious equations, \TeX\ or \LaTeX\ are really the only options. However, we'll skip the mathematical features in this document.
 	
 	\item Because \TeX\ is effectively a kind of programming language, you can do almost anything you want within the limits of the \TeX\ engine. One particularly useful feature is that you can define your own macros, then use them again and again (very handy for repetitive stuff). If you later decide to change the output of the macro, you only have to change it in one place. There are also a huge number of extension packages for \TeX\ and \LaTeX\, handling everything from musical notation through to graphics manipulation. All of these are written in \TeX.
 	
@@ -120,7 +123,7 @@ Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to 
 
 \end{itemize}
 
-The main disadvantage of \LaTeX\ (other than the initial learning curve) is that you don't have quite as much freedom over choice of font, style, etc., as you would in Word. Many would argue that this is a good thing! \LaTeX\ comes with a default set of fonts known as Computer Modern, but you can use PostScript fonts like {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont Helvetica} by loading an appropriate extension package. It can also sometimes be tricky to ``break out'' of the defaults if you want to do something unusual.
+The main disadvantage of \LaTeX\ (other than the initial learning curve) is that you don't have quite as much freedom over choice of font, style, etc., as you would in Word. Many would argue that this is a good thing, however! \LaTeX\ comes with a default set of fonts known as Computer Modern, but you can use PostScript fonts like {\fontfamily{ptm}\selectfont Times} and {\fontfamily{phv}\selectfont Helvetica} by loading an appropriate extension package. It can also sometimes be tricky to ``break out'' of the defaults if you want to do something unusual.
 
 
 \subsection{\LaTeX\ tools}
@@ -132,7 +135,7 @@ There are many tools in the \LaTeX\ family. There is of course \LaTeX\ itself, b
 \section{Using \LaTeX}
 \label{sec-using}
 
-Traditionally, \LaTeX\ is a command-line tool, but there are now many graphical front ends. We have one called WinShell installed in the labs, which is a front end to a \TeX\ distribution called fp\TeX. You should find WinShell under \textsf{Start} \(\triangleright\) \textsf{Course Specific Resources} \(\triangleright\) \textsf{Desktop Publishing} \(\triangleright\) \textsf{Latex Editor}.
+Traditionally, \LaTeX\ is a command-line tool, but there are now many graphical front ends. We have one called WinShell installed in the labs, which is a front end to a \TeX\ distribution called fp\TeX. You should find WinShell under \textbf{\textsf{Start} \(\triangleright\) \textsf{Course Specific Resources} \(\triangleright\) \textsf{Desktop Publishing} \(\triangleright\) \textsf{Latex Editor}}.
 
 WinShell provides a syntax-colouring text editor, and point-and-click access to all the major tools such as \LaTeX\ and \PDFLaTeX. There are toolbars for the many symbols that you might want to use (such as arrows or mathematical symbols), and you can also create your own custom toolbar buttons.
 
@@ -153,7 +156,7 @@ You'll see some messages go scrolling past at the bottom of the screen as \LaTeX
 
 \instruction{Open the PDF and compare the original with the result.}
 
-Now let's go through the file in a little more detail. Notice the list of prohibited characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
+Now let's go through the file in a little more detail. Notice the list of restricted characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
 
 Line 11 tells you what type of document this is (in this case, an ``article''). The document class is a template that sets up a large collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for specifying things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
 
@@ -163,7 +166,7 @@ Most document classes also have a set of predefined options that you can specify
 
 \instruction{Try setting some of these options and see what happens.}
 
-\verb+\documentclass{article}+ is an example of a \LaTeX\ command. Commands are prefixed with a backslash (\verb+\+). The name of the command is \verb+documentclass+, and its argument (enclosed by braces) is \verb+article+. Looking further through the document, you'll see several more examples of commands, such as \verb+\emph+ and \verb+\textbf+. Most commands work similarly to these. Line 15 has an example of a sectioning command: \verb+\section+. This defines a logical section of the document. A subsection is defined on line 29.
+\verb+\documentclass{article}+ is an example of a \LaTeX\ command. Commands are prefixed with a backslash (\verb+\+). The name of the command is \verb+documentclass+, and its required argument (enclosed by braces) is \verb+article+. Optional arguments are enclosed by square brackets. Looking further through the document, you'll see several more examples of commands, such as \verb+\emph+ and \verb+\textbf+. Most commands work similarly to these. Line 15 has an example of a sectioning command: \verb+\section+. This defines a logical section of the document. A subsection is defined on line 29.
 
 Everything before the \verb+\begin{document}+ is known as the \emph{preamble}. The main document body appears between the \verb+\begin{document}+ and \verb+\end{document}+. In the simplest case, you just type text into the editor. Extra white space within a paragraph is ignored, and paragraphs are separated by one or more blank lines.
 
@@ -197,11 +200,11 @@ Lines 21 and 22 show you how to produce correct opening (``) and closing ('') qu
 	
 	\item Many commands require you to provide a length as an argument (e.g., \texttt{2cm}). \LaTeX\ is quite flexible in the units that it supports; it recognises points (\texttt{pt}), inches (\texttt{in}), centimetres (\texttt{cm}) and millimetres (\texttt{mm}), among others. Note that \texttt{pt} refers to \emph{true} points (\texttt{1in} = \texttt{72.27pt}); PostScript points are represented by \texttt{bp} (\texttt{1in} = \texttt{72bp}).
 	
-	\item \verb+\today+ will produce today's date. You have to be careful using commands like this in the middle of a sentence, however, because they ``eat'' any spaces that occur after them, e.g., \verb+\today is the day+ produces ``\today is the day''. This is just a peculiarity of the way the \TeX\ engine works. You can fix this by putting a backslash at the end of the command (\verb+\today\ is the day+), or by enclosing the entire command in braces (\verb+{\today} is the day+).
+	\item \verb+\today+ will produce today's date. You have to be careful using commands like this in the middle of a sentence, however, because they ``swallow'' any spaces that occur after them, e.g., \verb+\today is the day+ produces ``\today is the day''. This is just a peculiarity of the way the \TeX\ engine works. You can fix this by putting a backslash at the end of the command (\verb+\today\ is the day+), or by enclosing the entire command in braces (\verb+{\today} is the day+).
 	
 	On a related note, when \LaTeX\ sees a period (``.'') followed by whitespace, it assumes this is the end of a sentence and automatically inserts a little more space to distinguish it from normal inter-word spacing. However, this fails with things like ``J.\ F.\ Smith''; \LaTeX\ interprets this as three different sentences, so the spacing can sometimes look a bit weird. To avoid this, put a backslash after periods that don't end a sentence, i.e., \verb+J.\ F.\ Smith+.
 	
-	``\verb+\ +'' is actually a \TeX\ macro that inserts a normal inter-word space.
+	``\verb+\ +'' (backslash followed by space) is actually a \TeX\ macro that inserts a normal inter-word space.
 	
 	\item Command names are case-sensitive (so \verb+\Today+ is different from \verb+\today+), and they can only contain letters; no numbers or unusual characters. (\TeX\ macro names can contain just about any character, but that's a whole other story.)
 	
