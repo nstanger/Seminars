@@ -107,7 +107,7 @@ Most people's initial reaction to \LaTeX\ is that it's a primitive reversion to 
 
 \begin{itemize}
 
-	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you get past about 50 pages and have lots of figures, cross references and the like, Word begins to behave even more weirdly than usual. Word (and most other word processors) are really designed for small, simple documents, regardless of what vendors claim.
+	\item \LaTeX\ is designed from the ground up as a document typesetting system, and is particularly suited to creating large, complex documents (such as a thesis or book). The experience of many students within the department has been that once you exceed about 50 pages and have lots of figures, cross references, etc., Word begins to behave even more weirdly than usual. Word and most other word processors are really designed for small, simple documents, regardless of vendors' claims.
 	
 	\item The WYSIWYG features of word processing tools can actually get in the way of the writing process, because you are always tempted to fiddle with the formatting of the text as you write. \LaTeX\ forces you to write in plain text, which means that you focus on the primary activity: \emph{writing}. Appearance is really one of the last things that you should consider.
 	
@@ -156,9 +156,9 @@ You'll see some messages go scrolling past at the bottom of the screen as \LaTeX
 
 \instruction{Open the PDF and compare the original with the result.}
 
-Now let's go through the file in a little more detail. Notice the list of restricted characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
+\label{spec-chars}Now let's go through the file in a little more detail. Notice the list of restricted characters on line 9 of the file. These characters have special meanings in \LaTeX, so you can't just type them in normally. The \% character starts a comment; anything between a \% and the end of the line is ignored by \LaTeX. Line 37 shows you how to produce all but three of the special characters. You'll find out how to produce the remaining three in Section~\ref{sec-usefulstuff} below.
 
-Line 11 tells you what type of document this is (in this case, an ``article''). The document class is a template that sets up a large collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for specifying things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
+Line 11 tells you what type of document this is (in this case, an ``article''). The document class is a template that sets up a large collection of defaults, formats and commands. For example, the \textsf{book} document class defines commands for chapters, while the \textsf{letter} class doesn't have chapters, but defines commands for things like the address, the signature, and so on. The standard document classes are \textsf{article}, \textsf{book}, \textsf{slides}, \textsf{letter} and \textsf{report}.
 
 \instruction{Change the document class to \textsf{report} and see what effect this has on the generated document.}
 
@@ -318,6 +318,7 @@ We've already seen how commands work in \LaTeX. They're useful for applying form
 \label{sec-tabular}
 
 Often you will want to create some kind of tabular structure with text or numbers aligned in columns (like Table~\ref{tab-lists}). This is achieved using the \textsf{tabular} environment:
+\small
 \begin{verbatim}
 \begin{tabular}{|l|c|r|}
   \hline
@@ -332,7 +333,7 @@ Often you will want to create some kind of tabular structure with text or number
   \hline
 \end{tabular}
 \end{verbatim}
-
+\normalsize
 
 \newpage
 
@@ -344,6 +345,7 @@ Often you will want to create some kind of tabular structure with text or number
   \textbf{left column}  &  \textbf{centre column}  &  \textbf{right column} \\
   \hline\hline
   this is left aligned  &  this is centered        &  this is right aligned \\
+  \hline
   use \verb+\hline+     &  to produce              &  horizontal lines \\
   \hline
   separate columns      &  with \verb+&+           &  and don't miss any out! \\
@@ -386,7 +388,7 @@ One of the nicest features of \LaTeX\ is that you can attach a unique label to a
 
 Once a label is defined, you can cross-reference the item using the \verb+\ref+ command, e.g., \verb+\ref{sec-xref}+ will generate the number for this section (\ref{sec-xref}). If you change the position of this section in the document, the section number and all references to it will update automatically the next time you process the document. You may need to process the document twice to get it completely right---\LaTeX\ will tell you if you need to do so. \LaTeX\ will also warn you about any references it doesn't recognise or labels that have been defined more than once.
 
-Even better, you can get the page number for the item as well using \verb+\pageref+, so the command \verb+\pageref{sec-xref}+ will generate the page number that this section starts on (page~\pageref{sec-xref}). It thus becomes very easy to generate cross references like ``see Section~\ref{sec-xref} on page~\pageref{sec-xref}''.
+Even better, you can also get the page number using \verb+\pageref+, so the command \verb+\pageref{sec-xref}+ will generate the page number that this section starts on (\pageref{sec-xref}). It thus becomes very easy to generate cross references like ``see Section~\ref{sec-xref} on page~\pageref{sec-xref}''.
 
 \instruction{Try creating a few cross-references to items in \textsf{sample2e.tex}, then move the labelled items around in the document to see what happens.}
 
@@ -395,7 +397,7 @@ Even better, you can get the page number for the item as well using \verb+\pager
 
 \LaTeX\ also has very powerful bibliography building tools. If you really want to do things properly, you should use \BibTeX, which is a simple bibliographic database with tools that provide automatic formatting of references. Using \BibTeX\ involves several extra steps, however, so we'll only look at how to do it by hand.
 
-First, you need to issue a \verb+\bibliographystyle+ command somewhere in your document body, e.g., \verb+\bibliographystyle{plain}+. Plain style is what this document uses. There are many other styles available as extension packages; see Section~\ref{sec-packages}.
+First, you need to put a \verb+\bibliographystyle+ command somewhere in your document body, e.g., \verb+\bibliographystyle{plain}+. Plain style is what this document uses. There are many other styles available as extension packages; see Section~\ref{sec-packages}.
 
 Next, you need to create the bibliography itself using a \textsf{thebibliography} environment. This is a variation on the standard list environments, and looks something like this (this is actually part of the bibliography for this document):
 \begin{verbatim}
@@ -416,7 +418,7 @@ Next, you need to create the bibliography itself using a \textsf{thebibliography
 \end{verbatim}
 The \verb+{99}+ argument to the \verb+\begin{thebibliography}+ specifies the widest possible label that will occur in the bibliography. Individual items are identified by the \verb+\bibitem+ command, which takes a unique label name as an argument.
 
-To cite a reference, use the \verb+\cite+ command, for example, \verb+\cite{UsersGuide}+ (in this document) will produce the citation ``\cite{UsersGuide}''.
+To cite a reference, use the \verb+\cite+ command, for example, in this document \verb+\cite{UsersGuide}+ generates the citation ``\cite{UsersGuide}''.
 
 
 \section{Useful extension packages}
@@ -438,17 +440,17 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	
 	\item[\textsf{times}, \textsf{palatino}, etc.] These packages change the default font set from Computer Modern to something else. For example, the \textsf{times} package changes the main text font to {\fontfamily{ptm}\selectfont Times}, the sans-serif font to {\fontfamily{phv}\selectfont Helvetica} and the typewriter font to {\fontfamily{pcr}\selectfont Courier}. The only problem with doing this is that maths mode still uses the Computer Modern fonts, which can look a little odd. The \textsf{mathptm} (Times) and \textsf{mathpazo} (Palatino) packages change the fonts for maths mode as well, so if your document includes a lot of maths, you might consider using one of these.
 	
-	If you just use the standard Computer Modern fonts, one ``gotcha'' to look out for when producing PDFs is that you need to have Type 1 versions of the Computer Modern fonts installed, otherwise the generated PDFs look terrible on-screen (they print fine, however). Most modern \TeX\ distributions should have these installed as standard, and will automatically use them if they are available.
+	If you just use the standard Computer Modern fonts, one thing to be careful of when producing PDFs is that you need to have PostScript Type 1 versions of the Computer Modern fonts installed, otherwise the generated PDFs look terrible on-screen (they print fine, however). Most modern \TeX\ distributions should have these installed as standard, and will automatically use them if they are available.
 	
 	\item[\textsf{subfigure}] This package enables you to have captioned subfigures within a larger figure, so that you can then do something like ``see Figure~2.3(a)''.
 	
-	\item[\textsf{harvard}] With the \verb+[dcucite]+ option, this package provides a bibliography style that fits very well with Otago requirements for theses, e.g.: ``(Petersen 1996)''. it also provides handy commands like \verb+\possessivecite+, which lets you create citations like ``\ldots{}in Petersen's (1996) experiment\ldots''. The \textsf{natbib} package is a good alternative to \textsf{harvard}.
+	\item[\textsf{harvard}] With the \verb+[dcucite]+ option, this package provides a bibliography style that fits very well with Otago's presentation standards for theses, e.g.: ``(Petersen 1996)''. it also provides handy commands like \verb+\possessivecite+, which lets you create citations like ``\ldots{}in Petersen's (1996) experiment\ldots''. The \textsf{natbib} package is a good alternative to \textsf{harvard}.
 	
-	\item[\textsf{verbatim}] \LaTeX\ already provides a built-in environment called \textsf{verbatim} that typesets its contents in a monospaced font and without any interpretation (so you can use all the weird characters that you would normally not be able to use). This can be very handy for typesetting code listings. However, the built-in \textsf{verbatim} environment isn't very flexible, so you might consider using the extended \textsf{verbatim} package, which adds features like the ability to read the verbatim text from an external file.
+	\item[\textsf{verbatim}] \LaTeX\ already provides a built-in environment called \textsf{verbatim} that typesets its contents in a monospaced font and without any interpretation (so you can use all the reserved characters that you normally cannot---see page~\pageref{spec-chars}). This can be very handy for typesetting code listings. However, the built-in \textsf{verbatim} environment isn't very flexible, so you might consider using the extended \textsf{verbatim} package, which adds features like the ability to read the verbatim text from an external file.
 	
-	\item[\textsf{lgrind} or \textsf{listings}] These are packages that let you include ``pretty-printed'' program source code listings (i.e., the keywords are highlighted, etc.). Each has its advantages and disadvantages; \textsf{listings} is a pure \TeX\ solution, while \textsf{lgrind} requires a separate pre-processor program.
+	\item[\textsf{listings} or \textsf{lgrind}] These are packages that let you include ``pretty-printed'' program source code listings (i.e., the keywords are highlighted, etc.). Each has its advantages and disadvantages; \textsf{listings} is a pure \TeX\ solution, which means it works anywhere but is somewhat less powerful, whereas \textsf{lgrind} is more powerful, but requires a separate pre-processor program, which makes it harder to set up and use.
 	
-	\item[\textsf{url}] URLs tend to contain all sorts of weird characters that have special meanings in \LaTeX\ (e.g., \~{}), which makes it difficult to include them in \LaTeX\ documents. This package provides the \verb+\url+ command that lets you avoid these problems. (The \textsf{harvard} package also supports URLs in bibliographic references.) Note that the \textsf{hyperref} package (see below) also handles URLs.
+	\item[\textsf{url}] URLs quite often contain all sorts of characters that have special meaning in \LaTeX\ (e.g., \~{}), which makes it difficult to include them in \LaTeX\ documents. This package provides the \verb+\url+ command that lets you avoid these problems. (The \textsf{harvard} package also supports URLs in bibliographic references.) Note that the \textsf{hyperref} package (see below) automatically loads the \textsf{url} package.
 	
 	\item[\textsf{hyperref}] This package gives you access to all sorts of clever PDF features, such as active hyperlinks (including URLs), bookmarks, etc. (see \cite{WebCompanion} for more information). For example, this document uses the \textsf{hyperref} package, and as a result all the URLs, citations and cross-references are actually live links (try it and see). Because this package redefines many of \LaTeX's internal macros, you should always load it last.
 	
@@ -471,6 +473,8 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	\item You'll find documentation for most packages buried somewhere in the \texttt{texmf} documentation tree (typically somewhere under \verb+<texmf>/doc/latex+).
 	
 	\item If you need to do complex graphics, you'll want a copy of \emph{The \LaTeX\ Graphics Companion}~\cite{Graphics}.
+	
+	\item If you would like to install \TeX\ on your own machine, we recommend the \TeX\ Live distribution. It's a comprehensive (about 80\,MiB) distribution that includes almost every package and tool that you would ever need. \textbf{URL:} \href{http://tug.org/texlive/}{\textsf{http://tug.org/texlive/}}
 
 \end{itemize}
 
@@ -489,7 +493,7 @@ You can load a new package using the \verb+\usepackage+ command in the document 
 	
 	\bibitem{Graphics} M.\ Goossens, F.\ Mittelbach, D.\ Roegel and H.\ Vo\ss\ (2007). \emph{The \LaTeX\ Graphics Companion}, second edition, Addison-Wesley, ISBN 978-0-321-50892-8. This covers in great detail various ways of doing graphics with \LaTeX.
 	
-	\bibitem{WebCompanion} M.\ Goossens and S.\ Rahtz (1999).\emph{The \LaTeX\ Web Companion}, Addison-Wesley, ISBN 978-0-201-43311-7. This book covers how to integrate \LaTeX\ with the WWW and related technologies such as XML.
+	\bibitem{WebCompanion} M.\ Goossens and S.\ Rahtz (1999).\emph{The \LaTeX\ Web Companion}, Addison-Wesley, ISBN 978-0-201-43311-7. This book covers how to integrate \LaTeX\ with the WWW and related technologies such as XML. While somewhat dated, it is still useful and relevant; a new edition is probably not far away.
 	
 \end{thebibliography}
 
