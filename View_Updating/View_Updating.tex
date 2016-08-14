@@ -1,0 +1,421 @@
+\documentclass{beamer}
+
+
+\usepackage[no-math]{fontspec}
+\usepackage{mathspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+
+% TikZ setup
+\usetikzlibrary{positioning}
+\usetikzlibrary{graphs}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+
+
+% fontspec setup
+\defaultfontfeatures{Mapping=tex-text}
+\setprimaryfont{TeX Gyre Pagella}
+\setsansfont[Scale=MatchUppercase,BoldFont={Gill Sans}]{Gill Sans Light}
+\setmonofont[Scale=MatchLowercase]{Letter Gothic 12 Pitch}
+
+% Hack to prevent digits in hyperlinks from being set in the main font instead of the mono font.
+% From http://tex.stackexchange.com/questions/99770/problem-with-digits-in-urls-when-using-mathspec-and-hyperref
+% Note: doesn't matter if this is executed multiple times.
+\makeatletter
+    \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
+    \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
+    \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
+    \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
+    \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
+    \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
+    \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
+    \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
+    \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
+    \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
+\makeatother
+
+
+% graphicx setup
+\graphicspath{{images/}}
+
+
+% custom macros
+% "empty" arrow tip
+\pgfarrowsdeclare{:}{:}{}{}
+% custom bar arrow tip, offset from end of line (use "empty" tip at line ends if no >)
+\tikzset{crossbar/.tip={|[scale width=1.75,sep=0.25em]}}
+% various edge styles for TikZ
+\tikzset{
+    function/.style={arrows={->}},
+    injection/.style={arrows={<-}},
+    total/.style={arrows={:{crossbar}-}},
+    surjection/.style={arrows={-{crossbar}:}},
+    bijection/.style={arrows={<{crossbar}-{crossbar}>}},
+    projection/.style={arrows={:{crossbar}-{crossbar}>}},
+    projection left/.style={arrows={:{crossbar}-{crossbar}>},edge label={\scriptsize\(\RelProject\)}},
+    projection right/.style={arrows={:{crossbar}-{crossbar}>},edge label'={\scriptsize\(\RelProject\)}},
+    selection left/.style={arrows={<-{crossbar}>},edge label={\scriptsize\(\RelRestrict\)}},
+    selection right/.style={arrows={<-{crossbar}>},edge label'={\scriptsize\(\RelRestrict\)}},
+    funcdep left/.style={arrows={->},edge node={node[sloped,midway,above] {\scriptsize\emph{key}}}},
+    funcdep right/.style={arrows={->},edge node={node[sloped,midway,below] {\scriptsize\emph{key}}}},
+    surtotal/.style={arrows={:{crossbar}-{crossbar}:}},
+    input keep/.style={blue,thick},
+    input delete/.style={blue!40,thick,dashed},
+    output/.style={red,thick},
+    output temp/.style={red,thick,dashed},
+    path 1/.style={green!60!black,thick},
+    path 2/.style={orange,thick}
+}
+        
+% projection and selection edge annotations for TikZ
+\newcommand{\ProjectionAnnotation}[3][]{%
+    \path (#2) to node[above,#1] {\scriptsize\(\RelProject\)} (#3);%
+}
+\newcommand{\SelectionAnnotation}[3][]{%
+    \path (#2) to node[above,#1] {\scriptsize\(\RelRestrict\)} (#3);%
+}
+
+
+\newcounter{constraint}
+
+% misc
+\newcommand{\todo}[1]{\textbf{!!TODO!!} {[#1]}}
+
+% commonly used elements
+\newcommand{\LS}{\ensuremath{\mathit{LS}}}
+\newcommand{\NLS}{\ensuremath{\mathit{NLS}}}
+\newcommand{\LSsub}{\ensuremath{\mathit{L}}}
+\newcommand{\NLSsub}{\ensuremath{\mathit{N}}}
+\newcommand{\Sno}{\ensuremath{\mathit{Sno}}}
+\newcommand{\Sname}{\ensuremath{\mathit{Sname}}}
+\newcommand{\Status}{\ensuremath{\mathit{Status}}}
+\newcommand{\City}{\ensuremath{\mathit{City}}}
+
+\newcommand{\Type}[1]{\ensuremath{T_{#1}}}
+\newcommand{\TT}[1]{\ensuremath{T_{\{#1\}}}}
+
+\newcommand{\CityLondon}{\ensuremath{\{\City\colon\allowbreak\mathit{'London'}\}}}
+\newcommand{\TCityMinusLondon}{\ensuremath{\Type{\City} \setminus \CityLondon}}
+\newcommand{\TSSC}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times \Type{\City}}}
+\newcommand{\TSSL}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times \CityLondon}}
+\newcommand{\TSSNL}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times (\TCityMinusLondon)}}
+
+\newcommand{\TLSPlusNLS}{\ensuremath{\Type{\LS} + \Type{\NLS}}}
+\newcommand{\TTLSPlusNLS}{\ensuremath{\TT{\LS} + \TT{\NLS}}}
+\newcommand{\TLSPlusNLSsub}{\ensuremath{\Type{\LSsub} + \Type{\NLSsub}}}
+\newcommand{\TTLSPlusNLSsub}{\ensuremath{\TT{\LSsub} + \TT{\NLSsub}}}
+
+\newcommand{\StackTLSPlusNLS}{\ensuremath{\begin{array}{c}\Type{\LS}\,+ \\ \Type{\NLS}\end{array}}}
+\newcommand{\StackTTLSPlusNLS}{\ensuremath{\begin{array}{c}\TT{\LS}\,+ \\ \TT{\NLS}\end{array}}}
+\newcommand{\StackTLSPlusNLSsub}{\ensuremath{\begin{array}{c}\Type{\LSsub}\,+ \\ \Type{\NLSsub}\end{array}}}
+\newcommand{\StackTTLSPlusNLSsub}{\ensuremath{\begin{array}{c}\TT{\LSsub}\,+ \\ \TT{\NLSsub}\end{array}}}
+\newcommand{\StackTSSC}{\ensuremath{\begin{array}{c}\Type{\Sname}\,\times \\ \Type{\Status} \times \Type{\City}\end{array}}}
+\newcommand{\StackTSSL}{\ensuremath{\begin{array}{c}\Type{\Sname} \times \Type{\Status}\,\times \\ \CityLondon\end{array}}}
+\newcommand{\StackTSSNL}{\ensuremath{\begin{array}{c}\Type{\Sname} \times \Type{\Status}\,\times \\ (\TCityMinusLondon)\end{array}}}
+\newcommand{\StackTCityMinusLondon}{\ensuremath{\begin{array}{c}\Type{\City}\,\setminus \\ \CityLondon\end{array}}}
+
+\newcommand{\SC}[1]{\ensuremath{\mathcal{S}_{#1}}}
+
+% dominates
+\newcommand{\Dominates}[2]{\ensuremath{#2 \preceq #1}}
+\newcommand{\Equivalent}[2]{\ensuremath{#1 \equiv #2}}
+
+% SIG notation (in text)
+\newcommand{\Sedge}[1]{\ensuremath{\sigma_{\textrm{#1}}}}
+\newcommand{\SedgeP}[1]{\ensuremath{\sigma_{\textrm{#1}}^{'}}}
+
+\newcommand{\medmid}{\raise.125ex\hbox{\scalebox{1}[0.75]{$\mid$}}}
+
+% General SIG edges for use in formulas.
+% Adapted from: http://tex.stackexchange.com/questions/96330/adding-symbols-at-the-ends-of-a-horizontal-line
+\makeatletter
+\newlength{\@annotskipleft}
+\newlength{\@annotskipright}
+% #1 = left edge component
+% #2 = right edge component
+% #3 = left bar annotation
+% #4 = right bar annotation
+\newcommand\@sig@edge[4]{%
+    \let\@middle\joinrel%
+    \ifx#1\relbar%
+        \@annotskipleft=.3em%
+        % scrunch up the bare line so it's similar length to \long...arrow
+        \ifx#2\relbar\def\@middle{\joinrel\joinrel\relbar\joinrel\joinrel}\fi%
+    \else% 
+        % arrows need a little more clearance
+        \@annotskipleft=.4em%
+    \fi%
+    \ifx#2\relbar\@annotskipright=.3em\else\@annotskipright=.4em\fi%
+    \mathrel{\ooalign{$#1\@middle#2$\cr\hskip\@annotskipleft$#3$\hfil$#4$\hskip\@annotskipright\cr}}%
+}
+
+% 0 = nothing
+% 1 = bar
+% 2 = arrowhead
+% 3 = both
+\def\@sigedge#1#2{%
+    \ifcase\numexpr#1*4+#2\relax%
+        \@sig@edge{\relbar}{\relbar}{}{}\or                     % 00 = -----
+        \@sig@edge{\relbar}{\relbar}{}{\medmid}\or              % 01 = ---+-
+        \@sig@edge{\relbar}{\rightarrow}{}{}\or                 % 02 = ---->
+        \@sig@edge{\relbar}{\rightarrow}{}{\medmid}\or          % 03 = ---+>
+        \@sig@edge{\relbar}{\relbar}{\medmid}{}\or              % 10 = -+---
+        \@sig@edge{\relbar}{\relbar}{\medmid}{\medmid}\or       % 11 = -+-+-
+        \@sig@edge{\relbar}{\rightarrow}{\medmid}{}\or          % 12 = -+-->
+        \@sig@edge{\relbar}{\rightarrow}{\medmid}{\medmid}\or   % 13 = -+-+>
+        \@sig@edge{\leftarrow}{\relbar}{}{}\or                  % 20 = <----
+        \@sig@edge{\leftarrow}{\relbar}{}{\medmid}\or           % 21 = <--+-
+        \@sig@edge{\leftarrow}{\rightarrow}{}{}\or              % 22 = <--->
+        \@sig@edge{\leftarrow}{\rightarrow}{}{\medmid}\or       % 23 = <--+>
+        \@sig@edge{\leftarrow}{\relbar}{\medmid}{}\or           % 30 = <+---
+        \@sig@edge{\leftarrow}{\relbar}{\medmid}{\medmid}\or    % 31 = <+-+-
+        \@sig@edge{\leftarrow}{\rightarrow}{\medmid}{}\or       % 32 = <+-->
+        \@sig@edge{\leftarrow}{\rightarrow}{\medmid}{\medmid}   % 33 = <+-+>
+    \fi%
+}
+
+\newcommand{\sigedge}[1]{\ensuremath{\@sigedge#1}}
+\makeatother
+
+\newcommand{\Edge}{\sigedge{00}}
+\newcommand{\Total}{\sigedge{10}}
+\newcommand{\Surjective}{\sigedge{01}}
+\newcommand{\SurTotal}{\sigedge{11}}
+\newcommand{\Functional}{\sigedge{02}}
+\newcommand{\Injective}{\sigedge{20}}
+\newcommand{\Bijective}{\sigedge{33}}
+
+% Hack to get the overset symbols to appear at the right height.
+% \smash removes the spacing around the operator, hence \mathop.
+\newcommand{\LabelledEdge}[2]{\mathop{\overset{\raisebox{0.3em}{\scriptsize\ensuremath{#2}}}{\smash[t]{#1}}}}
+\newcommand{\ProjectionEdge}{\LabelledEdge{\sigedge{13}}{\RelProject}}
+\newcommand{\SelectionEdge}{\LabelledEdge{\sigedge{23}}{\RelRestrict}}
+\newcommand{\TrivialProjection}{\ensuremath{\LabelledEdge{\Bijective}{\RelProject}}}
+\newcommand{\TrivialSelection}{\ensuremath{\LabelledEdge{\Bijective}{\RelRestrict}}}
+\newcommand{\KeyEdge}{\ensuremath{\LabelledEdge{\Functional}{\mathit{key}}}}
+
+% Constraints.
+\newcommand{\Constraint}[2][]{C\ensuremath{_{#2}\ifx&#1&\else^{#1}\fi}}
+\newenvironment{ConstraintList}[1][]{%
+    \begin{list}{%
+        \bfseries%
+        \ifx&#1&%
+            \Constraint{\ensuremath{\bm{\arabic{constraint}}}}%
+        \else%
+            \Constraint[\ensuremath{\bm{#1}}]{\ensuremath{\bm{\arabic{constraint}}}}%
+        \fi%
+    }%
+    {\usecounter{constraint}}%
+}{\end{list}}
+
+
+% Draw a grid to aid TikZ picture drawing/debugging.
+\newcommand{\DrawGridTikZ}[2]{%
+	\begin{scope}[color=lightgray]
+		\draw[thin,step=1mm]  (0.0,0.0)   grid (#1,#2);%
+		\draw[thick,step=1cm] (-0.1,-0.1) grid (#1+0.1,#2+0.1);%
+		\pgftext[top,at={\pgfxy(0.0,-0.2)}]{\tiny 0}%
+		\pgftext[right,at={\pgfxy(-0.2,0.0)}]{\tiny 0}%
+		\foreach \x in {1,...,#1} {\pgftext[top,at={\pgfxy(\x,-0.2)}]{\tiny\x}}%
+		\foreach \y in {1,...,#2} {\pgftext[right,at={\pgfxy(-0.2,\y)}]{\tiny\y}}%
+	\end{scope}
+}
+
+
+% Sometimes we want to put a comment in tiny text on the next line, but the default line skip
+% will insert too much vertical space. Put a \tinyskip at the end of the line instead.
+\def\tinyskip{\\[-0.33\baselineskip]}
+
+
+% Bold-face text using the structure colour.
+\newcommand<>{\structurebf}[1]{\structure#2{\textbf{#1}}}
+
+
+% preamble
+\title{TITLE GOES HERE}
+\author{Nigel Stanger \\ \footnotesize Information Science}
+\date{August 19, 2016}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame{\titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{The Problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame{\tableofcontents}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \centering
+    \begin{tikzpicture}
+        \node (book) {\includegraphics[height=8cm,keepaspectratio]{Date-ViewUpdatingandRelationalTheory-large.png}};
+        \node[anchor=north] (url) at (book.south) {\tiny\href{http://shop.oreilly.com/product/0636920028437.do}{http://shop.oreilly.com/product/0636920028437.do} (2013)};
+        \node (date) [below=0.8cm of book.east] {\includegraphics[height=2.2cm,keepaspectratio]{date.png}};
+        \only<2->{\fill[fill,yellow,semitransparent] (-0.25,-0.75) rectangle (2.55,-0.4);}
+%         \DrawGridTikZ{7.0}{8.0}
+    \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Some quick terminology}
+    
+    \begin{columns}
+        \begin{column}{0.33\textwidth}
+            \centering
+            \includegraphics[width=\columnwidth,keepaspectratio]{Date-SQLandRelationalTheory.png}
+            
+            \note<1>[item]{This is the second edition; the third edition is now available.}
+        \end{column}
+        \begin{column}{0.67\textwidth}
+            \structurebf{Value vs.\ variable}
+            \begin{itemize}
+                \item a value is immutable (“2”)
+                \item a variable contains a value
+                \item[\(\Rightarrow\)] \emph{relation} value, variable (\emph{relvar})
+            \end{itemize}
+            \medskip
+            
+            \structurebf{Relation \alert<2>{heading} \& \alert<3>{body}}
+            \medskip
+            
+            {\scriptsize
+            \begin{tabular}{c|r|l|l|l|}
+                \cline{2-5}
+                \textbf{S}  &   \textbf{\alert<2>{Sno}} &   \textbf{\alert<2>{Sname}}   &   \textbf{\alert<2>{Status}}  &   \textbf{\alert<2>{City}}    \\
+                \cline{2-5}
+                            &   \alert<3>{1}            &   \alert<3>{Smith}            &   \alert<3>{20}               &   \alert<3>{London}   \\
+                            &   \alert<3>{2}            &   \alert<3>{Jones}            &   \alert<3>{40}               &   \alert<3>{Paris}    \\
+                \cline{2-5}
+            \end{tabular}}
+            \bigskip
+            
+            \structurebf{Type (\(\bm{\Type{x}}\))}
+            \begin{itemize}
+                \item (finite) set of values that something can take
+            \end{itemize}
+            \medskip
+            
+            \structurebf{Date doesn’t believe in nulls}\tinyskip
+            {\tiny (but it doesn’t really matter here)}
+        \end{column}
+    \end{columns}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Some quick terminology}
+    
+    \structurebf{Attribute type (\(\bm{\Type{A}}\))}
+    \begin{itemize}
+        \item the set of all possible values that \(A\) can take
+    \end{itemize}
+    \medskip
+    
+    \structurebf{Relation type (\(\bm{\Type{R}}\))}
+    \begin{itemize}
+        \item the set of all possible relation values with \(R\)’s heading
+    \end{itemize}
+    \medskip
+    
+    \structurebf{Tuple type (\(\bm{\TT{R}}\))}
+    \begin{itemize}
+        \item the set of all possible tuple values with \(R\)’s heading
+        \item[=] Cartesian product of \(R\)’s attribute types
+        \item[=] \(\Type{A_{1}} \times \Type{A_{2}} \times \dotsc \times \Type{A_{n}}\)
+    \end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Date’s (hoary and clichéd) suppliers-and-parts schema}
+    
+    \(S\{\Sno, \Sname, \Status, \City\}\)
+    
+    \quad “Supplier \(\Sno\) has name \(\Sname\), status \(\Status\) and city \(\City\)”
+    \bigskip
+    
+    \(P\{\mathit{Pno}, \mathit{Pname}, \mathit{Color}, \City\}\)
+    
+    \quad “Part …”
+    \bigskip
+    
+    \(SP\{\Sno, \mathit{Pno}, \mathit{Qty}\}\)
+    
+    \quad “Shipment …”
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+% outline:
+%√ Date’s book
+%√ Terminology and conventions
+%√    values vs. variables
+%√    relational values vs. relvar
+%√    relation heading and body
+%√    types (domains)
+% The view update problem
+%    example of ambiguity (join views)
+%    previous approaches
+%    Date’s approach
+%        his pragmatic solution to join view ambiguity
+% Date’s informal operational definition of information equivalence
+%    can it be characterised more formally?
+%    could this reveal missing elements in his analysis?
+% Relative information capacity
+%    loose definition
+% Schema intension graphs
+%    basic elements
+%    constructing a simple SIG
+%√        the hoary suppliers-parts schema
+% Capturing more detailed constraint information (what’s missing in SIGs currently?)
+%    types
+%    (primary) keys
+%    foreign keys? (inclusion dependencies)
+% Schemas, sub-schemas, and constraint propagation
+%    enumeration of all constraints is important
+%    rewriting constraints in terms of the sub-schema
+% The restriction view example
