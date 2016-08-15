@@ -2,13 +2,20 @@
 
 
 \usepackage[no-math]{fontspec}
-\usepackage{mathspec}
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{bm}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{relalg}
 \usepackage{hyperref}
+
+
+% Beamer setup
+\usefonttheme{structurebold}
+\useinnertheme{rectangles}
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}[frame number]
 
 
 % TikZ setup
@@ -21,25 +28,8 @@
 
 % fontspec setup
 \defaultfontfeatures{Mapping=tex-text}
-\setprimaryfont{TeX Gyre Pagella}
 \setsansfont[Scale=MatchUppercase,BoldFont={Gill Sans}]{Gill Sans Light}
 \setmonofont[Scale=MatchLowercase]{Letter Gothic 12 Pitch}
-
-% Hack to prevent digits in hyperlinks from being set in the main font instead of the mono font.
-% From http://tex.stackexchange.com/questions/99770/problem-with-digits-in-urls-when-using-mathspec-and-hyperref
-% Note: doesn't matter if this is executed multiple times.
-\makeatletter
-    \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
-    \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
-    \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
-    \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
-    \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
-    \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
-    \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
-    \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
-    \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
-    \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
-\makeatother
 
 
 % graphicx setup
@@ -239,7 +229,7 @@
 
 
 % preamble
-\title{TITLE GOES HERE}
+\title{Characterising relational view updates \\ using relative information capacity}
 \author{Nigel Stanger \\ \footnotesize Information Science}
 \date{August 19, 2016}
 
@@ -250,7 +240,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame{\titlepage}
+\frame
+{
+    \thispagestyle{empty}
+    \titlepage
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -289,13 +283,16 @@
     \frametitle{Some quick terminology}
     
     \begin{columns}
-        \begin{column}{0.33\textwidth}
+        \begin{column}{0.4\textwidth}
             \centering
-            \includegraphics[width=\columnwidth,keepaspectratio]{Date-SQLandRelationalTheory.png}
+            \includegraphics[width=0.95\columnwidth,keepaspectratio]{Date-SQLandRelationalTheory.png}
+            
+            \tiny\href{http://shop.oreilly.com/product/0636920022879.do}{http://shop.oreilly.com/product/0636920022879.do} \\
+            (second edition, 2011)
             
             \note<1>[item]{This is the second edition; the third edition is now available.}
         \end{column}
-        \begin{column}{0.67\textwidth}
+        \begin{column}{0.6\textwidth}
             \structurebf{Value vs.\ variable}
             \begin{itemize}
                 \item a value is immutable (“2”)
@@ -308,12 +305,12 @@
             \medskip
             
             {\scriptsize
-            \begin{tabular}{c|r|l|l|l|}
+            \begin{tabular}{c|l|l|r|l|}
                 \cline{2-5}
                 \textbf{S}  &   \textbf{\alert<2>{Sno}} &   \textbf{\alert<2>{Sname}}   &   \textbf{\alert<2>{Status}}  &   \textbf{\alert<2>{City}}    \\
                 \cline{2-5}
-                            &   \alert<3>{1}            &   \alert<3>{Smith}            &   \alert<3>{20}               &   \alert<3>{London}   \\
-                            &   \alert<3>{2}            &   \alert<3>{Jones}            &   \alert<3>{40}               &   \alert<3>{Paris}    \\
+                            &   \alert<3>{S1}           &   \alert<3>{Smith}            &   \alert<3>{20}               &   \alert<3>{London}   \\
+                            &   \alert<3>{S2}           &   \alert<3>{Jones}            &   \alert<3>{30}               &   \alert<3>{Paris}    \\
                 \cline{2-5}
             \end{tabular}}
             \bigskip
@@ -340,21 +337,23 @@
     
     \structurebf{Attribute type (\(\bm{\Type{A}}\))}
     \begin{itemize}
-        \item the set of all possible values that \(A\) can take
+        \item set of all possible values that \(A\) can take
+        \item[=] \(\{v_{1}, v_{2}, \dotsc, v_{m}\}\) {\tiny (for finite \(m\))}
     \end{itemize}
     \medskip
     
-    \structurebf{Relation type (\(\bm{\Type{R}}\))}
+    \structurebf{Tuple type (\(\bm{\TT{R}}\)) of relvar \(\bm{R}\)}
     \begin{itemize}
-        \item the set of all possible relation values with \(R\)’s heading
-    \end{itemize}
-    \medskip
-    
-    \structurebf{Tuple type (\(\bm{\TT{R}}\))}
-    \begin{itemize}
-        \item the set of all possible tuple values with \(R\)’s heading
+        \item set of all possible tuple values with \(R\)’s heading
         \item[=] Cartesian product of \(R\)’s attribute types
-        \item[=] \(\Type{A_{1}} \times \Type{A_{2}} \times \dotsc \times \Type{A_{n}}\)
+        \item[=] \(\Type{A_{1}} \times \Type{A_{2}} \times \dotsb \times \Type{A_{n}}\)
+    \end{itemize}
+    \medskip
+    
+    \structurebf{Relation type (\(\bm{\Type{R}}\)) of relvar \(\bm{R}\)}
+    \begin{itemize}
+        \item set of all possible relation values with \(R\)’s heading
+        \item[=] every possible combination of elements of \(\TT{R}\)
     \end{itemize}
 }
 
@@ -366,23 +365,204 @@
 {
     \frametitle{Date’s (hoary and clichéd) suppliers-and-parts schema}
     
-    \(S\{\Sno, \Sname, \Status, \City\}\)
+    \structurebf{\(\bm{S\{\Sno, \Sname, \Status, \City\}}\)}
     
-    \quad “Supplier \(\Sno\) has name \(\Sname\), status \(\Status\) and city \(\City\)”
+    \begin{quote}
+        \upshape
+        Supplier \(\Sno\) is under contract, is named \(\Sname\), has status \(\Status\), and is located in city \(\City\)
+    \end{quote}
     \bigskip
     
-    \(P\{\mathit{Pno}, \mathit{Pname}, \mathit{Color}, \City\}\)
+    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Colour}, \mathit{Weight}, \City\}}\)}
     
-    \quad “Part …”
+    \begin{quote}
+        \upshape
+        Part \(\mathit{Pno}\) is used in the enterprise, is named \(\mathit{Pname}\), has colour \(\mathit{Colour}\), and weight \(\mathit{Weight}\)
+    \end{quote}
     \bigskip
     
-    \(SP\{\Sno, \mathit{Pno}, \mathit{Qty}\}\)
+    \structurebf{\(\bm{SP\{\Sno, \mathit{Pno}, \mathit{Qty}\}}\)}
     
-    \quad “Shipment …”
+    \begin{quote}
+        \upshape
+        Supplier \(\Sno\) supplies part \(\mathit{Pno}\) in quantity \(\mathit{Qty}\)
+    \end{quote}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{The view update problem}
+    \framesubtitle{(Keller (1985), \emph{Algorithms for translating view updates to database updates for views involving selections, projections, and joins}, PODS)}
+
+    \centering
+    \Large
+    \begin{tikzpicture}[every edge/.style={draw,semithick}]
+        \node (vdb)                         {\(V(\mathit{DB})\)};
+        \node (db)   [below=18mm of vdb]    {\(\mathit{DB}\vphantom{(')}\)};
+
+        \node (vdbp) [right=4cm of vdb]     {\(V(\mathit{DB}')\)};
+        \node (uvdb) [left=-1mm of vdbp]    {\(U(V(\mathit{DB})) \stackrel{?}{=}\)};
+
+        \node (dbp)  at (db -| vdbp)        {\(\mathit{DB}\smash[t]{'}\vphantom{()}\)};
+        \node (tudb) [left=-1mm of dbp]     {\(T(U)(\mathit{DB}) =\)};
+
+        \graph{
+            { (db), (dbp) } -> [edge label={\(V\)},swap] { (vdb), (vdbp) };
+
+            (vdb) -> [edge node={node (u)  [above=-0.6mm] {\(U\)}}]    (uvdb);
+            (db)  -> [edge node={node (tu) [above=-0.6mm] {\(T(U)\)}}] (tudb);
+
+            (u)   -> [double equal sign distance=2pt,-implies,edge label={\(T\)}] (tu);
+        };
+    \end{tikzpicture}
+    
+    \note<1>{Keller: “The user specifies update \(U\) against the view of the database, \(V(\mathit{DB})\). The view update translator \(T\) supplies the database update \(T(U)\), which results in \(DB'\) when applied to the database. The new view state is \(V(\mathit{DB}')\). This translation has no side effects in the view if \(V(\mathit{DB}') = U(V(\mathit{DB}))\), that is, if the view has changed precisely in accordance with the user’s request.”}
+    
+    \bigskip
+    \normalsize
+    
+    \begin{uncoverenv}<2->
+        \structurebf{Problem:} there are often multiple update translations \(T(U)\) that produce the effect of \(U\) but have quite different effects on \(\mathit{DB}\).
+        \bigskip
+    
+        How do we choose?
+    \end{uncoverenv}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{The view update problem}
+    
+    \begin{columns}
+        \begin{column}[T]{0.45\textwidth}
+            \footnotesize
+            \begin{tabular}{|l|l|r|l|}
+                \multicolumn{4}{l}{\textbf{S}}  \\
+                \hline
+                \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   \\
+                \hline
+                S1                  & Smith                 & 20                    & London \\
+                S2                  & Jones                 & 30                    & Paris \\
+                S3                  & Blake                 & 30                    & Paris \\
+                \only<1-2,4-5>{S4}  & \only<1-2,4-5>{Clark} & \only<1-2,4-5>{20}    & \only<1-2,4-5>{\alt<1-4>{London}{\alert{Foo}}} \\
+                S5                  & Adams                 & 30                    & Athens \\
+                \hline
+            \end{tabular}
+        \end{column}
+        \begin{column}[T]{0.45\textwidth}
+            \footnotesize
+            \begin{tabular}{|l|l|r|l|}
+                \multicolumn{4}{l}{\(\bm{\mathsf{LS} = \RelRestrict_{\mathsf{City = 'London'}} \mathsf{S}}\)}  \\
+                \hline
+                \textbf{Sno}    &   \textbf{Sname}  &   \textbf{Status} &   \textbf{City}   \\
+                \hline
+                S1              & Smith             & 20                & London \\
+                \only<1-2,4>{S4} & \only<1-2,4>{Clark}& \only<1-2,4>{20}   & \only<1-2,4>{London} \\
+                \hline
+            \end{tabular}
+        \end{column}
+    \end{columns}
+    \bigskip\bigskip
+    
+    \structurebf{Delete S4 from LS?}
+    
+    \begin{enumerate}
+        \item<2-> Delete S4 from S.
+        \item<4-5> Change S4’s city to anything other than London.
+    \end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{The view update problem}
+    
+%     \structurebf{What about \(\bm{\mathsf{SSP} = \mathsf{S} \RelNaturalJoin \mathsf{SP}}\)?}
+    
+    \tiny
+    \begin{columns}
+        \begin{column}[T]{0.35\textwidth}
+            \begin{tabular}{|l|l|r|l|}
+                \multicolumn{4}{l}{\textbf{S}}  \\
+                \hline
+                \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   \\
+                \hline
+                S1                  & Smith                 & 20                    & London \\
+                S2                  & Jones                 & 30                    & Paris \\
+                S3                  & Blake                 & 30                    & Paris \\
+                \only<1-2,4-5>{S4}  & \only<1-2,4-5>{Clark} & \only<1-2,4-5>{20}    & \only<1-2,4-5>{\alt<1-4>{London}{\alert{Foo}}} \\
+                S5                  & Adams                 & 30                    & Athens \\
+                \hline
+            \end{tabular}
+            \bigskip
+            
+            \begin{tabular}{|l|l|r|}
+                \multicolumn{3}{l}{\textbf{SP}}  \\
+                \hline
+                \textbf{Sno}        &   \textbf{Pno}      &   \textbf{Qty}   \\
+                \hline
+                S1 & P1 & 300 \\
+                S1 & P2 & 200 \\
+                S1 & P3 & 400 \\
+                S1 & P4 & 200 \\
+                S1 & P5 & 100 \\
+                S1 & P6 & 100 \\
+                S2 & P1 & 300 \\
+                S2 & P2 & 400 \\
+                S3 & P2 & 200 \\
+                S4 & P2 & 300 \\
+                S4 & P4 & 300 \\
+                S4 & P5 & 400 \\
+                \hline
+            \end{tabular}
+        \end{column}
+        \begin{column}[T]{0.5\textwidth}
+            \begin{tabular}{|l|l|r|l|l|r|}
+                \multicolumn{4}{l}{\(\bm{\mathsf{SSP} = \mathsf{S} \RelNaturalJoin \mathsf{SP}}\)}  \\
+                \hline
+                \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   &   \textbf{Pno}    &   \textbf{Qty}   \\
+                \hline
+                S1 & Smith & 20 & London & P1 & 300 \\
+                S1 & Smith & 20 & London & P2 & 200 \\
+                S1 & Smith & 20 & London & P3 & 400 \\
+                S1 & Smith & 20 & London & P4 & 200 \\
+                S1 & Smith & 20 & London & P5 & 100 \\
+                S1 & Smith & 20 & London & P6 & 100 \\
+                S2 & Jones & 30 & Paris & P1 & 300 \\
+                S2 & Jones & 30 & Paris & P2 & 400 \\
+                S3 & Blake & 30 & Paris & P2 & 200 \\
+                S4 & Clark & 20 & London & P4 & 300 \\
+                S4 & Clark & 20 & London & P5 & 400 \\
+                S4 & Clark & 20 & London & P2 & 200 \\
+                \hline
+            \end{tabular}
+            \bigskip
+            
+            \footnotesize\structurebf{Delete first row of SSP?}
+            
+            \scriptsize
+            \begin{enumerate}
+                \item Delete S1.
+                \item Delete P1.
+                \item Delete \emph{both} S1 and P1
+                \item Change S1’s supplier number.
+                \item Change P1’s part number.
+                \item Change \emph{both} S1’s supplier number and P1’s part number.
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
