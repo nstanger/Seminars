@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{relalg}
+\usepackage{booktabs}
 \usepackage{hyperref}
 
 
@@ -396,7 +397,6 @@
 \frame
 {
     \frametitle{The view update problem}
-    \framesubtitle{(Keller (1985), \emph{Algorithms for translating view updates to database updates for views involving selections, projections, and joins}, PODS)}
 
     \centering
     \Large
@@ -419,6 +419,8 @@
             (u)   -> [double equal sign distance=2pt,-implies,edge label={\(T\)}] (tu);
         };
     \end{tikzpicture}
+    \\
+    \tiny Keller (1985) \emph{Algorithms for translating view updates to database updates for views involving selections, projections, and joins}
     
     \note<1>{Keller: “The user specifies update \(U\) against the view of the database, \(V(\mathit{DB})\). The view update translator \(T\) supplies the database update \(T(U)\), which results in \(DB'\) when applied to the database. The new view state is \(V(\mathit{DB}')\). This translation has no side effects in the view if \(V(\mathit{DB}') = U(V(\mathit{DB}))\), that is, if the view has changed precisely in accordance with the user’s request.”}
     
@@ -443,7 +445,7 @@
     
     \begin{columns}
         \begin{column}[T]{0.45\textwidth}
-            \footnotesize
+            \footnotesize\color{gray!70}
             \begin{tabular}{|l|l|r|l|}
                 \multicolumn{4}{l}{\textbf{S}}  \\
                 \hline
@@ -452,7 +454,7 @@
                 S1                  & Smith                 & 20                    & London \\
                 S2                  & Jones                 & 30                    & Paris \\
                 S3                  & Blake                 & 30                    & Paris \\
-                \only<1-2,4-5>{S4}  & \only<1-2,4-5>{Clark} & \only<1-2,4-5>{20}    & \only<1-2,4-5>{\alt<1-4>{London}{\alert{Foo}}} \\
+                \only<1-2,4->{S4}  & \only<1-2,4->{Clark} & \only<1-2,4->{20}    & \only<1-2,4,6>{London}\only<5>{\alert{???}}\only<7->{\alert{Paris}} \\
                 S5                  & Adams                 & 30                    & Athens \\
                 \hline
             \end{tabular}
@@ -465,19 +467,28 @@
                 \textbf{Sno}    &   \textbf{Sname}  &   \textbf{Status} &   \textbf{City}   \\
                 \hline
                 S1              & Smith             & 20                & London \\
-                \only<1-2,4>{S4} & \only<1-2,4>{Clark}& \only<1-2,4>{20}   & \only<1-2,4>{London} \\
+                \only<1-2,4,6>{S4} & \only<1-2,4,6>{Clark}& \only<1-2,4,6>{20}   & \only<1-2,4,6>{London} \\
                 \hline
             \end{tabular}
         \end{column}
     \end{columns}
-    \bigskip\bigskip
+    \bigskip
     
     \structurebf{Delete S4 from LS?}
     
     \begin{enumerate}
         \item<2-> Delete S4 from S.
-        \item<4-5> Change S4’s city to anything other than London.
+        \item<4-> Change S4’s city to anything other than London.
     \end{enumerate}
+    \bigskip
+    
+    \begin{uncoverenv}<6->
+        \structurebf{What if we instead \emph{change} S4’s city to Paris in LS?}
+        \begin{itemize}
+            \item<7->[\(\Rightarrow\)] changing S4’s city to Paris in S
+            \item<7-> side effect: some changes behave like deletes!
+        \end{itemize}
+    \end{uncoverenv}
 }
 
 
@@ -493,15 +504,16 @@
     \tiny
     \begin{columns}
         \begin{column}[T]{0.35\textwidth}
+            \color{gray!70}
             \begin{tabular}{|l|l|r|l|}
                 \multicolumn{4}{l}{\textbf{S}}  \\
                 \hline
                 \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   \\
                 \hline
-                S1                  & Smith                 & 20                    & London \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} \\
                 S2                  & Jones                 & 30                    & Paris \\
                 S3                  & Blake                 & 30                    & Paris \\
-                \only<1-2,4-5>{S4}  & \only<1-2,4-5>{Clark} & \only<1-2,4-5>{20}    & \only<1-2,4-5>{\alt<1-4>{London}{\alert{Foo}}} \\
+                S4                  & Clark                 & 20                    & London \\
                 S5                  & Adams                 & 30                    & Athens \\
                 \hline
             \end{tabular}
@@ -512,7 +524,7 @@
                 \hline
                 \textbf{Sno}        &   \textbf{Pno}      &   \textbf{Qty}   \\
                 \hline
-                S1 & P1 & 300 \\
+                \only<1-2,4,6,8>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4-8>{P1} & \only<1-2,4-8>{300} \\
                 S1 & P2 & 200 \\
                 S1 & P3 & 400 \\
                 S1 & P4 & 200 \\
@@ -527,18 +539,18 @@
                 \hline
             \end{tabular}
         \end{column}
-        \begin{column}[T]{0.5\textwidth}
+        \begin{column}[T]{0.55\textwidth}
             \begin{tabular}{|l|l|r|l|l|r|}
                 \multicolumn{4}{l}{\(\bm{\mathsf{SSP} = \mathsf{S} \RelNaturalJoin \mathsf{SP}}\)}  \\
                 \hline
                 \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   &   \textbf{Pno}    &   \textbf{Qty}   \\
                 \hline
-                S1 & Smith & 20 & London & P1 & 300 \\
-                S1 & Smith & 20 & London & P2 & 200 \\
-                S1 & Smith & 20 & London & P3 & 400 \\
-                S1 & Smith & 20 & London & P4 & 200 \\
-                S1 & Smith & 20 & London & P5 & 100 \\
-                S1 & Smith & 20 & London & P6 & 100 \\
+                \only<1-2,4,6,8>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4,6-8>{Smith}\only<5>{\alert{Blake}} & \only<1-2,4,6-8>{20}\only<5>{\alert{30}} & \only<1-2,4,6-8>{London}\only<5>{\alert{Paris}} & \only<1-2,4-8>{P1} & \only<1-2,4-8>{300} \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P2} & \only<1-8>{200} \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P3} & \only<1-8>{400} \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P4} & \only<1-8>{200} \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P5} & \only<1-8>{100} \\
+                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P6} & \only<1-8>{100} \\
                 S2 & Jones & 30 & Paris & P1 & 300 \\
                 S2 & Jones & 30 & Paris & P2 & 400 \\
                 S3 & Blake & 30 & Paris & P2 & 200 \\
@@ -549,19 +561,207 @@
             \end{tabular}
             \bigskip
             
-            \footnotesize\structurebf{Delete first row of SSP?}
-            
             \scriptsize
+            \structurebf{Delete first row of SSP?}
+            
             \begin{enumerate}
-                \item Delete S1.
-                \item Delete P1.
-                \item Delete \emph{both} S1 and P1
-                \item Change S1’s supplier number.
-                \item Change P1’s part number.
-                \item Change \emph{both} S1’s supplier number and P1’s part number.
+                \item<2-> Delete \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
+                \item<4-> Change supplier number in \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
+                \item<6-> Change S1’s supplier number in S.
+                \item<8-> Delete S1 from S. {\tiny (nuclear option)}
             \end{enumerate}
+            \smallskip
+            
+            \uncover<10>{\structurebf{Changes are even more problematic}}
         \end{column}
     \end{columns}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Date's solution}
+    
+    \begin{itemize}
+    
+        \item \emph{All} constraints explcitly specified in advance.
+        
+        \item Automatically generate \emph{compensatory rules} from constraints.\tinyskip
+        {\tiny (kind of like declarative triggers)}
+        
+        \item No problem if original and view schemas are \emph{information equivalent} (no hidden information).
+        \begin{itemize}
+        
+            \item[] ``if and only if the constraints that apply to [schema \(\SC{1}\)] and [schema \(\SC{2}\)] are such that every proposition that can be represented by [\(\SC{1}\)] can be represented by [\(\SC{2}\)] and vice versa''
+        
+        \end{itemize}
+        \bigskip
+        
+        \item[BUT:] Still potential for ambiguity when views hide information.
+        \bigskip
+                
+        \item Date’s approach involves “\emph{…a clear element of pragma…}”.\tinyskip
+        {\tiny (essentially argues for the “most sensible” ambiguity resolution)}
+    
+    \end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Relative information capacity}
+    \framesubtitle{}
+    
+    \begin{itemize}
+    
+        \item “Information content” of a schema. {\tiny (including constraints)}
+        
+        \item Determines set of all valid instances of a schema.
+        
+        \item Can only be compared, not quantitatively measured.
+        \begin{description}
+            \item[equivalence] \(\Equivalent{\SC{1}}{\SC{2}}\)
+            \item[dominance] \(\Dominates{\SC{2}}{\SC{1}}\)
+        \end{description}
+        
+        \item Mappings between schemas can preserve:
+        \begin{description}
+            \item[information] information capacity increases (\(\Rightarrow\Dominates{\SC{2}}{\SC{1}}\))
+            \item[equivalence] information capacity stays the same (\(\Rightarrow\Equivalent{\SC{1}}{\SC{2}}\))
+        \end{description}
+    
+    \end{itemize}
+    
+    \flushright\tiny
+    Hull (1986) \emph{Relative information capacity of simple relational database schemata} \\
+    Miller (1993) \emph{The use of information capacity in schema integration and translation}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Schema intension graphs (SIGs)}
+    
+    \structurebf{Nodes = typed domains (sets of values)}
+    \begin{itemize}
+        \item simple
+        \item constructed (\(\times\), \(+\))
+    \end{itemize}
+    \medskip
+    
+    \structurebf{Edges = associations between domains} {\tiny (binary relations)}
+    \begin{itemize}
+        \item Simple constraints:
+        \begin{itemize}
+            \item total (\(A \Total B\)): defined for all \(a \in A\)
+            \item surjective (\(A \Surjective B\)): defined for all \(b \in B\)
+            \item functional (\(A \Functional B\)): \(a\) maps to at most one \(b\)
+            \item injective (\(A \Injective B\)): \(b\) maps to at most one \(a\)
+            \item bijective (\(A \Bijective B\)): all four
+        \end{itemize}
+        \item Selection (\(A \SelectionEdge B\)): \(B\) is a subset of \(A\). {\tiny (specialisation)}
+        \item Projection (\(A \ProjectionEdge B\)): \(B\) is a projection of \(A\). {\tiny (\(\Rightarrow A\) is constructed)}
+    \end{itemize}
+
+    \flushright\tiny
+    Miller (1993) \emph{Schema intension graphs: A formal model for the study of schema equivalence}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Example SIG for relvar S}
+    
+    \centering\Large
+    \begin{tikzpicture}[level distance=18mm]
+        \node (TS) {\(\Type{S}\)};
+        \node (TTS) [right=1.5cm of TS] {\(\TT{S}\)}
+            [sibling distance=4.5cm]
+            child[arrows={:{crossbar}-{crossbar}>}] {node (TSno) {\(\Type{\Sno}\)}}
+            child[arrows={:{crossbar}-{crossbar}>}] {node (TSSC) {\(\TSSC\)}
+                [sibling distance=22mm]
+                child[arrows={:{crossbar}-{crossbar}>}] {node (TSname) {\(\Type{\Sname}\)}}
+                child[arrows={:{crossbar}-{crossbar}>}] {node (TStatus) {\(\Type{\Status}\)}}
+                child[arrows={:{crossbar}-{crossbar}>}] {node (TCity) {\(\Type{\City}\)}}};
+        
+        % TS to T{S}
+        \draw[arrows={:{crossbar}-{crossbar}:}] (TS) to (TTS);
+        
+        % FD
+        \draw[arrows={->}] (TSno) to node[below=-2pt] {\scriptsize\emph{key}} (TSSC);
+        
+        % projection edges
+        \ProjectionAnnotation[above left=-2pt and -4pt]{TTS}{TSno}
+        \ProjectionAnnotation[above right=-2pt and -4pt]{TTS}{TSSC}
+
+        \ProjectionAnnotation[above left=-2pt and -4pt]{TSSC}{TSname}
+        \ProjectionAnnotation[right=-2pt]{TSSC}{TStatus}
+        \ProjectionAnnotation[above right=-2pt and -4pt]{TSSC}{TCity}
+    \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Comparing and transforming SIGs}
+    
+    \begin{itemize}
+    
+        \item Isomorphism between SIGs for \(\SC{1}\) and \(\SC{2}\) (both structure and semantics) indicates information equivalence:
+        \begin{itemize}
+            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via equivalence preserving transformations \(\Rightarrow\Equivalent{\SC{1}}{\SC{2}}\)
+            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via information preserving transformations \(\Rightarrow\Dominates{\SC{2}}{\SC{1}}\)
+            \item can’t transform \(\SC{1}\) or \(\SC{2}\) to be isomorphic \(\Rightarrow\) non-comparable
+        \end{itemize}
+        \medskip
+        
+        \item Transforming a SIG is effectively transforms the schema.
+        \begin{itemize}
+            \item delete annotation, \(\RelRestrict\), \(\RelProject\) (\(\preceq\))
+            \item move and/or copy edge (\(\preceq\))
+            \item create/delete duplicate node (\(\equiv\))
+            \item add bijective selection edge (\(\equiv\))
+            \item delete bijective selection edge (\(\preceq\))
+        \end{itemize}
+        
+    \end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{SIGs for relational schemas}
+    
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Relational} &   \textbf{SIG}                    &   \textbf{Notation}   \\
+        \midrule
+        attribute type      &   simple domain                   &   \(\Type{A}\)    \\
+        tuple type          &   constructed domain (\(\times\)) &   \(\TT{R}\)  \\
+        relation type       &                                   &   \(\Type{R}\)    \\
+        (primary) key       &   functional edge                 &   \(\Type{A} \KeyEdge \Type{B}\)    \\
+        foreign key         &   —                               &   —   \\
+        \bottomrule
+    \end{tabular}
 }
 
 
@@ -577,19 +777,19 @@
 %√    relational values vs. relvar
 %√    relation heading and body
 %√    types (domains)
-% The view update problem
-%    example of ambiguity (join views)
-%    previous approaches
-%    Date’s approach
-%        his pragmatic solution to join view ambiguity
-% Date’s informal operational definition of information equivalence
-%    can it be characterised more formally?
-%    could this reveal missing elements in his analysis?
-% Relative information capacity
-%    loose definition
-% Schema intension graphs
-%    basic elements
-%    constructing a simple SIG
+%√ The view update problem
+%√    example of ambiguity (join views)
+%√    previous approaches
+%√    Date’s approach
+%√        his pragmatic solution to join view ambiguity
+%√ Date’s informal operational definition of information equivalence
+%√    can it be characterised more formally?
+%√    could this reveal missing elements in his analysis?
+%√ Relative information capacity
+%√    loose definition
+%√ Schema intension graphs
+%√    basic elements
+%√    constructing a simple SIG
 %√        the hoary suppliers-parts schema
 % Capturing more detailed constraint information (what’s missing in SIGs currently?)
 %    types
