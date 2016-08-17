@@ -900,6 +900,7 @@
 \frame
 {
     \frametitle{The SIGs: \(\bm{\SC{1} = \{S\}}\)}
+    \framesubtitle{\textcolor{bg}{blah}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -969,6 +970,7 @@
 \frame
 {
     \frametitle{The SIGs: \(\bm{\SC{2} = \{\LS, \NLS\}}\)}
+    \framesubtitle{\textcolor{bg}{blah}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -1042,50 +1044,6 @@
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
-%         \matrix[row sep=0.5cm]
-%         { 
-%             \node (TLS) {\(\Type{\LS}\)};  \&[7.5mm]  \node (TTLS) {\(\TT{\LS}\)};  \&[7mm]                              \&[4mm]                                  \&[-4mm] \node (TSSL) {\(\StackTSSL\)};      \&                                       \&   \node (LSCity) {\(\CityLondon\)};   \\
-%                                         \&                                       \&                                   \&   \node (TSname) {\(\Type{\Sname}\)};    \\
-%                                         \&                                       \&   \node (TSno) {\(\Type{\Sno}\)};    \&                                       \&       \node (TSSC) {\(\StackTSSC\)};      \&                                       \&   \node (TCity) {\(\Type{City}\)};   \\
-%                                         \&                                       \&                                   \&                                       \&                                           \&   \node (TStatus) {\(\Type{\Status}\)};  \\
-%                                         \&                                       \&                                   \&                                       \&       \node (TSSNL) {\(\StackTSSNL\)};    \&                                       \&   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
-%         };
-%         
-%         \graph{
-%             % relation types to tuple types
-%             { [edges=surtotal]
-%                 (TLS) -- (TTLS),
-%             };
-%             
-%             % projection edges
-%             { [edges=projection left]
-%                 (TTLS)  -- { (TSno), (TSSL) },
-%                 (TSSL)  -- { (TStatus), (LSCity) },
-%             };
-%             
-%             { [edges=projection right]
-%                 (TSSC)  -- { (TSname),  (TStatus) },
-%                 (TSSL)  -- (TSname),
-%                 (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-%             };
-%             
-%             % selection edges
-%             { [edges=selection left]
-%                 (TSSC)  -- { (TSSL), (TSSNL) },
-%                 (TCity) -- (NLSCity),
-%             };
-%             { [edges=selection right]
-%                 (TCity) -- (LSCity),
-%             };
-%             
-%             % insert "gaps" into crossed edges
-%             { [edges={white,line width=1.5mm}]
-%                 (TSno) -- (TSSC),
-%                 (TSSC) -- (TCity),
-%             };
-%             (TSno) -- [funcdep right] (TSSC);
-%             (TSSC) -- [projection left] (TCity);
-%         };
         \matrix[row sep=0.5cm]
         { 
             \node (TLS) {\(\Type{\LS}\)};      \&[7mm]  \node (TTLS) {\(\TT{\LS}\)};        \&[7mm]                              \&[4mm]                                  \&[-4mm] \node (TSSL) {\(\StackTSSL\)};      \&                                       \&   \node (LSCity) {\(\CityLondon\)};   \\
