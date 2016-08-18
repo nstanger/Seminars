@@ -311,7 +311,7 @@
             
             \structurebf{Type (\(\bm{\Type{x}}\))}
             \begin{itemize}
-                \item (finite) set of values that something can take
+                \item (finite) set of values that something (\(x\)) can take
             \end{itemize}
             \medskip
             
@@ -327,7 +327,7 @@
 
 \frame
 {
-    \frametitle{Some quick terminology}
+    \frametitle{More on types}
     
     \structurebf{Attribute type (\(\bm{\Type{A}}\))}
     \begin{itemize}
@@ -367,7 +367,7 @@
     \end{quote}
     \bigskip
     
-    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Color}, \mathit{Weight}, \City\}}\)}
+    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Colour}, \mathit{Weight}, \City\}}\)}
     
     \begin{quote}
         \upshape
@@ -501,7 +501,7 @@
                 \hline
                 \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   \\
                 \hline
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} \\
                 S2                  & Jones                 & 30                    & Paris \\
                 S3                  & Blake                 & 30                    & Paris \\
                 S4                  & Clark                 & 20                    & London \\
@@ -515,7 +515,7 @@
                 \hline
                 \textbf{Sno}        &   \textbf{Pno}      &   \textbf{Qty}   \\
                 \hline
-                \only<1-2,4,6,8>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4-8>{P1} & \only<1-2,4-8>{300} \\
+                \only<1-2,4,6,8-9>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4-9>{P1} & \only<1-2,4-9>{300} \\
                 S1 & P2 & 200 \\
                 S1 & P3 & 400 \\
                 S1 & P4 & 200 \\
@@ -529,6 +529,10 @@
                 S4 & P5 & 400 \\
                 \hline
             \end{tabular}
+            \bigskip\medskip
+            
+            \color{black}
+            \uncover<8>{\tiny\alert{\href{https://www.youtube.com/watch?v=hou0lU8WMgo}{\beamergotobutton{technically correct}}}}
         \end{column}
         \begin{column}[T]{0.55\textwidth}
             \begin{tabular}{|l|l|r|l|l|r|}
@@ -536,12 +540,12 @@
                 \hline
                 \textbf{Sno}        &   \textbf{Sname}      &   \textbf{Status}     &   \textbf{City}   &   \textbf{Pno}    &   \textbf{Qty}   \\
                 \hline
-                \only<1-2,4,6,8>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4,6-8>{Smith}\only<5>{\alert{Blake}} & \only<1-2,4,6-8>{20}\only<5>{\alert{30}} & \only<1-2,4,6-8>{London}\only<5>{\alert{Paris}} & \only<1-2,4-8>{P1} & \only<1-2,4-8>{300} \\
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P2} & \only<1-8>{200} \\
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P3} & \only<1-8>{400} \\
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P4} & \only<1-8>{200} \\
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P5} & \only<1-8>{100} \\
-                \only<1-6,8>{S1}\only<7>{\alert{S6}} & \only<1-8>{Smith} & \only<1-8>{20} & \only<1-8>{London} & \only<1-8>{P6} & \only<1-8>{100} \\
+                \only<1-2,4,6,8-9>{S1}\only<5>{\alert{S3}}\only<7>{\alert{S6}} & \only<1-2,4,6-9>{Smith}\only<5>{\alert{Blake}} & \only<1-2,4,6-9>{20}\only<5>{\alert{30}} & \only<1-2,4,6-9>{London}\only<5>{\alert{Paris}} & \only<1-2,4-9>{P1} & \only<1-2,4-9>{300} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} & \only<1-9>{P2} & \only<1-9>{200} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} & \only<1-9>{P3} & \only<1-9>{400} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} & \only<1-9>{P4} & \only<1-9>{200} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} & \only<1-9>{P5} & \only<1-9>{100} \\
+                \only<1-6,8-9>{S1}\only<7>{\alert{S6}} & \only<1-9>{Smith} & \only<1-9>{20} & \only<1-9>{London} & \only<1-9>{P6} & \only<1-9>{100} \\
                 S2 & Jones & 30 & Paris & P1 & 300 \\
                 S2 & Jones & 30 & Paris & P2 & 400 \\
                 S3 & Blake & 30 & Paris & P2 & 200 \\
@@ -557,13 +561,13 @@
             
             \begin{enumerate}
                 \item<2-> Delete \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
-                \item<4-> Change supplier number in \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
-                \item<6-> Change S1’s supplier number in S.
-                \item<8-> Delete S1 from S. {\tiny (nuclear option)}
+                \item<4-|alert@8> Change supplier number in \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
+                \item<6-|alert@8> Change S1’s supplier number in S.
+                \item<9-> Delete S1 from S. {\tiny (nuclear option)}
             \end{enumerate}
             \smallskip
             
-            \uncover<10>{\structurebf{Changes are even more problematic}}
+            \uncover<11>{\structurebf{Changes are even more problematic}}
         \end{column}
     \end{columns}
 }
@@ -578,16 +582,17 @@
     
     \begin{itemize}
     
-        \item \emph{All} constraints explicitly specified in advance.
+        \item Explicitly specify \emph{all} constraints in advance.
         
         \item Automatically generate \emph{compensatory rules} from constraints.\tinyskip
         {\tiny (kind of like declarative triggers)}
         
-        \item No problem if original and view schemas are \emph{information equivalent} (no hidden information).
+        \item No problem if original and view schemas are \emph{information equivalent}.\tinyskip
+        {\tiny (no hidden information)}
         \begin{itemize}
         
-            \item[] ``if and only if the constraints that apply to [schema \(\SC{1}\)] and [schema \(\SC{2}\)] are such that every proposition that can be represented by [\(\SC{1}\)] can be represented by [\(\SC{2}\)] and vice versa''\\
-            \hfill{\tiny Date (2013) \emph{View Updating and Relational Theory}}
+            \item[] ``…if and only if the constraints that apply to [schema \(\SC{1}\)] and [schema \(\SC{2}\)] are such that every proposition that can be represented by [\(\SC{1}\)] can be represented by [\(\SC{2}\)] and vice versa''\\
+            \hfill{\tiny Date (2013) \emph{View Updating \& Relational Theory}}
         
         \end{itemize}
         \medskip
@@ -666,7 +671,8 @@
     \end{itemize}
 
     \flushright\tiny
-    Miller (1993) \emph{Schema intension graphs: A formal model for the study of schema equivalence}
+    Miller (1994) \emph{Schema equivalence in heterogeneous systems: Bridging theory and practice} \\
+    Miller (1994) \emph{Schema intension graphs: A formal model for the study of schema equivalence}
 }
 
 
@@ -676,7 +682,7 @@
 \frame<1-2>[label=frame.SIG.example]
 {
     \frametitle{Example SIG for relvar \(\bm{S\{\Sno, \Sname, \Status, \City\}}\)}
-    \framesubtitle{\hyperlink{frame.SIG.Sone}{\beamerreturnbutton{Back}}}
+    \framesubtitle{\uncover<3>{\hyperlink{frame.SIG.Sone}{\beamerreturnbutton{Back}}}}
     
     \centering\Large
     \begin{tikzpicture}[level distance=18mm]
@@ -745,19 +751,19 @@
     
         \item Isomorphism between SIGs for \(\SC{1}\) and \(\SC{2}\) (both structure and semantics) indicates information equivalence:
         \begin{itemize}
-            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via equivalence preserving transformations \(\Rightarrow\Equivalent{\SC{1}}{\SC{2}}\) {\tiny (or vice versa)}
-            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via information preserving transformations \(\Rightarrow\Dominates{\SC{2}}{\SC{1}}\) {\tiny (or vice versa)}
-            \item can’t transform \(\SC{1}\) or \(\SC{2}\) to be isomorphic \(\Rightarrow\) non-comparable
+            \item \(\Equivalent{\SC{1}}{\SC{2}}\) if we can make \(\SC{1}\) isomorphic to \(\SC{2}\) using equivalence preserving transformations {\tiny (or vice versa)}
+            \item \(\Dominates{\SC{2}}{\SC{1}}\) if we can make \(\SC{1}\) isomorphic to \(\SC{2}\) using information preserving transformations {\tiny (or vice versa)}
+            \item \(\SC{1}\) \& \(\SC{2}\) non-comparable if we can’t make them isomorphic
         \end{itemize}
         \medskip
         
-        \item Transforming a SIG is effectively transforms the schema.
+        \item Transforming a SIG effectively transforms the schema.
         \begin{itemize}
             \item delete annotation, \(\RelRestrict\), \(\RelProject\) (\(\preceq\))
             \item move and/or copy edge (\(\preceq\))
-            \item create/delete duplicate node (\(\equiv\))
-            \item add bijective (trivial) selection edge (\(\equiv\))
-            \item delete bijective (trivial) selection edge (\(\preceq\))
+            \item create/delete duplicate node: \(A \Rightarrow A \TrivialSelection A'\) (\(\equiv\))
+            \item delete bijective (trivial) selection edge: \(A \TrivialSelection A' \Rightarrow A \quad A'\) (\(\preceq\))
+            \item create recursive bijective selection edge: \(A \Rightarrow\)\smash{\tikz[baseline={(A.base)},every loop/.style={out=-25,in=25,bijection}]{\node (A) {\(A\)}; \path (A) edge [loop right] node {\scriptsize\(\RelRestrict\)} ();}}(\(\equiv\))
         \end{itemize}
         
     \end{itemize}
@@ -959,7 +965,7 @@
 \frame
 {
     \frametitle{The SIGs: \(\bm{\SC{2} = \{\LS, \NLS\}}\)}
-    \framesubtitle{\textcolor{bg}{blah}}
+    \framesubtitle{\invisible{\beamergotobutton{Compare}}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -1029,7 +1035,7 @@
 \frame
 {
     \frametitle{The SIGs: \(\bm{\SC{3} = \{\LS\}}\)}
-    \framesubtitle{\textcolor{bg}{blah}}
+    \framesubtitle{\invisible{\beamergotobutton{Compare}}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -1114,7 +1120,7 @@
 \frame[label=frame.SIG.transform]
 {
     \frametitle{Transforming \(\bm{\SC{3} \Rightarrow \SC{1}}\)}
-    \framesubtitle{\alt<1-8>{\textcolor{structure}{blue} = input to transformation, \textcolor{alert}{red} = output}{\hyperlink{frame.SIG.Sone<2>}{\beamergotobutton{Compare}}}}
+    \framesubtitle{\alt<1-8>{\textcolor{structure}{blue} = input to transformation, \textcolor{alert}{red} = output\invisible{\beamergotobutton{Compare}}}{\hyperlink{frame.SIG.Sone<2>}{\beamergotobutton{Compare}}}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -1200,10 +1206,10 @@
             \only<1>{Initial state}
             \only<2>{Duplicate \(\Type{\LS}\) and \(\TT{\LS}\) [\(\equiv\)]}
             \only<3>{Duplicate \(\Type{S}\) and \(\TT{S}\) [\(\equiv\)]}
-            \only<4>{Copy and move relation \& tuple type edges [\(\preceq\)]}
-            \only<5>{Copy and move projection edges (1) [\(\preceq\)]}
-            \only<6>{Copy and move projection edges (2) [\(\preceq\)]}
-            \only<7>{Copy and move key edges [\(\preceq\)]}
+            \only<4>{Copy and move \(\Type{\LS} \SurTotal \TT{\LS}\) edge (\(\times 2\)) [\(\preceq\)]}
+            \only<5>{Copy and move \(\TT{\LS} \ProjectionEdge \Type{\Sno}\) edge (\(\times 2\)) [\(\preceq\)]}
+            \only<6>{Copy and move \(\TT{\LS} \ProjectionEdge \TSSL\) edge (\(\times 2\)) [\(\preceq\)]}
+            \only<7>{Copy and move \(\Type{\Sno} \KeyEdge \TSSC\) edge (\(\times 2\)) [\(\preceq\)]}
             \only<8>{Remove totality annotations [\(\preceq\)]}
             \only<9>{Final state: \emph{not} isomorphic to SIG for \(\SC{1} \Rightarrow\) non-comparable.}
         };
@@ -1214,7 +1220,61 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\frame
+{
+    \frametitle{So what does this mean?}
+    
+    \structurebf{\(\bm{\SC{1}}\) and \(\bm{\SC{2}}\) are information equivalent}
+    
+    \begin{itemize}
+    
+        \item[\(\Rightarrow\)] all view updates between them should be OK
+    
+    \end{itemize}
+    \bigskip
+    
+    \structurebf{\(\bm{\SC{1}}\) and \(\bm{\SC{3}}\) aren’t information equivalent}
+    
+    \begin{itemize}
+    
+        \item[\(\Rightarrow\)] some view updates between them will cause problems
+    
+    \end{itemize}
+    \bigskip
+    
+    \structurebf{This agrees with what Date found} {\tiny (yay!)}
+}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Now what?}
+    
+    \begin{itemize}
+    
+        \item Is this a useful technique? {\tiny (try analysing some more complex examples)}
+        
+        \item Could it help provide a more formal basis for Date’s “pragma”?
+        
+        \item Might it reveal some interesting new insights about the view update problem?
+        
+        \item Submitted to APCCM 2017.
+    
+    \end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \centering\Huge
+    \structurebf{Questions?}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
