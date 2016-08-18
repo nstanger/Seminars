@@ -54,8 +54,8 @@
     projection right/.style={arrows={:{crossbar}-{crossbar}>},edge label'={\scriptsize\(\RelProject\)}},
     selection left/.style={arrows={<-{crossbar}>},edge label={\scriptsize\(\RelRestrict\)}},
     selection right/.style={arrows={<-{crossbar}>},edge label'={\scriptsize\(\RelRestrict\)}},
-    funcdep left/.style={arrows={->},edge node={node[sloped,midway,above] {\scriptsize\emph{key}}}},
-    funcdep right/.style={arrows={->},edge node={node[sloped,midway,below] {\scriptsize\emph{key}}}},
+    funcdep left/.style={arrows={:{crossbar}-{crossbar}>},edge node={node[sloped,midway,above] {\scriptsize\emph{key}}}},
+    funcdep right/.style={arrows={:{crossbar}-{crossbar}>},edge node={node[sloped,midway,below] {\scriptsize\emph{key}}}},
     surtotal/.style={arrows={:{crossbar}-{crossbar}:}},
     input keep/.style={structure,thick},
     input delete/.style={structure!40,thick,dashed},
@@ -195,7 +195,7 @@
 \newcommand{\SelectionEdge}{\LabelledEdge{\sigedge{23}}{\RelRestrict}}
 \newcommand{\TrivialProjection}{\ensuremath{\LabelledEdge{\Bijective}{\RelProject}}}
 \newcommand{\TrivialSelection}{\ensuremath{\LabelledEdge{\Bijective}{\RelRestrict}}}
-\newcommand{\KeyEdge}{\ensuremath{\LabelledEdge{\Functional}{\mathit{key}}}}
+\newcommand{\KeyEdge}{\ensuremath{\LabelledEdge{\sigedge{13}}{\mathit{key}}}}
 
 % Constraints.
 \newcommand{\Constraint}[2][]{C\ensuremath{_{#2}\ifx&#1&\else^{#1}\fi}}
@@ -332,7 +332,7 @@
     \structurebf{Attribute type (\(\bm{\Type{A}}\))}
     \begin{itemize}
         \item set of all possible values that \(A\) can take
-        \item[=] \(\{v_{1}, v_{2}, \dotsc, v_{m}\}\) {\tiny (for finite \(m\))}
+        \item[=] \(\{v_{1}\text{,}\, v_{2}\text{,}\, \dotsc\text{,}\, v_{m}\}\) {\tiny (for finite \(m\))}
     \end{itemize}
     \medskip
     
@@ -359,7 +359,7 @@
 {
     \frametitle{Date’s (hoary and clichéd) suppliers-and-parts schema}
     
-    \structurebf{\(\bm{S\{\Sno, \Sname, \Status, \City\}}\)}
+    \structurebf{\(\bm{S\{\Sno\text{,}\, \Sname\text{,}\, \Status\text{,}\, \City\}}\)}
     
     \begin{quote}
         \upshape
@@ -367,7 +367,7 @@
     \end{quote}
     \bigskip
     
-    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Colour}, \mathit{Weight}, \City\}}\)}
+    \structurebf{\(\bm{P\{\mathit{Pno}\text{,}\, \mathit{Pname}\text{,}\, \mathit{Colour}\text{,}\, \mathit{Weight}\text{,}\, \City\}}\)}
     
     \begin{quote}
         \upshape
@@ -375,7 +375,7 @@
     \end{quote}
     \bigskip
     
-    \structurebf{\(\bm{SP\{\Sno, \mathit{Pno}, \mathit{Qty}\}}\)}
+    \structurebf{\(\bm{SP\{\Sno\text{,}\, \mathit{Pno}\text{,}\, \mathit{Qty}\}}\)}
     
     \begin{quote}
         \upshape
@@ -560,8 +560,8 @@
             \structurebf{Delete first row of SSP?}
             
             \begin{enumerate}
-                \item<2-> Delete \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
-                \item<4-|alert@8> Change supplier number in \(\mathsf{SP}\{\mathsf{S1}, \mathsf{P1}, \mathsf{300}\}\).
+                \item<2-> Delete \(\text{SP}\{\text{S1}\text{,}\, \text{P1}\text{,}\, \text{300}\}\).
+                \item<4-|alert@8> Change supplier number in \(\text{SP}\{\text{S1}\text{,}\, \text{P1}\text{,}\, \text{300}\}\).
                 \item<6-|alert@8> Change S1’s supplier number in S.
                 \item<9-> Delete S1 from S. {\tiny (nuclear option)}
             \end{enumerate}
@@ -681,7 +681,7 @@
 
 \frame<1-2>[label=frame.SIG.example]
 {
-    \frametitle{Example SIG for relvar \(\bm{S\{\Sno, \Sname, \Status, \City\}}\)}
+    \frametitle{Example SIG for relvar \(\bm{S\{\Sno\text{,}\, \Sname\text{,}\, \Status\text{,}\, \City\}}\)}
     \framesubtitle{\uncover<3>{\hyperlink{frame.SIG.Sone}{\beamerreturnbutton{Back}}}}
     
     \centering\Large
@@ -689,7 +689,7 @@
         \node (TS) {\(\Type{S}\)};
         \node (TTS) [right=1.5cm of TS] {\(\TT{S}\)}
             [sibling distance=4.5cm]
-            child[arrows={:{crossbar}-{crossbar}>}] {node (TSno) {\(\Type{\Sno}\)}}
+            child[arrows={<{crossbar}-{crossbar}>}] {node (TSno) {\(\Type{\Sno}\)}}
             child[arrows={:{crossbar}-{crossbar}>}] {node (TSSC) {\(\TSSC\)}
                 [sibling distance=22mm]
                 child[arrows={:{crossbar}-{crossbar}>}] {node (TSname) {\(\Type{\Sname}\)}}
@@ -702,7 +702,7 @@
         \draw[arrows={:{crossbar}-{crossbar}:}] (TS) to (TTS);
         
         % FD
-        \draw[arrows={->}] (TSno) to node[below=-2pt] {\scriptsize\emph{key}} (TSSC);
+        \draw[arrows={:{crossbar}-{crossbar}>}] (TSno) to node[below=-2pt] {\scriptsize\emph{key}} (TSSC);
         
         % projection edges
         \ProjectionAnnotation[above left=-2pt and -4pt]{TTS}{TSno}
@@ -730,11 +730,11 @@
         tuple type          &   constructed domain (\(\times\)) &   \(\TT{R}\) or \(\Type{A} \times \Type{B} \times \dotsc\)  \\
         relation type       &   simple domain\footnote{Or possibly a complex constructed type involving union?}               &   \(\Type{R}\)    \\
         \midrule
-        (primary) key\footnote{Implied by functional dependency.}       &   functional edge                 &   \(\Type{A} \KeyEdge \Type{B}\)    \\
-        foreign key\footnote{Inclusion dependency.}         &   ?                               &   ?   \\
+        key\footnote{Implied by functional dependency.}       &   func., total, surj.\ edge                 &   \(\Type{A} \KeyEdge \Type{B}\)    \\
+        foreign key\footnote{Inclusion dependency.}         &   —                               &   —   \\
         \midrule
-        restrict (\(\RelRestrict\))  &   selection edge  &   \(A \SelectionEdge B\) (or \(A \TrivialSelection B\))\footnote{\label{triv}Trivial case.} \\
-        project (\(\RelProject\))  &   projection edge  &   \(A \ProjectionEdge B\) (or \(A \TrivialProjection B\))\footnotemark[4] \\
+        restrict (\(\RelRestrict\))  &   selection edge  &   \(A \SelectionEdge B\) or \(A \TrivialSelection B\)\footnote{Trivial case.} \\
+        project (\(\RelProject\))  &   projection edge  &   \(A \ProjectionEdge B\) or \(A \TrivialProjection B\) \\
         \bottomrule
     \end{tabular}
 \end{frame}
@@ -784,12 +784,12 @@
             
             \small
             \begin{itemize}
-                \item \(S\{\Sno,\Sname,\Status,\City\}\)
+                \item \(S\{\Sno\text{,}\,\Sname\text{,}\,\Status\text{,}\,\City\}\)
                 \item \(\LS = \RelRestrict_{\City = \text{`\emph{London}'}}S\)
                 \item \(\NLS = \RelRestrict_{\City \ne \text{`\emph{London}'}}S\)
-                \item Base schema \(\SC{0} = \{S, \LS, \NLS\}\)
-                \item Sub-schemas \(\SC{1} = \{S\}\), \(\SC{2} = \{\LS, \NLS\}\), \(\SC{3} = \{LS\}\)
-                \item Date says \((\SC{1}, \SC{2})\) are informa- tion equivalent, \((\SC{1}, \SC{3})\) aren’t.\tinyskip
+                \item Base schema \(\SC{0} = \{S\text{,}\, \LS\text{,}\, \NLS\}\)
+                \item Sub-schemas \(\SC{1} = \{S\}\), \(\SC{2} = \{\LS\text{,}\, \NLS\}\), \(\SC{3} = \{LS\}\)
+                \item Date says \((\SC{1}\text{,}\, \SC{2})\) are informa- tion equivalent, \((\SC{1}\text{,}\, \SC{3})\) aren’t.\tinyskip
                 {\tiny (due to information hiding)}
             \end{itemize}
             
@@ -801,7 +801,7 @@
             
                 \tiny
                 \begin{ConstraintList}
-                    \item \(\{\Sno\} \rightarrow \{\Sname, \Status, \City\}\) holds in (a) \(S\); (b) \(\LS\); and (c) \(\NLS\) [(primary) key]
+                    \item \(\{\Sno\} \rightarrow \{\Sname\text{,}\, \Status\text{,}\, \City\}\) holds in (a) \(S\); (b) \(\LS\); and (c) \(\NLS\) [key]
     
                     \item \(\RelProject_{\{\Sno\}}\LS \subseteq \RelProject_{\{\Sno\}}S\) [FK \(\LS \rightarrow S\)]
     
@@ -841,11 +841,11 @@
 \frame
 {
     \frametitle{Propagating constraints to sub-schemas}
-    \framesubtitle{(ignoring FKs for now — \(\bm{\text{C}_{2}}\) and \(\bm{\text{C}_{3}}\))}
+    \framesubtitle{(ignoring \(\bm{\text{C}_{2}}\) and \(\bm{\text{C}_{3}}\) for now)}
     
     \structurebf{Directly propagate constraints that reference no relvars}
     \begin{itemize}
-        \item[] \(\text{C}_{11}, \text{C}_{12}, \text{C}_{13}, \text{C}_{14}\)
+        \item[] \(\text{C}_{11}\), \(\text{C}_{12}\), \(\text{C}_{13}\), \(\text{C}_{14}\)
     \end{itemize}
     \medskip
     
@@ -919,14 +919,21 @@
             (TSno) -- [funcdep right] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                { (TTLSPlusNLS), (TTLS) } -- (TSno)
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLSPlusNLS) -- (TSno),
-                (TTLS)  -- { (TSno), (TSSL) },
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TTNLS) -- { (TSno), (TSSNL) },
+                (TTNLS) -- (TSSNL),
                 (TSSC)  -- { (TSname),  (TStatus) },
                 (TSSL)  -- (TSname),
                 (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
@@ -964,7 +971,7 @@
 
 \frame
 {
-    \frametitle{The SIGs: \(\bm{\SC{2} = \{\LS, \NLS\}}\)}
+    \frametitle{The SIGs: \(\bm{\SC{2} = \{\LS\text{,}\, \NLS\}}\)}
     \framesubtitle{\invisible{\beamergotobutton{Compare}}}
     
     \centering
@@ -989,14 +996,21 @@
             (TSno) -- [funcdep right] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                { (TTLSPlusNLS), (TTLS) } -- (TSno)
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLSPlusNLS) -- (TSno),
-                (TTLS)  -- { (TSno), (TSSL) },
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TTNLS) -- { (TSno), (TSSNL) },
+                (TTNLS) -- (TSSNL),
                 (TSSC)  -- { (TSname),  (TStatus) },
                 (TSSL)  -- (TSname),
                 (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
@@ -1061,8 +1075,11 @@
             (TSno) -- [funcdep right,invisible] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLS)  -- (TSno),
                 (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
                 (TTLSPlusNLS) --[invisible] (TSno),
@@ -1146,21 +1163,27 @@
             (TSno) -- [funcdep right,visible on=<7->,output on=<7>] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
                 (TTLS)  --[input on=<5>] (TSno),
+                (TTLSPlusNLS) --[visible on=<5->,output on=<5>] (TSno)
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)  --[visible on=<5->,output on=<5>] (TSno)
+            };
+            
+            { [edges=projection left]
                 (TTLS)  --[input on=<6>] (TSSL),
-                (TSSL)  -- { (TStatus), (LSCity) },
-                (TTLSPlusNLS) --[visible on=<5->,output on=<5>] (TSno),
+                (TSSL)  -- { (TStatus), (LSCity) }
             };
             
             { [edges=projection right]
+                (TTNLS)  -- [arrows={:->},visible on=<6->,output on=<6>] (TSSNL),
                 (TSSC)  -- { (TSname),  (TStatus) },
                 (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  --[visible on=<5->,output on=<5>] (TSno),
-                (TTNLS)  -- [arrows={:->},visible on=<6->,output on=<6>] (TSSNL),
+                (TSSNL) -- { (TStatus), (NLSCity), (TSname) }
             };
-            
+
             % selection edges
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
@@ -1170,16 +1193,16 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               -- [visible on=<2-7>,output on=<2>] { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- [visible on=<3-7>,output on=<3>] { (TNLS), (TTNLS) },
             };
             
-            { [edges=selection right]
+            { [edges=selection left]
                 { (TLSPlusNLS), (TTLSPlusNLS) } --[visible on=<8->] { (TLS), (TTLS) },
             };
             
-            { [edges=selection left]
+            { [edges=selection right]
                 { (TLSPlusNLS), (TTLSPlusNLS) } --[visible on=<8->] { (TNLS), (TTNLS) },
             };
             
@@ -1257,6 +1280,9 @@
     
         \item Is this a useful technique? {\tiny (try analysing some more complex examples)}
         
+        \item Are inclusion dependencies important? \\
+        If so, how to represent them?
+        
         \item Do we need the whole transformation process? Determining whether or not all constraints can be propagated from the base schema may already be enough.
         
         \item Could it help provide a more formal basis for Date’s “pragma”?
@@ -1291,33 +1317,3 @@
 
 
 \end{document}
-
-% outline:
-%√ Date’s book
-%√ Terminology and conventions
-%√    values vs. variables
-%√    relational values vs. relvar
-%√    relation heading and body
-%√    types (domains)
-%√ The view update problem
-%√    example of ambiguity (join views)
-%√    previous approaches
-%√    Date’s approach
-%√        his pragmatic solution to join view ambiguity
-%√ Date’s informal operational definition of information equivalence
-%√    can it be characterised more formally?
-%√    could this reveal missing elements in his analysis?
-%√ Relative information capacity
-%√    loose definition
-%√ Schema intension graphs
-%√    basic elements
-%√    constructing a simple SIG
-%√        the hoary suppliers-parts schema
-%√ Capturing more detailed constraint information (what’s missing in SIGs currently?)
-%√    types
-%√    (primary) keys
-%√    foreign keys? (inclusion dependencies)
-%√ Schemas, sub-schemas, and constraint propagation
-%√    enumeration of all constraints is important
-%√    rewriting constraints in terms of the sub-schema
-% The restriction view example
