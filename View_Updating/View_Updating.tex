@@ -256,18 +256,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{The Problem}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\frame{\tableofcontents}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \frame
 {
     \centering
@@ -379,7 +367,7 @@
     \end{quote}
     \bigskip
     
-    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Colour}, \mathit{Weight}, \City\}}\)}
+    \structurebf{\(\bm{P\{\mathit{Pno}, \mathit{Pname}, \mathit{Color}, \mathit{Weight}, \City\}}\)}
     
     \begin{quote}
         \upshape
@@ -391,7 +379,7 @@
     
     \begin{quote}
         \upshape
-        Supplier \(\Sno\) supplies part \(\mathit{Pno}\) in quantity \(\mathit{Qty}\)
+        Supplier \(\Sno\) supplies (ships) part \(\mathit{Pno}\) in quantity \(\mathit{Qty}\)
     \end{quote}
 }
 
@@ -504,8 +492,6 @@
 {
     \frametitle{The view update problem}
     
-%     \structurebf{What about \(\bm{\mathsf{SSP} = \mathsf{S} \RelNaturalJoin \mathsf{SP}}\)?}
-    
     \tiny
     \begin{columns}
         \begin{column}[T]{0.35\textwidth}
@@ -592,7 +578,7 @@
     
     \begin{itemize}
     
-        \item \emph{All} constraints explcitly specified in advance.
+        \item \emph{All} constraints explicitly specified in advance.
         
         \item Automatically generate \emph{compensatory rules} from constraints.\tinyskip
         {\tiny (kind of like declarative triggers)}
@@ -600,16 +586,18 @@
         \item No problem if original and view schemas are \emph{information equivalent} (no hidden information).
         \begin{itemize}
         
-            \item[] ``if and only if the constraints that apply to [schema \(\SC{1}\)] and [schema \(\SC{2}\)] are such that every proposition that can be represented by [\(\SC{1}\)] can be represented by [\(\SC{2}\)] and vice versa''
+            \item[] ``if and only if the constraints that apply to [schema \(\SC{1}\)] and [schema \(\SC{2}\)] are such that every proposition that can be represented by [\(\SC{1}\)] can be represented by [\(\SC{2}\)] and vice versa''\\
+            \hfill{\tiny Date (2013) \emph{View Updating and Relational Theory}}
         
         \end{itemize}
-        \bigskip
+        \medskip
         
-        \item[BUT:] Still potential for ambiguity when views hide information.
-        \bigskip
+        \item[BUT:] Still potential for ambiguity when views hide information.\tinyskip
+        {\tiny(i.e., no longer information equivalent)}
+        \medskip
                 
         \item Date’s approach involves “\emph{…a clear element of pragma…}”.\tinyskip
-        {\tiny (essentially argues for the “most sensible” ambiguity resolution)}
+        {\tiny (essentially he argues for “common sense” ambiguity resolution)}
     
     \end{itemize}
 }
@@ -673,8 +661,8 @@
             \item injective (\(A \Injective B\)): \(b\) maps to at most one \(a\)
             \item bijective (\(A \Bijective B\)): all four
         \end{itemize}
-        \item Selection (\(A \SelectionEdge B\)): \(B\) is a subset of \(A\). {\tiny (specialisation)}
-        \item Projection (\(A \ProjectionEdge B\)): \(B\) is a projection of \(A\). {\tiny (\(\Rightarrow A\) is constructed)}
+        \item Selection (\(A \SelectionEdge B\)): \(B\) is a subset of \(A\). {\tiny (\(\Rightarrow B\) is a specialisation or subtype of \(A\))}
+        \item Projection (\(A \ProjectionEdge B\)): \(B\) is a projection of \(A\). {\tiny (\(\Rightarrow A\) is a constructed tuple type)}
     \end{itemize}
 
     \flushright\tiny
@@ -685,9 +673,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame
+\frame<1-2>[label=frame.SIG.example]
 {
-    \frametitle{Example SIG for relvar S}
+    \frametitle{Example SIG for relvar \(\bm{S\{\Sno, \Sname, \Status, \City\}}\)}
+    \framesubtitle{\hyperlink{frame.SIG.Sone}{\beamerreturnbutton{Back}}}
     
     \centering\Large
     \begin{tikzpicture}[level distance=18mm]
@@ -700,6 +689,8 @@
                 child[arrows={:{crossbar}-{crossbar}>}] {node (TSname) {\(\Type{\Sname}\)}}
                 child[arrows={:{crossbar}-{crossbar}>}] {node (TStatus) {\(\Type{\Status}\)}}
                 child[arrows={:{crossbar}-{crossbar}>}] {node (TCity) {\(\Type{\City}\)}}};
+        
+        \node (TTSexpansion) [right=-2mm of TTS,visible on=<2>,alert] {\tiny\(= \Type{\Sno} \times \Type{\Sname} \times \Type{\Status} \times \Type{\City}\)};
         
         % TS to T{S}
         \draw[arrows={:{crossbar}-{crossbar}:}] (TS) to (TTS);
@@ -721,38 +712,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame
-{
-    \frametitle{Comparing and transforming SIGs}
-    
-    \begin{itemize}
-    
-        \item Isomorphism between SIGs for \(\SC{1}\) and \(\SC{2}\) (both structure and semantics) indicates information equivalence:
-        \begin{itemize}
-            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via equivalence preserving transformations \(\Rightarrow\Equivalent{\SC{1}}{\SC{2}}\)
-            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via information preserving transformations \(\Rightarrow\Dominates{\SC{2}}{\SC{1}}\)
-            \item can’t transform \(\SC{1}\) or \(\SC{2}\) to be isomorphic \(\Rightarrow\) non-comparable
-        \end{itemize}
-        \medskip
-        
-        \item Transforming a SIG is effectively transforms the schema.
-        \begin{itemize}
-            \item delete annotation, \(\RelRestrict\), \(\RelProject\) (\(\preceq\))
-            \item move and/or copy edge (\(\preceq\))
-            \item create/delete duplicate node (\(\equiv\))
-            \item add bijective selection edge (\(\equiv\))
-            \item delete bijective selection edge (\(\preceq\))
-        \end{itemize}
-        
-    \end{itemize}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\frame
-{
+\begin{frame}[fragile]
     \frametitle{SIGs for relational schemas}
     
     \centering
@@ -762,11 +722,45 @@
         \midrule
         attribute type      &   simple domain                   &   \(\Type{A}\)    \\
         tuple type          &   constructed domain (\(\times\)) &   \(\TT{R}\) or \(\Type{A} \times \Type{B} \times \dotsc\)  \\
-        relation type       &   simple domain\footnote{Or possibly a complex constructed type involving union.}               &   \(\Type{R}\)    \\
+        relation type       &   simple domain\footnote{Or possibly a complex constructed type involving union?}               &   \(\Type{R}\)    \\
+        \midrule
         (primary) key\footnote{Implied by functional dependency.}       &   functional edge                 &   \(\Type{A} \KeyEdge \Type{B}\)    \\
-        foreign key\footnote{Inclusion dependency.}         &   —                               &   —   \\
+        foreign key\footnote{Inclusion dependency.}         &   ?                               &   ?   \\
+        \midrule
+        restrict (\(\RelRestrict\))  &   selection edge  &   \(A \SelectionEdge B\) (or \(A \TrivialSelection B\))\footnote{\label{triv}Trivial case.} \\
+        project (\(\RelProject\))  &   projection edge  &   \(A \ProjectionEdge B\) (or \(A \TrivialProjection B\))\footnotemark[4] \\
         \bottomrule
     \end{tabular}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame
+{
+    \frametitle{Comparing and transforming SIGs}
+    
+    \begin{itemize}
+    
+        \item Isomorphism between SIGs for \(\SC{1}\) and \(\SC{2}\) (both structure and semantics) indicates information equivalence:
+        \begin{itemize}
+            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via equivalence preserving transformations \(\Rightarrow\Equivalent{\SC{1}}{\SC{2}}\) {\tiny (or vice versa)}
+            \item transform \(\SC{1}\) to be isomorphic to \(\SC{2}\) via information preserving transformations \(\Rightarrow\Dominates{\SC{2}}{\SC{1}}\) {\tiny (or vice versa)}
+            \item can’t transform \(\SC{1}\) or \(\SC{2}\) to be isomorphic \(\Rightarrow\) non-comparable
+        \end{itemize}
+        \medskip
+        
+        \item Transforming a SIG is effectively transforms the schema.
+        \begin{itemize}
+            \item delete annotation, \(\RelRestrict\), \(\RelProject\) (\(\preceq\))
+            \item move and/or copy edge (\(\preceq\))
+            \item create/delete duplicate node (\(\equiv\))
+            \item add bijective (trivial) selection edge (\(\equiv\))
+            \item delete bijective (trivial) selection edge (\(\preceq\))
+        \end{itemize}
+        
+    \end{itemize}
 }
 
 
@@ -788,47 +782,48 @@
                 \item \(\LS = \RelRestrict_{\City = \text{`\emph{London}'}}S\)
                 \item \(\NLS = \RelRestrict_{\City \ne \text{`\emph{London}'}}S\)
                 \item Base schema \(\SC{0} = \{S, \LS, \NLS\}\)
-                \item Sub-schema \(\SC{1} = \{S\}\)
-                \item Sub-schema \(\SC{2} = \{\LS, \NLS\}\)
-                \item Sub-schema \(\SC{3} = \{LS\}\)
+                \item Sub-schemas \(\SC{1} = \{S\}\), \(\SC{2} = \{\LS, \NLS\}\), \(\SC{3} = \{LS\}\)
+                \item Date says \((\SC{1}, \SC{2})\) are informa- tion equivalent, \((\SC{1}, \SC{3})\) aren’t.\tinyskip
+                {\tiny (due to information hiding)}
             \end{itemize}
-            \smallskip
             
-            \uncover<2->{\fbox{\begin{minipage}{\columnwidth}To construct truly comparable SIGs, we need to propagate all the constraints that we can from \(\SC{0}\) to \(\SC{1}\), \(\SC{2}\), and \(\SC{3}\).\end{minipage}}}
+            \alert{To construct truly comparable SIGs, we need to propagate all the constraints that we can from \(\SC{0}\) to \(\SC{1}\), \(\SC{2}\), and \(\SC{3}\).}
         \end{column}
         \begin{column}[T]{0.5\textwidth}
-            \structurebf{Constraints in \(\bm{\SC{0}}\)}
+            \begin{uncoverenv}<2->
+                \structurebf{Constraints in \(\bm{\SC{0}}\)}
             
-            \tiny
-            \begin{ConstraintList}
-                \item Func. dep. \(\{\Sno\} \rightarrow \{\Sname, \Status, \City\}\) holds in (a) \(S\); (b) \(\LS\); and (c) \(\NLS\) [(primary) key]
+                \tiny
+                \begin{ConstraintList}
+                    \item \(\{\Sno\} \rightarrow \{\Sname, \Status, \City\}\) holds in (a) \(S\); (b) \(\LS\); and (c) \(\NLS\) [(primary) key]
     
-                \item \(\RelProject_{\{\Sno\}}\LS \subseteq \RelProject_{\{\Sno\}}S\) [FK \(\LS \rightarrow S\)]
+                    \item \(\RelProject_{\{\Sno\}}\LS \subseteq \RelProject_{\{\Sno\}}S\) [FK \(\LS \rightarrow S\)]
     
-                \item \(\RelProject_{\{\Sno\}}\NLS \subseteq \RelProject_{\{\Sno\}}S\) [FK \(\NLS \rightarrow S\)]
+                    \item \(\RelProject_{\{\Sno\}}\NLS \subseteq \RelProject_{\{\Sno\}}S\) [FK \(\NLS \rightarrow S\)]
     
-                \item \(S = \LS \RelUnion \NLS\)
+                    \item \(S = \LS \RelUnion \NLS\)
     
-                \item \(\RelRestrict_{\City \ne \text{`\emph{London}'}}\LS = \emptyset\)
+                    \item \(\RelRestrict_{\City \ne \text{`\emph{London}'}}\LS = \emptyset\)
     
-                \item \(\RelRestrict_{\City = \text{`\emph{London}'}}\NLS = \emptyset\)
+                    \item \(\RelRestrict_{\City = \text{`\emph{London}'}}\NLS = \emptyset\)
     
-                \item \(\LS \RelIntersect \NLS = \emptyset\)
+                    \item \(\LS \RelIntersect \NLS = \emptyset\)
     
-                \item (a) \(\Type{S} = \Type{\LS} \RelUnion \Type{\NLS}\); (b) \(\TT{S} = \TT{\LS} \RelUnion \TT{\NLS}\)
+                    \item (a) \(\Type{S} = \Type{\LS} \RelUnion \Type{\NLS}\); (b) \(\TT{S} = \TT{\LS} \RelUnion \TT{\NLS}\)
     
-                \item (a) \(\Type{\LS} \subset \Type{S}\); (b) \(\TT{\LS} \subset \TT{S}\)
+                    \item (a) \(\Type{\LS} \subset \Type{S}\); (b) \(\TT{\LS} \subset \TT{S}\)
     
-                \item (a) \(\Type{\NLS} \subset \Type{S}\); (b) \(\TT{\NLS} \subset \TT{S}\)
+                    \item (a) \(\Type{\NLS} \subset \Type{S}\); (b) \(\TT{\NLS} \subset \TT{S}\)
     
-                \item \(\CityLondon \subset \Type{\City}\)
+                    \item \(\CityLondon \subset \Type{\City}\)
     
-                \item \((\TCityMinusLondon) \subset \Type{\City}\)
+                    \item \((\TCityMinusLondon) \subset \Type{\City}\)
     
-                \item \(\TSSL \subset \TSSC\)
+                    \item \(\TSSL \subset \TSSC\)
     
-                \item \(\TSSNL \subset \TSSC\)
-            \end{ConstraintList}
+                    \item \(\TSSNL \subset \TSSC\)
+                \end{ConstraintList}
+            \end{uncoverenv}
         \end{column}
     \end{columns}
 }
@@ -840,6 +835,7 @@
 \frame
 {
     \frametitle{Propagating constraints to sub-schemas}
+    \framesubtitle{(ignoring FKs for now — \(\bm{\text{C}_{2}}\) and \(\bm{\text{C}_{3}}\))}
     
     \structurebf{Directly propagate constraints that reference no relvars}
     \begin{itemize}
@@ -847,7 +843,7 @@
     \end{itemize}
     \medskip
     
-    \structurebf{Directly propagate constraints that reference only sub-schema relvars}
+    \structurebf{Directly propagate constraints that reference sub-schema relvars only}
     \begin{itemize}
         \item[\(\SC{1}\)] \(\text{C}_{1}\)(a)
         \item[\(\SC{2}\)] \(\text{C}_{1}\)(b), \(\text{C}_{1}\)(c), \(\text{C}_{5}\), \(\text{C}_{6}\), \(\text{C}_{7}\)
@@ -874,33 +870,26 @@
 {
     \frametitle{Propagating constraints to sub-schemas}
     
-    \structurebf{For example}
+    \structurebf{Example}
     \medskip
     
     \begin{tabular}{lll}
         \textcolor{structure}{\(\SC{0}\)}    &   \(\text{C}_{4}\)            &   \(S = \LS \RelUnion \NLS\)    \\[4pt]
                                         &                               &   \Large\quad\(\Downarrow\)  \\[4pt]
-        \textcolor{structure}{\(\SC{1}\)}    &   \(\text{C}_{4}^{\SC{1}}\)   &   \(S = \RelRestrict_{\City = \text{`\emph{London}'}}\,S \RelUnion \RelRestrict_{\City \ne \text{`\emph{London}'}}\,S\)    \\[8pt]
+        \textcolor{structure}{\(\SC{1}\)}    &   \(\text{C}_{4}^{\SC{1}}\)   &   \(S = (\RelRestrict_{\City = \text{`\emph{London}'}}\,S) \RelUnion (\RelRestrict_{\City \ne \text{`\emph{London}'}}\,S)\)    \\[8pt]
         \textcolor{structure}{\(\SC{2}\)}    &   \(\text{C}_{4}^{\SC{2}}\)   &   \(\LS \RelUnion \NLS = \LS \RelUnion \NLS\) \\[8pt]
-        \textcolor{structure}{\(\SC{3}\)}    &                               &   (can’t be propagated)   \\
+        \textcolor{structure}{\(\SC{3}\)}    &  —                            &   (can’t be propagated)   \\
     \end{tabular}
-    \bigskip
-    
-    \structurebf{Date says…}
-    \begin{itemize}
-        \item \(\SC{1}\) and \(\SC{2}\) are information equivalent.
-        \item \(\SC{1}\) and \(\SC{3}\) aren’t. {\tiny (due to information hiding)}
-    \end{itemize}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame
+\frame<1>[label=frame.SIG.Sone]
 {
     \frametitle{The SIGs: \(\bm{\SC{1} = \{S\}}\)}
-    \framesubtitle{\textcolor{bg}{blah}}
+    \framesubtitle{\alt<1>{\hyperlink{frame.SIG.example<3>}{\beamergotobutton{Compare}}}{\hyperlink{frame.SIG.transform<9>}{\beamerreturnbutton{Back}}}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -959,7 +948,7 @@
             (TTLSPlusNLS) -- [projection right,bend right] (TSSC),
         };
         
-        \node[below=5mm of NLSCity] (caption) {\scriptsize\color{structure} \shortstack[r]{\textbf{Note:} \(\LSsub = \RelRestrict_{\City = \text{`\emph{London}'}}\,S\), \\ \(\NLSsub = \RelRestrict_{\City \ne \text{`\emph{London}'}}\,S\)}};
+        \node[below=5mm of NLSCity,alert] (caption) {\scriptsize\shortstack[r]{\textbf{Note:} \(\LSsub = \RelRestrict_{\City = \text{`\emph{London}'}}\,S\) \\ \(\NLSsub = \RelRestrict_{\City \ne \text{`\emph{London}'}}\,S\)}};
     \end{tikzpicture}
 }
 
@@ -1029,7 +1018,7 @@
             (TTLSPlusNLS) -- [projection right,bend right] (TSSC),
         };
         
-        \node[below=4cm of current page.south west] (caption) {\Large This is already isomorphic to the SIG for \(\SC{1}\), so \(\Equivalent{\SC{1}}{\SC{2}}\).};
+        \node[below=4cm of current page.south west,structure] (caption) {\Large This is already isomorphic to the SIG for \(\SC{1}\), so \(\Equivalent{\SC{1}}{\SC{2}}\).};
     \end{tikzpicture}
 }
 
@@ -1114,7 +1103,7 @@
             (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,invisible] (TSSC);
         };
         
-        \node[below=4cm of current page.south west] (caption) {\Large This is not so clear, so we’ll need to transform…};
+        \node[below=4cm of current page.south west,structure] (caption) {\Large Similarities with \(\SC{1}\) but not identical, so we need to transform…};
     \end{tikzpicture}
 }
 
@@ -1122,10 +1111,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame
+\frame[label=frame.SIG.transform]
 {
     \frametitle{Transforming \(\bm{\SC{3} \Rightarrow \SC{1}}\)}
-    \framesubtitle{\textcolor{structure}{blue} = input to transformation, \textcolor{alert}{red} = output}
+    \framesubtitle{\alt<1-8>{\textcolor{structure}{blue} = input to transformation, \textcolor{alert}{red} = output}{\hyperlink{frame.SIG.Sone<2>}{\beamergotobutton{Compare}}}}
     
     \centering
     \begin{tikzpicture}[ampersand replacement=\&,transform canvas={scale=0.8}]
@@ -1200,13 +1189,13 @@
         };
         
         \begin{scope}[circle,visible on=<8>,output on=<8>]
-            \node[draw] at (TLSPlusNLS) [above=10pt] {};
-            \node[draw] at (TLSPlusNLS) [below=10pt] {};
-            \node[draw] at (TTLSPlusNLS) [above=10pt] {};
-            \node[draw] at (TTLSPlusNLS) [below=10pt] {};
+            \node[draw] (c1) at (TLSPlusNLS) [above=11.5pt] {};
+            \node[draw] (c2) at (TLSPlusNLS) [below=11.5pt] {};
+            \node[draw] (c3) at (c1 -| TTLSPlusNLS) {};
+            \node[draw] (c4) at (c2 -| TTLSPlusNLS) {};
         \end{scope}
         
-        \node[below=4cm of current page.south west] (caption) {
+        \node[below=4cm of current page.south west,structure] (caption) {
             \Large
             \only<1>{Initial state}
             \only<2>{Duplicate \(\Type{\LS}\) and \(\TT{\LS}\) [\(\equiv\)]}
@@ -1216,10 +1205,24 @@
             \only<6>{Copy and move projection edges (2) [\(\preceq\)]}
             \only<7>{Copy and move key edges [\(\preceq\)]}
             \only<8>{Remove totality annotations [\(\preceq\)]}
-            \only<9>{Final state: \emph{not} isomorphic to SIG for \(\SC{1} \Rightarrow\) non-comparable}
+            \only<9>{Final state: \emph{not} isomorphic to SIG for \(\SC{1} \Rightarrow\) non-comparable.}
         };
     \end{tikzpicture}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\againframe<3>{frame.SIG.example}
+
+\againframe<2>{frame.SIG.Sone}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
