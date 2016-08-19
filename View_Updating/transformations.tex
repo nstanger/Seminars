@@ -28,15 +28,15 @@
     projection right/.style={arrows={:{crossbar}-{crossbar}>},edge label'={\scriptsize\(\RelProject\)}},
     selection left/.style={arrows={<-{crossbar}>},edge label={\scriptsize\(\RelRestrict\)}},
     selection right/.style={arrows={<-{crossbar}>},edge label'={\scriptsize\(\RelRestrict\)}},
-    funcdep left/.style={arrows={->},edge node={node[sloped,midway,above] {\scriptsize\emph{key}}}},
-    funcdep right/.style={arrows={->},edge node={node[sloped,midway,below] {\scriptsize\emph{key}}}},
+    funcdep left/.style={arrows={:{crossbar}-{crossbar}>},edge node={node[sloped,midway,above] {\scriptsize\emph{key}}}},
+    funcdep right/.style={arrows={:{crossbar}-{crossbar}>},edge node={node[sloped,midway,below] {\scriptsize\emph{key}}}},
     surtotal/.style={arrows={:{crossbar}-{crossbar}:}},
     input keep/.style={blue,thick},
     input delete/.style={blue!40,thick,dashed},
     output/.style={red,thick},
     output temp/.style={red,thick,dashed},
     path 1/.style={green!60!black,thick},
-    path 2/.style={orange,thick}
+    path 2/.style={orange,thick},
 }
         
 % projection and selection edge annotations for TikZ
@@ -63,28 +63,28 @@
 \newcommand{\Status}{\ensuremath{\mathit{Status}}}
 \newcommand{\City}{\ensuremath{\mathit{City}}}
 
-\newcommand{\T}[1]{\ensuremath{T_{#1}}}
+\newcommand{\Type}[1]{\ensuremath{T_{#1}}}
 \newcommand{\TT}[1]{\ensuremath{T_{\{#1\}}}}
 
-\newcommand{\CityLondon}{\ensuremath{\{\City\colon\allowbreak\mathit{'London'}\}}}
-\newcommand{\TCityMinusLondon}{\ensuremath{\T{\City} \setminus \CityLondon}}
-\newcommand{\TSSC}{\ensuremath{\T{\Sname} \times \T{\Status} \times \T{\City}}}
-\newcommand{\TSSL}{\ensuremath{\T{\Sname} \times \T{\Status} \times \CityLondon}}
-\newcommand{\TSSNL}{\ensuremath{\T{\Sname} \times \T{\Status} \times (\TCityMinusLondon)}}
+\newcommand{\CityLondon}{\ensuremath{\{\City\colon\allowbreak\text{`\emph{London}'}\}}}
+\newcommand{\TCityMinusLondon}{\ensuremath{\Type{\City} \setminus \CityLondon}}
+\newcommand{\TSSC}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times \Type{\City}}}
+\newcommand{\TSSL}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times \CityLondon}}
+\newcommand{\TSSNL}{\ensuremath{\Type{\Sname} \times \Type{\Status} \times (\TCityMinusLondon)}}
 
-\newcommand{\TLSPlusNLS}{\ensuremath{\T{\LS} + \T{\NLS}}}
+\newcommand{\TLSPlusNLS}{\ensuremath{\Type{\LS} + \Type{\NLS}}}
 \newcommand{\TTLSPlusNLS}{\ensuremath{\TT{\LS} + \TT{\NLS}}}
-\newcommand{\TLSPlusNLSsub}{\ensuremath{\T{\LSsub} + \T{\NLSsub}}}
+\newcommand{\TLSPlusNLSsub}{\ensuremath{\Type{\LSsub} + \Type{\NLSsub}}}
 \newcommand{\TTLSPlusNLSsub}{\ensuremath{\TT{\LSsub} + \TT{\NLSsub}}}
 
-\newcommand{\StackTLSPlusNLS}{\ensuremath{\begin{array}{c}\T{\LS}\,+ \\ \T{\NLS}\end{array}}}
+\newcommand{\StackTLSPlusNLS}{\ensuremath{\begin{array}{c}\Type{\LS}\,+ \\ \Type{\NLS}\end{array}}}
 \newcommand{\StackTTLSPlusNLS}{\ensuremath{\begin{array}{c}\TT{\LS}\,+ \\ \TT{\NLS}\end{array}}}
-\newcommand{\StackTLSPlusNLSsub}{\ensuremath{\begin{array}{c}\T{\LSsub}\,+ \\ \T{\NLSsub}\end{array}}}
+\newcommand{\StackTLSPlusNLSsub}{\ensuremath{\begin{array}{c}\Type{\LSsub}\,+ \\ \Type{\NLSsub}\end{array}}}
 \newcommand{\StackTTLSPlusNLSsub}{\ensuremath{\begin{array}{c}\TT{\LSsub}\,+ \\ \TT{\NLSsub}\end{array}}}
-\newcommand{\StackTSSC}{\ensuremath{\begin{array}{c}\T{\Sname}\,\times \\ \T{\Status} \times \T{\City}\end{array}}}
-\newcommand{\StackTSSL}{\ensuremath{\begin{array}{c}\T{\Sname} \times \T{\Status}\,\times \\ \CityLondon\end{array}}}
-\newcommand{\StackTSSNL}{\ensuremath{\begin{array}{c}\T{\Sname} \times \T{\Status}\,\times \\ (\TCityMinusLondon)\end{array}}}
-\newcommand{\StackTCityMinusLondon}{\ensuremath{\begin{array}{c}\T{\City}\,\setminus \\ \CityLondon\end{array}}}
+\newcommand{\StackTSSC}{\ensuremath{\begin{array}{c}\Type{\Sname}\,\times \\ \Type{\Status} \times \Type{\City}\end{array}}}
+\newcommand{\StackTSSL}{\ensuremath{\begin{array}{c}\Type{\Sname} \times \Type{\Status}\,\times \\ \CityLondon\end{array}}}
+\newcommand{\StackTSSNL}{\ensuremath{\begin{array}{c}\Type{\Sname} \times \Type{\Status}\,\times \\ (\TCityMinusLondon)\end{array}}}
+\newcommand{\StackTCityMinusLondon}{\ensuremath{\begin{array}{c}\Type{\City}\,\setminus \\ \CityLondon\end{array}}}
 
 \newcommand{\SC}[1]{\ensuremath{\mathcal{S}_{#1}}}
 
@@ -164,7 +164,7 @@
 \newcommand{\SelectionEdge}{\LabelledEdge{\sigedge{23}}{\RelRestrict}}
 \newcommand{\TrivialProjection}{\ensuremath{\LabelledEdge{\Bijective}{\RelProject}}}
 \newcommand{\TrivialSelection}{\ensuremath{\LabelledEdge{\Bijective}{\RelRestrict}}}
-\newcommand{\KeyEdge}{\ensuremath{\LabelledEdge{\Functional}{\mathit{key}}}}
+\newcommand{\KeyEdge}{\ensuremath{\LabelledEdge{\sigedge{13}}{\mathit{key}}}}
 
 % Constraints.
 \newcommand{\Constraint}[2][]{C\ensuremath{_{#2}\ifx&#1&\else^{#1}\fi}}
@@ -196,11 +196,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LSsub}\)};   &[7mm]  \node (TTLS) {\(\TT{\LSsub}\)};     &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLSsub}\)}; &       \node (TTNLS) {\(\TT{\NLSsub}\)};   &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LSsub}\)};   &[7mm]  \node (TTLS) {\(\TT{\LSsub}\)};     &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLSsub}\)}; &       \node (TTNLS) {\(\TT{\NLSsub}\)};   &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -214,14 +214,21 @@
             (TSno) -- [funcdep right] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                { (TTLSPlusNLS), (TTLS) } -- (TSno)
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLSPlusNLS) -- (TSno),
-                (TTLS)  -- { (TSno), (TSSL) },
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TTNLS) -- { (TSno), (TSSNL) },
+                (TTNLS) -- (TSSNL),
                 (TSSC)  -- { (TSname),  (TStatus) },
                 (TSSL)  -- (TSname),
                 (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
@@ -262,11 +269,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};                  &[7mm]  \node (TTLS) {\(\TT{\LS}\)};                    &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                                        &                                                       &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\StackTLSPlusNLS\)};  &       \node (TTLSPlusNLS) {\(\StackTTLSPlusNLS\)};    &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                                        &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};                &       \node (TTNLS) {\(\TT{\NLS}\)};                  &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};                  &[7mm]  \node (TTLS) {\(\TT{\LS}\)};                    &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                                        &                                                       &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\StackTLSPlusNLS\)};  &       \node (TTLSPlusNLS) {\(\StackTTLSPlusNLS\)};    &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                                        &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};                &       \node (TTNLS) {\(\TT{\NLS}\)};                  &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -280,14 +287,21 @@
             (TSno) -- [funcdep right] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                { (TTLSPlusNLS), (TTLS) } -- (TSno)
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLSPlusNLS) -- (TSno),
-                (TTLS)  -- { (TSno), (TSSL) },
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TTNLS) -- { (TSno), (TSSNL) },
+                (TTNLS) -- (TSSNL),
                 (TSSC)  -- { (TSname),  (TStatus) },
                 (TSSL)  -- (TSname),
                 (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
@@ -328,10 +342,10 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};  &[7.5mm]  \node (TTLS) {\(\TT{\LS}\)};  &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                        &                                       &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-                                        &                                       &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                        &                                       &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
+            \node (TLS) {\(\Type{\LS}\)};  &[7.5mm]  \node (TTLS) {\(\TT{\LS}\)};  &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                        &                                       &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+                                        &                                       &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                        &                                       &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
                                         &                                       &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
@@ -342,8 +356,12 @@
             };
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS) -- (TSno)
+            };
+            
             { [edges=projection left]
-                (TTLS)  -- { (TSno), (TSSL) },
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
             };
             
@@ -386,11 +404,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node [input keep] (TLS) {\(\T{\LS}\)};     &[7mm]  \node [input keep] (TTLS) {\(\TT{\LS}\)};       &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                                        &                                                       &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node [output] (TLSPlusNLS) {\(\T{S}\)};    &       \node [output] (TTLSPlusNLS) {\(\TT{S}\)};      &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                                        &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node [transparent] (TNLS) {\(\T{\NLS}\)};  &       \node [transparent] (TTNLS) {\(\TT{\NLS}\)};    &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node [input keep] (TLS) {\(\Type{\LS}\)};     &[7mm]  \node [input keep] (TTLS) {\(\TT{\LS}\)};       &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                                        &                                                       &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node [output] (TLSPlusNLS) {\(\Type{S}\)};    &       \node [output] (TTLSPlusNLS) {\(\TT{S}\)};      &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                                        &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node [transparent] (TNLS) {\(\Type{\NLS}\)};  &       \node [transparent] (TTNLS) {\(\TT{\NLS}\)};    &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -406,17 +424,25 @@
             (TSno) -- [funcdep right,transparent] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- { (TSno), (TSSL) },
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- [transparent] (TSno),
+                (TTNLS)       -- [transparent] (TSno),
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- [transparent] (TSno),
+            };
+            
+            { [edges=projection left]
+                (TTLS)  -- (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- [transparent] (TSno),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
                 (TTNLS)  -- [arrows={:->},transparent] (TSSNL),
             };
             
@@ -429,7 +455,7 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               -- [output]      { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- [transparent] { (TNLS), (TTNLS) },
             };
@@ -438,14 +464,14 @@
             { [edges={white,line width=1.5mm}]
                 (TSno) -- (TSSC),
                 (TSSC) -- (TCity),
-                (TTLSPlusNLS) -- [bend right] (TSSC),
+                (TTLSPlusNLS) -- [bend right,transparent] (TSSC),
             };
             (TSno) -- [funcdep right] (TSSC);
             (TSSC) -- [projection left] (TCity);
             (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,transparent] (TSSC),
         };
     \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): duplicate \(\T{\LS}\) to \(\T{S}\) and \(\TT{\LS}\) to \(\TT{S}\). Inputs to the transformations are coloured \textcolor{blue}{blue}, outputs are coloured \textcolor{red}{red}. [\(\equiv\)]}
+    \caption{SIG for transformed schema \(S_{3}'\): duplicate \(\Type{\LS}\) to \(\Type{S}\) and \(\TT{\LS}\) to \(\TT{S}\). Inputs to the transformations are coloured \textcolor{blue}{blue}, outputs are coloured \textcolor{red}{red}. [\(\equiv\)]}
 %     \label{fig-transform-edge-moves}
 \end{figure*}
 
@@ -458,11 +484,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};                      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};                    &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                                            &                                                       &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node [input keep] (TLSPlusNLS) {\(\T{S}\)};    &       \node [input keep] (TTLSPlusNLS) {\(\TT{S}\)};  &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                                            &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node [output] (TNLS) {\(\T{\NLS}\)};           &       \node [output] (TTNLS) {\(\TT{\NLS}\)};         &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};                      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};                    &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                                            &                                                       &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node [input keep] (TLSPlusNLS) {\(\Type{S}\)};    &       \node [input keep] (TTLSPlusNLS) {\(\TT{S}\)};  &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                                            &                                                       &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node [output] (TNLS) {\(\Type{\NLS}\)};           &       \node [output] (TTNLS) {\(\TT{\NLS}\)};         &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -478,20 +504,28 @@
             (TSno) -- [funcdep right,transparent] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- { (TSno), (TSSL) },
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- [transparent] (TSno),
+                (TTNLS)       -- [transparent] (TSno),
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- [transparent] (TSno),
+            };
+            
+            { [edges=projection left]
+                (TTLS)  -- (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
             };
             
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- [transparent] (TSno),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
                 (TTNLS)  -- [arrows={:->},transparent] (TSSNL),
             };
-            
+
             % selection edges
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
@@ -501,7 +535,7 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               --          { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- [output] { (TNLS), (TTNLS) },
             };
@@ -510,14 +544,14 @@
             { [edges={white,line width=1.5mm}]
                 (TSno) -- (TSSC),
                 (TSSC) -- (TCity),
-                (TTLSPlusNLS) -- [bend right] (TSSC),
+                (TTLSPlusNLS) -- [bend right,transparent] (TSSC),
             };
             (TSno) -- [funcdep right] (TSSC);
             (TSSC) -- [projection left] (TCity);
             (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,transparent] (TSSC),
         };
     \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): duplicate \(\T{S}\) to \(\T{\NLS}\) and \(\TT{S}\) to \(\TT{\NLS}\). [\(\equiv\)]}
+    \caption{SIG for transformed schema \(S_{3}'\): duplicate \(\Type{S}\) to \(\Type{\NLS}\) and \(\TT{S}\) to \(\TT{\NLS}\). [\(\equiv\)]}
 %     \label{fig-transform-edge-moves}
 \end{figure*}
 
@@ -530,11 +564,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -550,93 +584,28 @@
             (TSno) -- [funcdep right,transparent] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- { (TSno), (TSSL) },
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- [transparent] (TSno),
+                (TTNLS)       -- [transparent] (TSno),
             };
             
-            { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- [transparent] (TSno),
-                (TTNLS)  -- [arrows={:->},transparent] (TSSNL),
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- [transparent] (TSno),
             };
             
-            % selection edges
-            { [edges=selection left]
-                (TSSC)  -- { (TSSL), (TSSNL) },
-                (TCity) -- (NLSCity),
-            };
-            { [edges=selection right]
-                (TCity) -- (LSCity),
-            };
-            
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
-                { (TLS), (TTLS) }               -- { (TLSPlusNLS), (TTLSPlusNLS) },
-                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
-            };
-            
-            % insert "gaps" into crossed edges
-            { [edges={white,line width=1.5mm}]
-                (TSno) -- (TSSC),
-                (TSSC) -- (TCity),
-                (TTLSPlusNLS) -- [bend right] (TSSC),
-            };
-            (TSno) -- [funcdep right] (TSSC);
-            (TSSC) -- [projection left] (TCity);
-            (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,transparent] (TSSC),
-        };
-    \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\T{\LS} \protect\SurTotal \TT{\LS}\) to \(\T{S} \protect\SurTotal \TT{S}\) and \(\T{\NLS} \protect\SurTotal \TT{\NLS}\). [\(\preceq\)]}
-%     \label{fig-transform-edge-moves}
-\end{figure*}
-
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-
-\begin{figure*}
-    \centering
-    \begin{tikzpicture}
-        \matrix[row sep=0.5cm]
-        { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
-        };
-        
-        \graph{
-            % relation types to tuple types
-            { [edges=surtotal]
-                (TLS)        -- (TTLS),
-                (TLSPlusNLS) -- (TTLSPlusNLS),
-                (TNLS)       -- (TTNLS),
-            };
-            
-            % FDs
-            (TSno) -- [funcdep left,bend left,transparent] (TSSL);
-            (TSno) -- [funcdep right,transparent] (TSSNL);
-            
-            % projection edges
             { [edges=projection left]
-                (TTLS)  -- [input keep] (TSno),
                 (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
-                (TTLSPlusNLS) -- [output] (TSno),
             };
             
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- [output] (TSno),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
                 (TTNLS)  -- [arrows={:->},transparent] (TSSNL),
             };
-            
+
             % selection edges
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
@@ -646,7 +615,7 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               -- { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
             };
@@ -662,7 +631,7 @@
             (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,transparent] (TSSC),
         };
     \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\TT{\LS} \protect\ProjectionEdge \T{\Sno}\) to \(\TT{S} \protect\ProjectionEdge \T{\Sno}\) and \(\TT{\NLS} \protect\ProjectionEdge \T{\Sno}\). [\(\preceq\)]}
+    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\Type{\LS} \protect\SurTotal \TT{\LS}\) to \(\Type{S} \protect\SurTotal \TT{S}\) and \(\Type{\NLS} \protect\SurTotal \TT{\NLS}\). [\(\preceq\)]}
 %     \label{fig-transform-edge-moves}
 \end{figure*}
 
@@ -675,11 +644,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -695,21 +664,27 @@
             (TSno) -- [funcdep right,transparent] (TSSNL);
             
             % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- [input keep] (TSno),
+                (TTLSPlusNLS) -- [output] (TSno),
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- [output] (TSno),
+            };
+            
             { [edges=projection left]
-                (TTLS)  -- (TSno),
-                (TTLS)  -- [input keep] (TSSL),
+                (TTLS)  -- (TSSL),
                 (TSSL)  -- { (TStatus), (LSCity) },
-                (TTLSPlusNLS) -- (TSno),
             };
             
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- (TSno),
-                (TTNLS)  -- [arrows={:->},output] (TSSNL),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
+                (TTNLS)  -- [arrows={:->},transparent] (TSSNL),
             };
-            
+
             % selection edges
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
@@ -719,7 +694,86 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
+                { (TLS), (TTLS) }               -- { (TLSPlusNLS), (TTLSPlusNLS) },
+                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
+            };
+            
+            % insert "gaps" into crossed edges
+            { [edges={white,line width=1.5mm}]
+                (TSno) -- (TSSC),
+                (TSSC) -- (TCity),
+                (TTLSPlusNLS) -- [bend right,transparent] (TSSC),
+            };
+            (TSno) -- [funcdep right] (TSSC);
+            (TSSC) -- [projection left] (TCity);
+            (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right,transparent] (TSSC),
+        };
+    \end{tikzpicture}
+    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\TT{\LS} \protect\ProjectionEdge \Type{\Sno}\) to \(\TT{S} \protect\ProjectionEdge \Type{\Sno}\) and \(\TT{\NLS} \protect\ProjectionEdge \Type{\Sno}\). [\(\preceq\)]}
+%     \label{fig-transform-edge-moves}
+\end{figure*}
+
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure*}
+    \centering
+    \begin{tikzpicture}
+        \matrix[row sep=0.5cm]
+        { 
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+        };
+        
+        \graph{
+            % relation types to tuple types
+            { [edges=surtotal]
+                (TLS)        -- (TTLS),
+                (TLSPlusNLS) -- (TTLSPlusNLS),
+                (TNLS)       -- (TTNLS),
+            };
+            
+            % FDs
+            (TSno) -- [funcdep left,bend left,transparent] (TSSL);
+            (TSno) -- [funcdep right,transparent] (TSSNL);
+            
+            % projection edges
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
+                (TTLSPlusNLS) -- (TSno),
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- (TSno),
+            };
+            
+            { [edges=projection left]
+                (TTLS)  -- [input keep] (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
+            };
+            
+            { [edges=projection right]
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
+                (TTNLS)  -- [arrows={:->},output] (TSSNL),
+            };
+
+            % selection edges
+            { [edges=selection left]
+                (TSSC)  -- { (TSSL), (TSSNL) },
+                (TCity) -- (NLSCity),
+            };
+            { [edges=selection right]
+                (TCity) -- (LSCity),
+            };
+            
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               -- { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
             };
@@ -748,11 +802,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -764,25 +818,31 @@
             };
             
             % FDs
-            (TSno) -- [funcdep left,bend left,output] (TSSL);
-            (TSno) -- [funcdep right,output] (TSSNL);
+            (TSno) -- [funcdep left,arrows={-{crossbar}>},bend left,output] (TSSL);
+            (TSno) -- [funcdep right,arrows={-{crossbar}>},output] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- (TSno),
-                (TTLS)  -- (TSSL),
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- (TSno),
             };
             
-            { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- (TSno),
-                (TTNLS)  -- [arrows={:->}] (TSSNL),
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- (TSno),
             };
             
+            { [edges=projection left]
+                (TTLS)  -- (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
+            };
+            
+            { [edges=projection right]
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
+                (TTNLS)  -- [arrows={:->}] (TSSNL),
+            };
+
             % selection edges
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
@@ -792,7 +852,7 @@
                 (TCity) -- (LSCity),
             };
             
-            { [edges=bijection,edge label={\scriptsize\(\RelRestrict\)}]
+            { [edges=bijection,edge label'={\scriptsize\(\RelRestrict\)}]
                 { (TLS), (TTLS) }               -- { (TLSPlusNLS), (TTLSPlusNLS) },
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
             };
@@ -808,7 +868,7 @@
             (TTLSPlusNLS) -- [projection right,arrows={:{crossbar}->},bend right] (TSSC),
         };
     \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\T{\Sno} \protect\KeyEdge \TSSC\) to \(\T{\Sno} \protect\KeyEdge \TSSL\) and \(\T{\Sno} \protect\KeyEdge \TSSNL\). [\(\preceq\)]}
+    \caption{SIG for transformed schema \(S_{3}'\): copy edge \(\Type{\Sno} \protect\KeyEdge \TSSC\) to \(\Type{\Sno} \protect\KeyEdge \TSSL\) and \(\Type{\Sno} \protect\KeyEdge \TSSNL\). [\(\preceq\)]}
 %     \label{fig-transform-edge-moves}
 \end{figure*}
 
@@ -821,11 +881,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -837,22 +897,28 @@
             };
             
             % FDs
-            (TSno) -- [funcdep left,bend left] (TSSL);
-            (TSno) -- [funcdep right] (TSSNL);
+            (TSno) -- [funcdep left,arrows={-{crossbar}>},bend left] (TSSL);
+            (TSno) -- [funcdep right,arrows={-{crossbar}>}] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- (TSno),
-                (TTLS)  -- (TSSL),
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- (TSno),
             };
             
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- (TSno),
+            };
+            
+            { [edges=projection left]
+                (TTLS)  -- (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
+            };
+            
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- (TSno),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
                 (TTNLS)  -- [arrows={:->}] (TSSNL),
             };
             
@@ -860,16 +926,10 @@
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
                 (TCity) -- (NLSCity),
+                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TLS), (TTLS) },
             };
             { [edges=selection right]
                 (TCity) -- (LSCity),
-            };
-            
-            { [edges=selection right]
-                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TLS), (TTLS) },
-            };
-            
-            { [edges=selection left]
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
             };
             
@@ -891,7 +951,7 @@
             \node[draw] at (TTLSPlusNLS) [below=10pt] {};
         \end{scope}
     \end{tikzpicture}
-    \caption{SIG for transformed schema \(S_{3}'\): delete totality annotations on \(\T{S} \protect\TrivialSelection \T{\LS}\), \(\TT{S} \protect\TrivialSelection \TT{\LS}\), \(\T{S} \protect\TrivialSelection \T{\NLS}\), and \(\TT{S} \protect\TrivialSelection \TT{\NLS}\). [\(\preceq\)]}
+    \caption{SIG for transformed schema \(S_{3}'\): delete totality annotations on \(\Type{S} \protect\TrivialSelection \Type{\LS}\), \(\TT{S} \protect\TrivialSelection \TT{\LS}\), \(\Type{S} \protect\TrivialSelection \Type{\NLS}\), and \(\TT{S} \protect\TrivialSelection \TT{\NLS}\). [\(\preceq\)]}
 %     \label{fig-transform-edge-moves}
 \end{figure*}
 
@@ -904,11 +964,11 @@
     \begin{tikzpicture}
         \matrix[row sep=0.5cm]
         { 
-            \node (TLS) {\(\T{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
-                                            &                                           &                                   &   \node (TSname) {\(\T{\Sname}\)};    \\
-            \node (TLSPlusNLS) {\(\T{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\T{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\T{City}\)};   \\
-                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\T{\Status}\)};  \\
-            \node (TNLS) {\(\T{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
+            \node (TLS) {\(\Type{\LS}\)};      &[7mm]  \node (TTLS) {\(\TT{\LS}\)};        &[7mm]                              &[4mm]                                  &[-4mm] \node (TSSL) {\(\StackTSSL\)};      &                                       &   \node (LSCity) {\(\CityLondon\)};   \\
+                                            &                                           &                                   &   \node (TSname) {\(\Type{\Sname}\)};    \\
+            \node (TLSPlusNLS) {\(\Type{S}\)}; &       \node (TTLSPlusNLS) {\(\TT{S}\)};   &   \node (TSno) {\(\Type{\Sno}\)};    &                                       &       \node (TSSC) {\(\StackTSSC\)};      &                                       &   \node (TCity) {\(\Type{City}\)};   \\
+                                            &                                           &                                   &                                       &                                           &   \node (TStatus) {\(\Type{\Status}\)};  \\
+            \node (TNLS) {\(\Type{\NLS}\)};    &       \node (TTNLS) {\(\TT{\NLS}\)};      &                                   &                                       &       \node (TSSNL) {\(\StackTSSNL\)};    &                                       &   \node (NLSCity) {\(\StackTCityMinusLondon\)}; \\
         };
         
         \graph{
@@ -920,22 +980,28 @@
             };
             
             % FDs
-            (TSno) -- [funcdep left,bend left] (TSSL);
-            (TSno) -- [funcdep right] (TSSNL);
+            (TSno) -- [funcdep left,arrows={-{crossbar}>},bend left] (TSSL);
+            (TSno) -- [funcdep right,arrows={-{crossbar}>}] (TSSNL);
             
             % projection edges
-            { [edges=projection left]
-                (TTLS)  -- (TSno),
-                (TTLS)  -- (TSSL),
-                (TSSL)  -- { (TStatus), (LSCity) },
+            { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
+                (TTLS)        -- (TSno),
                 (TTLSPlusNLS) -- (TSno),
             };
             
+            { [edges=bijection,edge label'={\scriptsize\(\RelProject\)}]
+                (TTNLS)       -- (TSno),
+            };
+            
+            { [edges=projection left]
+                (TTLS)  -- (TSSL),
+                (TSSL)  -- { (TStatus), (LSCity) },
+            };
+            
             { [edges=projection right]
-                (TSSC)  -- { (TSname),  (TStatus) },
-                (TSSL)  -- (TSname),
-                (TSSNL) -- { (TStatus), (NLSCity), (TSname) },
-                (TTNLS)  -- (TSno),
+                (TSSC)   -- { (TSname),  (TStatus) },
+                (TSSL)   -- (TSname),
+                (TSSNL)  -- { (TStatus), (NLSCity), (TSname) },
                 (TTNLS)  -- [arrows={:->}] (TSSNL),
             };
             
@@ -943,16 +1009,10 @@
             { [edges=selection left]
                 (TSSC)  -- { (TSSL), (TSSNL) },
                 (TCity) -- (NLSCity),
+                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TLS), (TTLS) },
             };
             { [edges=selection right]
                 (TCity) -- (LSCity),
-            };
-            
-            { [edges=selection right]
-                { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TLS), (TTLS) },
-            };
-            
-            { [edges=selection left]
                 { (TLSPlusNLS), (TTLSPlusNLS) } -- { (TNLS), (TTNLS) },
             };
             
