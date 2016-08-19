@@ -1159,8 +1159,8 @@
             };
             
             % FDs
-            (TSno) -- [funcdep left,bend left,visible on=<7->,output on=<7>] (TSSL);
-            (TSno) -- [funcdep right,visible on=<7->,output on=<7>] (TSSNL);
+            (TSno) -- [funcdep left,arrows={:-{crossbar}>},bend left,visible on=<7->,output on=<7>] (TSSL);
+            (TSno) -- [funcdep right,arrows={:-{crossbar}>},visible on=<7->,output on=<7>] (TSSNL);
             
             % projection edges
             { [edges=bijection,edge label={\scriptsize\(\RelProject\)}]
