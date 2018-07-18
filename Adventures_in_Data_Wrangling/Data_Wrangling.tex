@@ -42,7 +42,7 @@
 
 
 % misc
-\newcommand{\todo}[1]{\textbf{!!TODO!!} {[#1]}}
+\newcommand{\todo}[1]{\alert{\textbf{!!TODO!! [#1] !!}}}
 
 
 % Draw a grid to aid TikZ picture drawing/debugging.
@@ -194,17 +194,18 @@
     
     \bigskip
     \begin{itemize}
-        \item Statistical analysis of body composition data in R.
+        \item Statistical analysis of body composition data in R to check precision of GE’s new CoreScan algorithm.
         
-        \item Data exported directly from DXA machine.
+        \item Data exported directly from DXA body scanner. {\tiny (dual X-ray absorptiometry)}
         
         \item Relatively straightforward:
         \begin{itemize}
             \item Excel with well-defined columns
             \item some minor cleaning
+            \item trivial to automate
         \end{itemize}
         
-        \item “The way things should be”.
+        \item “The way things should be.”
     \end{itemize}
     
     \begin{tikzpicture}[remember picture, overlay]
@@ -231,12 +232,120 @@
 
 
 \begin{frame}
-    \frametitle{Now what?}
+    \frametitle{Project 2: Software licensing (barely started)}
+    
+    \structurebf{Which is cheaper for consumer-level software, subscription or perpetual licensing?}
+    \medskip
     
     \begin{itemize}
-    
-        \item \todo{}
+        \item Not cloud-based SaaS — already well studied, especially for corporates.
         
+        \item Typical licensing models for small developers:
+        \begin{itemize}
+            \item pay once, all updates free forever
+            \item pay for each major version upgrade {\tiny (upgrade pricing)}
+            \item app store (free or paid) + in-app purchases
+        \end{itemize}
+
+        \item Some are experimenting with alternative models:
+        \begin{itemize}
+            \item “service contract” (e.g., annual subscription)
+            \item “software plus a service” (\sout{SpaS?} S+aS? S+S?)
+        \end{itemize}
+        
+        \item Some developers offer more than one of these options.
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Why do I care?}
+    
+    \structurebf{1Password now offers two licensing models:}
+    \medskip
+    
+    \begin{itemize}
+        \item Typical perpetual license:
+        \begin{itemize}
+            \item separate licenses for each platform {\tiny (to use \emph{all} features)}
+            \item syncing must be manually configured
+            \item major version upgrades are paid {\tiny (e.g., v6\(\rightarrow\)v7 \todo{USD\,39.99?})}
+        \end{itemize}
+        
+        \item Annual subscription:
+        \begin{itemize}
+            \item free license for all platforms
+            \item transparent syncing via 1Password account
+            \item cost USD\,2.99/month (individual), USD\,4.99/month (family)\tinyskip
+            {\tiny (when billed annually)}
+        \end{itemize}
+    \end{itemize}
+    
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[below left=1.5cm of current page.north east)] (icon) {
+            \includegraphics[width=2cm,keepaspectratio]{1Password}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Cost comparison}
+    
+    \structurebf{“Standard” license}
+    \medskip
+    
+    \begin{tabular}{rrr}
+        \toprule
+        \textbf{Version}    &   \textbf{Released}   &   \textbf{Cost (USD)} \\
+        \midrule
+        2/3                 &   2009                &   39.95   \\
+        5                   &   2014                &   24.99   \\
+        6                   &   \todo{20??}         &   \todo{??}   \\
+        7                   &   2018                &   \todo{39.99?}   \\
+        \bottomrule
+    \end{tabular}
+    
+    \begin{itemize}
+        \item Cost comparision:
+        \begin{itemize}
+            \item individual subscription 2009–2018 = 10 × USD\,2.99 × 12 = USD\,358.80 = USD\,35.88/year
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{The data collection problem}
+    
+    \structurebf{To compare costs we need historical pricing data}
+    \medskip
+    
+    \begin{itemize}
+        \item No-one’s likely to publish their pricing history. {\tiny (who cares?)}
+        \begin{itemize}
+            \item except vendors that sell separate versions for different OS releases {\tiny (e.g. macOS Mail plugins)}
+            \item at best probably only full pricing available, not upgrade
+        \end{itemize}
+        
+        \item Wayback Machine? {\tiny (Internet Archive)}
+        \begin{itemize}
+            \item have been able to find a couple of old store-fronts
+            \item probably impossible to automate \faFrownO
+        \end{itemize}
+        
+        \item Trivial to process, but effectively worst case to acquire.
+        
+        \item Watch this space!
     \end{itemize}
 \end{frame}
 
@@ -254,18 +363,6 @@
 
 
 \end{document}
-
-Three projects run the gamut from fairly exemplary through to awful.
-
-Project 1: CoreScan (completed)
-Meredith-Jones, K., Haszard, J., Stanger, N., and Taylor, R. Precision of DXA-derived visceral fat measurements in a large sample of adults of varying body size. Obesity, 26(3):505–512. doi: 10.1002/oby.22108
-
-• body composition data acquired from dual-energy X-ray absorptiometry (DXA) using GE’s new CoreScan algorithm
-• statistical processing in R to compute precision error, etc., using standard methods for the discipline
-• relatively straightforward (original data an Excel file with well-defined columns)
-• some minor cleaning (duplicate participant entries)
-• “the way things should be”
-
 
 Project 2: student data
 • much work around University needs or can use student-related data
@@ -312,23 +409,6 @@ Project 2: student data
 
 • my results management system is consequently a mishmash of bash, Perl, Python, PHP, and R scripts that have been bodged together over time (currently being rewritten frome the ground up in Python)
 
-
-Project 3: subscription vs. perpetual licensing for consumer-level software
-• a lot of work on SaaS vs. perpetual licensing in the corporate world
-• consumer software:
-    • SaaS (e.g., Google Docs, Office 365)
-    • standalone software
-        • perpetual license with occasional paid upgrades (still a lot of software)
-        • annual subscription (e.g., LetterOpener from 2018 onwards)
-        • app store: up-front price (or free) + in-app purchases
-    • “software plus a service” (S+aS)
-        • either perpetual license or subscription for a service that adds features to the standalone version (e.g., syncing)
-        • e.g., 1Password
-    • some companies offer more than one of these options
-• if we want to compare pricing, we need to get data regarding pricing for historical paid upgrades
-    • usually no longer online (they don’t sell that version any more) — with a few exceptions
-    • online store fronts have changed over time
-    • may be able to extract data from the Wayback Machine (seems to work for the couple I’ve tried), but very manual process
 
 
 Why are things still like this?
