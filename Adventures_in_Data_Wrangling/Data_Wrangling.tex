@@ -9,7 +9,7 @@
 \usepackage{relalg}
 \usepackage{booktabs}
 \usepackage{fontawesome}
-\usepackage{ulem}
+\usepackage[normalem]{ulem}
 \usepackage{hyperref}
 
 
@@ -171,6 +171,47 @@
             \end{tikzpicture}
         \end{column}
     \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Moving data around leads to … trouble}
+    
+    \bigskip
+    \centering
+    \includegraphics[height=6cm,keepaspectratio]{CSV}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Project 1: CoreScan (completed)}
+    
+    \bigskip
+    \begin{itemize}
+        \item Statistical analysis of body composition data in R.
+        
+        \item Data exported directly from DXA machine.
+        
+        \item Relatively straightforward:
+        \begin{itemize}
+            \item Excel with well-defined columns
+            \item some minor cleaning
+        \end{itemize}
+        
+        \item “The way things should be”.
+    \end{itemize}
+    
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[above right=5mm of current page.south west)] (ref) {
+            \scriptsize\parbox{\columnwidth}{Meredith-Jones, K., Haszard, J., Stanger, N., and Taylor, R. “Precision of DXA-derived visceral fat measurements in a large sample of adults of varying body size.” \emph{Obesity} \textbf{26}(3):505–512. doi:~10.1002/oby.22108}
+        };
+    \end{tikzpicture}
 \end{frame}
 
 
