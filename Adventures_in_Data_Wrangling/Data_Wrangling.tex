@@ -4,19 +4,21 @@
 \usepackage[no-math]{fontspec}
 \usepackage{xunicode}
 \usepackage{xltxtra}
-\usepackage{bm}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{relalg}
 \usepackage{booktabs}
-\usepackage{mathtools}
+\usepackage{fontawesome}
+\usepackage{ulem}
 \usepackage{hyperref}
 
 
 % Beamer setup
-\usefonttheme{structurebold}
-\useinnertheme{rectangles}
-\usenavigationsymbolstemplate{}
+\mode<presentation>
+{
+	\usetheme{OtagoPlain}
+	\setbeamertemplate{navigation symbols}{}
+}
 \setbeamertemplate{footline}[frame number]
 
 
@@ -67,15 +69,7 @@
 
 % preamble
 \title{Adventures in data wrangling}
-\author{\large Nigel Stanger \\[0.75cm]
-    \hspace*{0.5cm}
-    \includegraphics[scale=0.2]{Business_School_LS_ID_crop}
-    \hspace*{0.57cm}
-    \rule{1pt}{1.482cm}
-    \hspace*{0.46cm}
-    \rmfamily\small
-    \raisebox{0.4cm}{\shortstack[l]{Department of \\ Information Science}}
-}
+\author{Nigel Stanger}
 \date{July 20, 2018}
 
 
@@ -108,6 +102,47 @@
 \end{frame}
 
 \setbeamertemplate{background canvas}[default]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Data come from a \uline{lot} of different sources}
+    
+    \bigskip
+    \begin{columns}
+        \begin{column}{0.4\paperwidth}
+            \centering
+            \includegraphics[width=0.9\columnwidth,keepaspectratio]{data-sources.png}\tinyskip
+            {\tiny{SOURCE: Xobber}}
+        \end{column}
+        \begin{column}{0.55\paperwidth}
+            \centering
+            \begin{tabular}{cccccccc}
+                \faHeartO & \faCode & \faDatabase & \faGit & \faCalendar & \faLaptop & \faThumbsOUp & \faBluetoothB \\
+                \addlinespace
+                \faTags & \faTerminal & \faDashboard & \faYoutubePlay & \faFileCodeO & \faLinux & \faCloud & \faBank \\
+                \addlinespace
+                \faBarcode & \faUsers & \faFilePdfO & \faSafari & \faAndroid & \faAmazon & \faFileAudioO & \faGavel \\
+                \addlinespace
+                \faFileWordO & \faFilm & \faRss & \faSteam & \faWikipediaW & \faCreditCard & \faGamepad & \faWifi \\
+                \addlinespace
+                \faShoppingCart & \faPaypal & \faKeyboardO & \faClockO & \faEnvelopeO & \faFileExcelO & \faTruck & \faToggleOn \\
+                \addlinespace
+                \faBirthdayCake & \faFolderOpenO & \faHddO & \faDesktop & \faAutomobile & \faBus & \faResistance & \faFax \\
+                \addlinespace
+                \faGoogle & \faFacebook & \faIndustry & \faLinkedin & \faAreaChart & \faSpotify & \faBarChart & \faFileTextO \\
+                \addlinespace
+                \faFloppyO & \faWeibo & \faFileArchiveO & \faFileImageO & \faPrint & \faMobile & \faApple & \faChrome \\
+                \addlinespace
+                \faPieChart & \faCamera & \faQrcode & \faSoccerBallO & \faMapO & \faFirefox & \faFilePowerpointO & \faEdge \\
+                \addlinespace
+                \faCompass & \faNewspaperO & \faFileMovieO & \faStackOverflow & \faMicrophone & \faTwitter & \faWpforms & \faPhone \\
+            \end{tabular}
+        \end{column}
+    \end{columns}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
