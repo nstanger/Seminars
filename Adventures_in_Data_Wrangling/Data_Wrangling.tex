@@ -24,10 +24,10 @@
 
 % TikZ setup
 \usetikzlibrary{positioning}
-\usetikzlibrary{graphs}
-\usetikzlibrary{decorations.pathreplacing}
+% \usetikzlibrary{graphs}
+% \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{calc}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
 
 
 % fontspec setup
@@ -140,6 +140,35 @@
                 \addlinespace
                 \faCompass & \faNewspaperO & \faFileMovieO & \faStackOverflow & \faMicrophone & \faTwitter & \faWpforms & \faPhone \\
             \end{tabular}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Data schemas run a wide gamut}
+    
+    \begin{columns}
+        \begin{column}{\paperwidth}
+            \centering
+            \begin{tikzpicture}
+                \node (erd) {\includegraphics[width=3.25cm,keepaspectratio]{HR_OE_ERD}};
+                \node[right=7.5mm of erd] (excel) {\includegraphics[width=3.25cm,keepaspectratio]{fake_results_excel}};
+                \node[right=7.5mm of excel] (web) {\includegraphics[width=3.25cm,keepaspectratio]{web_page}};
+                
+                \node[below=0mm of web.south] (weblabel) {free-form};
+                \node (excellabel) at (excel |- weblabel) {more flexible};
+                \node (erdlabel) at (erd |- weblabel) {formal, “fixed”};
+                
+                \node[below=-3pt of erdlabel] (erdtext) {\tiny e.g., SQL databases};
+                \node[below=-3pt of excellabel] (exceltext) {\tiny e.g., JSON, XML, Excel, …};
+                \node[below=-3pt of weblabel] (webtext) {\tiny e.g., email, MS Word, web pages, …};
+                
+                \path[fill, OU red, ultra thick, nearly transparent] (erd.west) -- ++(0,1cm) -- ($(web.west) + (0,1cm)$) -- ++(0,1cm) -- (web.east) -- ($(web.west) - (0,2cm)$) -- ++(0,1cm) -- ($(erd.west) - (0,1cm)$) -- cycle;
+            \end{tikzpicture}
         \end{column}
     \end{columns}
 \end{frame}
