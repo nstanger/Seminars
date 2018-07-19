@@ -96,13 +96,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth,keepaspectratio]{TTRPT02.png}}
-
-\begin{frame}
+\begin{frame}<beamer>
     \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture, overlay]
+        \only<1>{
+            \node (picture) at (current page.center) {
+                \includegraphics[width=\paperwidth,keepaspectratio]{TTRPT02.png}
+            };
+            \node[anchor=north west] (logo) at (current page.north west) {
+                \includegraphics[width=3.5cm,keepaspectratio,angle=10]{BO.png}
+            };
+        }
+    \end{tikzpicture}
+    \only<2>{\mbox{}}
 \end{frame}
-
-\setbeamertemplate{background canvas}[default]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
