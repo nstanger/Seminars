@@ -238,9 +238,9 @@
     \medskip
     
     \begin{itemize}
-        \item Not cloud-based SaaS — already well studied, especially for corporates.
+        \item SaaS already well studied, especially for corporates.
         
-        \item Typical licensing models for small developers:
+        \item Typical licensing models for smaller developers:
         \begin{itemize}
             \item pay once, all updates free forever
             \item pay for each major version upgrade {\tiny (upgrade pricing)}
@@ -250,7 +250,7 @@
         \item Some are experimenting with alternative models:
         \begin{itemize}
             \item “service contract” (e.g., annual subscription)
-            \item “software plus a service” (\sout{SpaS?} S+aS? S+S?)
+            \item “software plus a service” (\sout{SpaS?} S+aS? S++S?)
         \end{itemize}
         
         \item Some developers offer more than one of these options.
@@ -270,22 +270,24 @@
     \begin{itemize}
         \item Typical perpetual license:
         \begin{itemize}
-            \item separate licenses for each platform {\tiny (to use \emph{all} features)}
-            \item syncing must be manually configured
-            \item major version upgrades are paid {\tiny (e.g., v6\(\rightarrow\)v7 \todo{USD\,39.99?})}
+            \item separate licenses per platform {\tiny (to enable \emph{all} features)}
+            \item manually configured syncing
+            \item major version upgrades are (usually) paid
         \end{itemize}
         
-        \item Annual subscription:
+        \item Subscription:
         \begin{itemize}
             \item free license for all platforms
             \item transparent syncing via 1Password account
-            \item cost USD\,2.99/month (individual), USD\,4.99/month (family)\tinyskip
-            {\tiny (when billed annually)}
+            \item annual vs.\ monthly billing
+            \item individual vs.\ family
         \end{itemize}
+        
+        \item Both options via direct sale or app store.
     \end{itemize}
     
     \begin{tikzpicture}[remember picture, overlay]
-        \node[below left=1.5cm of current page.north east)] (icon) {
+        \node[below left=1.25cm of current page.north east)] (icon) {
             \includegraphics[width=2cm,keepaspectratio]{1Password}
         };
     \end{tikzpicture}
@@ -333,19 +335,19 @@
 \begin{frame}
     \frametitle{The data collection problem}
     
-    \structurebf{To compare costs we need historical pricing data}
+    \structurebf{To compare costs we need historical pricing}
     \medskip
     
     \begin{itemize}
-        \item No-one’s likely to publish their pricing history. {\tiny (who cares?)}
+        \item No-one’s likely to publish their pricing history! {\tiny (who cares?)}
         \begin{itemize}
-            \item except vendors that sell separate versions for different OS releases {\tiny (e.g. macOS Mail plugins)}
+            \item except maybe vendors that sell separate versions for different OS releases {\tiny (e.g. macOS Mail plugins)}
             \item at best probably only full pricing available, not upgrade
         \end{itemize}
         
         \item Wayback Machine? {\tiny (Internet Archive)}
         \begin{itemize}
-            \item have been able to find a couple of old store-fronts
+            \item have successfully found a couple of old store-fronts
             \item probably impossible to automate \faFrownO
         \end{itemize}
         
