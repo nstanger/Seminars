@@ -190,6 +190,17 @@
 
 
 \begin{frame}
+    \huge
+    \centering
+    \bigskip\bigskip
+    \structurebf{Often it’s not a case of what we can get from the data, but rather what data \emph{can} we get?}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
     \frametitle{Project 1: CoreScan (completed)}
     
     \bigskip
@@ -362,6 +373,97 @@
 
 
 \begin{frame}
+    \frametitle{“Project” 3: Student data (ongoing)}
+    
+    \begin{itemize}
+        \item For teaching \& administration:
+        \begin{itemize}
+            \item class lists, email lists
+            \item timetabling \& streaming
+            \item internal assessment, terms, final results {\tiny (processing \& submission)}
+        \end{itemize}
+        
+        \item For research:
+        \begin{itemize}
+            \item CALT project on data driven course advising
+            \item efficacy of teaching/tool interventions
+            \item …
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Data driven course advising}
+    
+    \begin{itemize}
+        \item For teaching \& administration:
+        \begin{itemize}
+            \item class lists, email lists
+            \item internal assessment, terms
+            \item timetabling
+            \item \alert<2>{final results {\tiny (INFORMS)}}
+        \end{itemize}
+        
+        \item For research:
+        \begin{itemize}
+            \item \alert<2>{CALT project on data driven course advising {\tiny (UCAN)}}
+            \item efficacy of teaching/tool interventions
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{INFORMS}
+    
+    \begin{itemize}
+        \item Started as PostgreSQL database + tools to automate results files for Student Records. {\tiny (ca.\ 2001–2002)}
+        
+        \item Has grown “organically”:
+        \begin{itemize}
+            \item transforming data to and from central systems {\tiny (pre and post eVision)}
+            \item level of award calculation
+            \item grade histograms
+            \item web interface for some functions
+            \item[\faArrowRight] a mishmash of bash, Perl, Python, PHP, R, AppleScript (!), iMacros, HTML, CSS, JavaScript
+        \end{itemize}
+    \end{itemize}
+    \bigskip\bigskip\bigskip\mbox{}
+    
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=south west, above right=2mm of current page.south west] (home) {
+            \includegraphics[height=3cm,keepaspectratio]{INFORMS_home}
+        };
+        \node[anchor=south east, above left=2mm of current page.south east] (files) {
+            \includegraphics[height=3cm,keepaspectratio]{INFORMS_files}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{data sources}
+    
+    \begin{itemize}
+        \item Mostly central systems (eVision) via Business Objects.
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
     \centering\Huge
     \structurebf{Questions?}
 \end{frame}
@@ -373,14 +475,6 @@
 \end{document}
 
 Project 2: student data
-• much work around University needs or can use student-related data
-    • teaching
-    • HE research
-    • administration
-• teaching & admin
-    • student & enrolment data (class lists, email lists, internal assessment, terms)
-    • timetable data (streaming, rooms)
-    • results data (mainly for proofing and submitting)
 • CALT project about data-driven course advising
     • enrolment data for who does what papers and when
     • student data for demographics (ethnicity, gender)
