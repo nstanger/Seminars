@@ -6,10 +6,10 @@
 \usepackage{xltxtra}
 \usepackage{tikz}
 \usepackage{graphicx}
-\usepackage{relalg}
 \usepackage{booktabs}
 \usepackage{fontawesome}
 \usepackage[normalem]{ulem}
+\usepackage[mode=text]{siunitx}
 \usepackage{hyperref}
 
 
@@ -296,28 +296,34 @@
 
 
 \begin{frame}
-    \frametitle{Cost comparison}
+    \frametitle{Cost comparison (US\$)}
     
-    \structurebf{“Standard” license}
-    \medskip
-    
-    \begin{tabular}{rrr}
-        \toprule
-        \textbf{Version}    &   \textbf{Released}   &   \textbf{Cost (USD)} \\
-        \midrule
-        2/3                 &   2009                &   39.95   \\
-        5                   &   2014                &   24.99   \\
-        6                   &   \todo{20??}         &   \todo{??}   \\
-        7                   &   2018                &   \todo{39.99?}   \\
-        \bottomrule
-    \end{tabular}
-    
-    \begin{itemize}
-        \item Cost comparision:
-        \begin{itemize}
-            \item individual subscription 2009–2018 = 10 × USD\,2.99 × 12 = USD\,358.80 = USD\,35.88/year
-        \end{itemize}
-    \end{itemize}
+    \begin{columns}[t]
+        \begin{column}{0.45\paperwidth}
+            \structurebf{“Standard” license}
+            \bigskip
+            
+            \begin{tabular}{rrr}
+                \textbf{Version}    &   \textbf{Released}   &   \textbf{Cost} \\
+                2/3                 &   2009                &   \$39.95   \\
+                5                   &   2014                &   \$24.99   \\
+                6                   &   \todo{20??}         &   \todo{??}   \\
+                7                   &   2018                &   \todo{\$39.99?}   \\
+                \addlinespace
+                \multicolumn{2}{r}{\textbf{Total (10 years):}}  &   \todo{??}   \\
+                \multicolumn{2}{r}{\textbf{Total (per year):}}  &   \todo{??}   \\
+            \end{tabular}
+        \end{column}
+        \begin{column}{0.45\paperwidth}
+            \structurebf{Subscription}
+            \begin{tabbing}
+                Individual \= = \$2.99 per month \\
+                \> = \$35.88 per year \\[6pt]
+                Family \= = \$4.99 per month \\
+                \> = \$59.88 per year
+            \end{tabbing}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
