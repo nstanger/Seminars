@@ -509,10 +509,16 @@
 
 
 \begin{frame}
-    \frametitle{Data sources}
+    \frametitle{Data sources for student data}
     
     \begin{tikzpicture}[remember picture, overlay]
-        \node[anchor=south east, above left=4mm of current page.south east] (ttrpt02) {
+        \node[anchor=north east] (BO) at ($(current page.north east) - (1mm,2mm)$) {
+            \includegraphics[width=3.5cm,keepaspectratio]{BO.png}
+        };
+        \node[anchor=east] (eVision) at ($(current page.east) + (-1mm,7mm)$) {
+            \includegraphics[width=3cm,keepaspectratio]{eVision.png}
+        };
+        \node[anchor=south east] (ttrpt02) at ($(current page.south east) + (-1mm,3mm)$) {
             \includegraphics[height=2.8cm,keepaspectratio]{TTRPT02.png}
         };
     \end{tikzpicture}
@@ -520,17 +526,17 @@
     \begin{itemize}
         \item Mostly eVision via Business Objects. {\tiny (maybe Blackboard for internal assessment)}
         \begin{itemize}
-            \item human readable (PDF \faFilePdfO, Word \faFileWordO)
-            \item “machine-readable” (CSV \faFileTextO, XLS \faFileExcelO)
+            \item human readable (PDF \alert{\faFilePdfO}, Word \textcolor{structure}{\faFileWordO})
+            \item “machine-readable” (CSV \faFileTextO, XLS \textcolor{green!50!black}{\faFileExcelO})
         \end{itemize}
     \end{itemize}
     \medskip
     
     \begin{tabular}{lp{8cm}}
-        \structurebf{CARPT004}  &   Paper, student, and enrolment data  \\
-        \structurebf{TTRPT02}   &   Enrolment and streaming data  \\
-        \structurebf{EXRPT11}   &   Final results and internal assessment {\tiny (Results I vs.\ II)}  \\
-        \structurebf{SDRPT12}   &   Student retention, including degree completion and annual workload  \\
+        \structurebf{CARPT004}  &   paper, student, and enrolment data  \\
+        \structurebf{TTRPT02}   &   enrolment and streaming data  \\
+        \structurebf{EXRPT11}   &   final results and internal assessment {\tiny (Results I vs.\ II)}  \\
+        \structurebf{SDRPT12}   &   student retention, including degree completion and annual workload  \\
         \structurebf{SDGPA01}   &   GPA data (per year, level,  \\
                                 &   and overall)  \\
     \end{tabular}
