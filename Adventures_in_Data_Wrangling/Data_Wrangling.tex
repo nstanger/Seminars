@@ -285,6 +285,7 @@
             \item separate licenses per platform {\tiny (to enable \emph{all} features)}
             \item manually configured syncing
             \item major version upgrades are (usually) paid
+            \item “pro” mobile apps are one-off in-app purchase
         \end{itemize}
         
         \item Subscription:
@@ -292,11 +293,15 @@
             \item free license for all platforms
             \item transparent syncing via 1Password account
             \item annual vs.\ monthly billing
-            \item individual vs.\ family
+            \item individual vs.\ family {\tiny (additional group features)}
         \end{itemize}
         
         \item Both options via direct sale or app store.
     \end{itemize}
+    
+    \medskip
+    \centering
+    \alert{\fbox{\textbf{Which version should I buy?}}}
     
     \begin{tikzpicture}[remember picture, overlay]
         \node[below left=1.25cm of current page.north east)] (icon) {
@@ -311,30 +316,37 @@
 
 \begin{frame}
     \frametitle{Cost comparison (US\$)}
+    \framesubtitle{(based on my own purchase history)}
     
     \begin{columns}[t]
-        \begin{column}{0.45\paperwidth}
+        \begin{column}{0.4\paperwidth}
             \structurebf{“Standard” license}
             \bigskip
             
             \begin{tabular}{rrr}
-                \textbf{Version}    &   \textbf{Released}   &   \textbf{Cost} \\
-                2/3                 &   2009                &   \$39.95   \\
-                5                   &   2014                &   \$24.99   \\
-                6                   &   \todo{20??}         &   \todo{??}   \\
-                7                   &   2018                &   \todo{\$39.99?}   \\
+                \textbf{Version}    &   \textbf{When}   &   \textbf{Cost}\textcolor{white}{*} \\
+                2/3                 &   Feb 2009        &   \$39.95\textcolor{white}{*}   \\
+                5/6                 &   Dec 2014        &   \$24.99\textcolor{white}{*}   \\
+                7                   &   Jun 2018        &   \$49.99*   \\
+                iOS                 &   N/A             &   \$9.99\textcolor{white}{*}  \\
                 \addlinespace
-                \multicolumn{2}{r}{\textbf{Total (10 years):}}  &   \todo{??}   \\
-                \multicolumn{2}{r}{\textbf{Total (per year):}}  &   \todo{??}   \\
+                \multicolumn{3}{r}{Total (≈\,113 months): \$124.92\textcolor{white}{*}}   \\
+                \multicolumn{3}{r}{Total (per month): ≈\,\$1.11\textcolor{white}{*}}   \\
+                \multicolumn{3}{r}{\alert{Total (per year): ≈\,\$13.27}\textcolor{white}{*}}   \\
+                \addlinespace
+                \multicolumn{3}{l}{\tiny *\,introductory price; normally \$64.99 \(\Rightarrow\) \$14.86 per year}
             \end{tabular}
         \end{column}
-        \begin{column}{0.45\paperwidth}
-            \structurebf{Subscription}
+        \begin{column}{0.4\paperwidth}
+            \quad\structurebf{Subscription}
             \begin{tabbing}
-                Individual \= = \$2.99 per month \\
+                \quad Individual \= = \$2.99 per month \\
                 \> = \$35.88 per year \\[6pt]
-                Family \= = \$4.99 per month \\
-                \> = \$59.88 per year
+                \quad Family \= = \$4.99 per month \\
+                \> = \$59.88 per year \\
+                \\
+                \quad \structurebf{Are the extra features really} \\
+                \quad \structurebf{worth \emph{that} much?}
             \end{tabbing}
         \end{column}
     \end{columns}
@@ -610,12 +622,6 @@ Project 2: student data
 • CALT project about data-driven course advising
     • one potential output is a tool that illustrates student progression (show medical animation example)
     • needs enrolment data in a graph form (each node represents a paper and each edge represent a transition between papers)
-• where do these data come from?
-    • perhaps Blackboard if you’re using that for internals
-        • exports as “.xls.csv” (!)
-    • CARPT004 for some enrolment data
-    • TTRPT02 for remaining enrolment data not already in CARPT004 and TTRPT02 (find out what each provides)
-    • recent development: LDAP for creating class email lists
 
 
 
