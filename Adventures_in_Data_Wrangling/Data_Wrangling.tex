@@ -28,6 +28,7 @@
 % \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
 
 
 % fontspec setup
@@ -452,11 +453,135 @@
 
 
 \begin{frame}
-    \frametitle{data sources}
+    \frametitle{Data driven course advising}
+    \framesubtitle{(with Sander, Claudia, Steven)}
     
     \begin{itemize}
-        \item Mostly central systems (eVision) via Business Objects.
+        \item CALT project looking at evidence-based approaches to improve course advising. {\tiny (among others)}
+        
+        \item Under way for about 7 months.
+        
+        \item Needs a lot of historical student data.
+        \begin{itemize}
+            \item enrolments, results, student performance, workload, completion, demographics, …
+            \item initially focused on COSC and INFO papers only
+        \end{itemize}
+        
+        \item Currently using a modified version of INFORMS database.
     \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Data sources}
+    
+    \begin{itemize}
+        \item Mostly eVision via Business Objects. {\tiny (maybe Blackboard for internal assessment)}
+        \begin{itemize}
+            \item human readable (PDF \faFilePdfO, Word \faFileWordO)
+            \item “machine-readable” (CSV \faFileTextO, XLS \faFileExcelO)
+        \end{itemize}
+    \end{itemize}
+    \bigskip
+    
+    \begin{tabular}{lp{8cm}}
+        \structurebf{EXRPT11}   &   Final results and internal assessment {\tiny (Results I vs.\ II)}  \\
+        \structurebf{SDRPT12}   &   Student retention, including degree completion and annual workload  \\
+        \structurebf{SDGPA01}   &   GPA data (per year, level, and overall)  \\
+        \structurebf{CARPT004}  &   Some enrolment data  \\
+        \structurebf{TTRPT02}   &   More enrolment data and streaming  \\
+    \end{tabular}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Typical problems encountered}
+    
+    \begin{itemize}
+        \item Old formats (.xls) \(\Rightarrow\) long term preservation issues.
+        
+        \item Business Objects reports were developed “organically”:
+        \begin{itemize}
+            \item inconsistent parameters
+            \item ad hoc design
+            \item more likely to be designed for human readability
+            \item can change without warning {\tiny (esp.\ after eVision rollout)}
+        \end{itemize}
+        
+        \item No API access \(\Rightarrow\) no ad hoc querying.
+        
+        \item Reading delimited text is often easier. \faMehO
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{EXRPT11 “Tabular” report}
+    
+    \bigskip
+    Stated as “must run in Excel” \(\Rightarrow\) intended to be \alert{machine readable}.
+    \bigskip
+    
+    \centering
+    \begin{tikzpicture}
+        \node[anchor=south west] (ss) {\includegraphics[width=0.95\columnwidth,keepaspectratio]{EXRPT11_Tabular}};
+        \begin{uncoverenv}<2>
+            \node[draw, ultra thick, ellipse, OU red, minimum width=1cm] (id) at (1.9cm,0.6cm) {};
+            \node[draw, ultra thick, ellipse, OU red, minimum width=3cm, minimum height=0.7cm] (grades) at (5.8cm,0.7cm) {};
+            \node[OU red] (wtf) at (3.5cm,-0.8cm) {\textbf{?!?!}};
+            \draw[OU red, thick, -{Stealth}] (wtf) -- (id);
+            \draw[OU red, thick, -{Stealth}] (wtf) -- (grades);
+        \end{uncoverenv}
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{EXRPT11 “Summary” report}
+    
+    \bigskip
+    Stated as “must run in PDF” \(\Rightarrow\) \alert{not} intended to be machine readable.
+    \bigskip
+    
+    \centering
+    \begin{tikzpicture}
+        \node (ss) {\includegraphics[width=0.95\columnwidth,keepaspectratio]{EXRPT11_Summary}};
+        \node[OU red, below=5mm of ss] (huh) {\huge\textbf{!!!}};
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{SDRPT12 mysteriously fixed itself}
+    
+    \bigskip
+    \structurebf{\alt<2>{July 2018}{Early 2018}}
+    \bigskip
+    
+    \centering
+    \begin{tikzpicture}
+        \node (broken) {\includegraphics[width=0.95\columnwidth,keepaspectratio]{SDRPT12_bustificated}};
+        \uncover<2>{\node (fixed) {\includegraphics[width=0.95\columnwidth,keepaspectratio]{SDRPT12_fixed}};}
+    \end{tikzpicture}
+    \bigskip
+    
+    \footnotesize
+    \uncover<2>{(This is good, as the only other source of completion data is the student transcript.)}
 \end{frame}
 
 
@@ -476,40 +601,14 @@
 
 Project 2: student data
 • CALT project about data-driven course advising
-    • enrolment data for who does what papers and when
-    • student data for demographics (ethnicity, gender)
-    • paper data for workload (points, EFTS)
-    • completion data (of degrees)
-    • results data (grades, GPA)
     • one potential output is a tool that illustrates student progression (show medical animation example)
     • needs enrolment data in a graph form (each node represents a paper and each edge represent a transition between papers)
-• work currently under review (ICCE) on automated SQL DDL marking system
-    • results and internal assessment data across several years for one 200-level paper
 • where do these data come from?
-    • mostly eVision, via Business Objects (shudder)
-        • usually either human readable (PDF) or somewhat machine-readable (CSV, XLS)
-        • CSV output often ineffective (empty file)
     • perhaps Blackboard if you’re using that for internals
         • exports as “.xls.csv” (!)
-    • EXRPT11 (internal assessment and/or overall results, depending on whether Results I or II)
-        • printable version (PDF)
-        • data version (Excel)
-        • bizarrely, the printable version (when generated as Excel) is easier to process than the data version!
-    • SDRPT12 (student retention, including degree completion and yearly workload)
-        • only other source is student transcript, which can be generated en masse but aren’t easily machine-readable
-        • was completely bustificated until fairly recently (empty columns were collapsed)
-    • SDGPA01 for GPA data
     • CARPT004 for some enrolment data
     • TTRPT02 for remaining enrolment data not already in CARPT004 and TTRPT02 (find out what each provides)
     • recent development: LDAP for creating class email lists
-
-• many of Otago’s systems output .xls rather than something more modern
-    • ⇒ perservation issues: only reliable tool I’ve found to automatically convert spreadsheet formats to something more permanent is ssconvert (part of Gnumeric)
-• no API access
-• for a while after eVision came in, the BO reports changed format every few months ⇒ adaptive loading scripts
-• reading demlited text files is often easier than other formats (I usually keep the input files in both XLSX and CSV)
-
-• my results management system is consequently a mishmash of bash, Perl, Python, PHP, and R scripts that have been bodged together over time (currently being rewritten frome the ground up in Python)
 
 
 
@@ -524,3 +623,4 @@ Why are things still like this?
 • apathy on the part of consumers who do know better
     • usually because they already have workarounds that are “good enough”
 • ancient software/interfaces (e.g., Business Objects)
+
