@@ -392,30 +392,6 @@
         \item For teaching \& administration:
         \begin{itemize}
             \item class lists, email lists
-            \item timetabling \& streaming
-            \item internal assessment, terms, final results {\tiny (processing \& submission)}
-        \end{itemize}
-        
-        \item For research:
-        \begin{itemize}
-            \item CALT project on data driven course advising
-            \item efficacy of teaching/tool interventions
-            \item …
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-    \frametitle{Data driven course advising}
-    
-    \begin{itemize}
-        \item For teaching \& administration:
-        \begin{itemize}
-            \item class lists, email lists
             \item internal assessment, terms
             \item timetabling
             \item \alert<2>{final results {\tiny (INFORMS)}}
@@ -425,6 +401,7 @@
         \begin{itemize}
             \item \alert<2>{CALT project on data driven course advising {\tiny (UCAN)}}
             \item efficacy of teaching/tool interventions
+            \item …
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -437,13 +414,14 @@
     \frametitle{INFORMS}
     
     \begin{itemize}
-        \item Started as PostgreSQL database + tools to automate results files for Student Records. {\tiny (ca.\ 2001–2002)}
+        \item Started as PostgreSQL database + tools to automatically generate results files for Student Records. {\tiny (ca.\ 2001–2002)}
         
         \item Has grown “organically”:
         \begin{itemize}
             \item transforming data to and from central systems {\tiny (pre and post eVision)}
             \item level of award calculation
             \item grade histograms
+            \item automated result proofing
             \item web interface for some functions
             \item[\faArrowRight] a mishmash of bash, Perl, Python, PHP, R, AppleScript (!), iMacros, HTML, CSS, JavaScript
         \end{itemize}
@@ -466,12 +444,10 @@
 
 \begin{frame}
     \frametitle{Data driven course advising}
-    \framesubtitle{(with Sander, Claudia, Steven)}
+    \framesubtitle{(with Sander, Claudia, Steven, and others since Jan 2018)}
     
     \begin{itemize}
         \item CALT project looking at evidence-based approaches to improve course advising. {\tiny (among others)}
-        
-        \item Under way for about 7 months.
         
         \item Needs a lot of historical student data.
         \begin{itemize}
@@ -479,8 +455,39 @@
             \item initially focused on COSC and INFO papers only
         \end{itemize}
         
-        \item Currently using a modified version of INFORMS database.
+        \item Data set from 2009–2018 (S1):
+        \begin{itemize}
+            \item 9743 students, 578 paper offerings, \num{29238} enrolments
+            \item ≈\,60\% enrolled in computing majors, ≈\,16\% in computing minors
+            \item using a modified version of INFORMS database
+        \end{itemize}
     \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Visualisation: Student flows between papers}
+    
+    \begin{columns}[t]
+        \begin{column}{0.5\paperwidth}
+            \centering
+            \structurebf{This would be great}
+            \medskip
+            
+            \includegraphics[width=0.8\columnwidth,keepaspectratio]{AthenaHealth.png}\tinyskip
+            {\tiny SOURCE: \href{http://athenahealthvisualization.com}{Fathom/Athena Health}}
+        \end{column}
+        \begin{column}{0.5\paperwidth}
+            \centering
+            \structurebf{But we’re still working on it…}
+            \medskip
+            
+            \includegraphics[height=6.5cm,keepaspectratio]{paper_sequence}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
