@@ -509,6 +509,22 @@
 
 
 \begin{frame}
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node (all) at (current page.center) {
+            \includegraphics[height=0.95\paperheight,keepaspectratio]{paper_sequence_all}
+        };
+        \node (label) at (current page.center) {
+            \Huge\textcolor{white}{\textbf{\emph{Quite} a bit of work…}}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
     \frametitle{Data sources for student data}
     
     \begin{tikzpicture}[remember picture, overlay]
