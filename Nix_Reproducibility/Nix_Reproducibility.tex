@@ -1,0 +1,194 @@
+% !TeX root = ./Nix_Reproducibility.tex
+% \documentclass[notes=onlyslideswithnotes]{beamer}
+\documentclass[nochapters]{otagoslides}
+
+
+\usepackage{booktabs}
+\usepackage{minted}
+% \usepackage[mode=text]{siunitx}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+
+
+% Initialise hyperref.
+\inithyperref
+
+
+% minted
+\setminted{autogobble, style=vs, escapeinside=\#\#}
+\newcommand{\sql}[1]{\mintinline{sql}{#1}}
+\definecolor{vskeyword}{HTML}{0000ff}
+\definecolor{vsstring}{HTML}{a31515}
+\newcommand{\vskeyword}[1]{\textcolor{vskeyword}{#1}}
+\newcommand{\vsstring}[1]{\textcolor{vsstring}{#1}}
+
+
+
+% TikZ setup
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+
+
+% tcolorbox
+\tcbuselibrary{skins}
+\tcbuselibrary{minted}
+\tcbset{enhanced, drop fuzzy shadow, listing only, minted language=text}
+
+
+% misc
+\newcommand{\todo}[1]{\textcolor{red!65!black}{\textbf{!!TODO!! [#1] !!}}}
+
+
+% preamble
+\title{Adventures in Reproducibility with Nix}
+\subtitle{~}
+\author{Nigel Stanger}
+\date{March 27, 2026}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setbeamertemplate{background canvas}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[nearly transparent] at (current page) {
+            \includegraphics[height=0.9\paperheight, keepaspectratio]{Nix_snowflake.pdf}
+        };
+    \end{tikzpicture}
+}
+% to create image:
+%   1. export data-wrangler.xcf as PNG from GIMP
+%   2. convert data-wrangler.png -fill white -colorize 67% data-wrangler-BG.jpg
+
+\begin{frame}
+    \thispagestyle{empty}
+    \titlepage
+\end{frame}
+
+\setbeamertemplate{background canvas}[default]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{The problem}
+
+\begin{frame}
+    \sectionpage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+    \frametitle{Monday\ldots}
+    \begin{tcblisting}{minted options={fontsize=\fontsize{6pt}{7pt}\selectfont}}
+        JAVA_HOME="/Applications/Apache NetBeans.app/Contents/Home"
+        cd /Users/stani07p/LocalDocuments/Development/INFORMS3/service; ../gradlew --configure-on-demand -x check run
+        #\color{gray}Configuration on demand is an incubating feature.#
+        > Task :service:compileJava UP-TO-DATE
+        > Task :service:processResources UP-TO-DATE
+        > Task :service:classes UP-TO-DATE
+
+        > Task :service:run #\textcolor{red!65!black}{FAILED}#
+        #\textcolor{red!65!black}{Exception in thread "main" io.jooby.exception.StartupException: Application startup resulted in exception}#
+                #\textcolor{red!65!black}{at io.jooby.Jooby.start}(\textcolor{blue}{\uline{Jooby.java:815}})#
+                #\textcolor{red!65!black}{at io.jooby.Jooby.runApp}(\textcolor{blue}{\uline{Jooby.java:1119}})#
+                #\textcolor{red!65!black}{at io.jooby.Jooby.runApp}(\textcolor{blue}{\uline{Jooby.java:1082}})#
+                #\textcolor{red!65!black}{at web.Service.main}(\textcolor{blue}{\uline{Service.java:47}})#
+        #\textcolor{red!65!black}{Caused by: java.lang.IllegalArgumentException: \highlight{Unsupported class file major version 69}}#
+                #\textcolor{red!65!black}{at io.jooby.internal.\$shaded.asm.ClassReader.<init>}(\textcolor{blue}{\uline{ClassReader.java:200}})#
+                #\textcolor{red!65!black}{at io.jooby.internal.\$shaded.asm.ClassReader.<init>}(\textcolor{blue}{\uline{ClassReader.java:180}})#
+                #\textcolor{red!65!black}{at io.jooby.internal.\$shaded.asm.ClassReader.<init>}(\textcolor{blue}{\uline{ClassReader.java:166}})#
+                #\textcolor{red!65!black}{at io.jooby.internal.RouteAnalyzer.returnType}(\textcolor{blue}{\uline{RouteAnalyzer.java:44}})#
+                #\textcolor{red!65!black}{at io.jooby.internal.RouterImpl.start}(\textcolor{blue}{\uline{RouterImpl.java:555}})#
+                #\textcolor{red!65!black}{at io.jooby.Jooby.start}(\textcolor{blue}{\uline{Jooby.java:865}})#
+                #\textcolor{red!65!black}{at io.jooby.Server\$Base.fireStart}(\textcolor{blue}{\uline{Server.java:93}})#
+                #\textcolor{red!65!black}{at io.jooby.netty.Netty.start}(\textcolor{blue}{\uline{Netty.java:97}})#
+                #\textcolor{red!65!black}{at io.jooby.Jooby.start}(\textcolor{blue}{\uline{Jooby.java:805}})#
+                #\textcolor{red!65!black}{... 3 more}#
+
+        #\textcolor{red!65!black}{FAILURE: Build failed with an exception.}#
+    \end{tcblisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Tuesday\ldots}
+
+    \begin{center}
+        \includegraphics[width=0.8\columnwidth, keepaspectratio]{r_1.png}
+        \bigskip
+    
+        \includegraphics[width=0.8\columnwidth, keepaspectratio]{r_2.png}
+    \end{center}
+    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+    \frametitle{Wednesday\ldots}
+
+    \begin{tcblisting}{minted options={fontsize=\footnotesize}}
+        ❯❯ python INFORMS/find_broken_names.py
+        Traceback (most recent call last):
+          File "/Users/.../INFORMS/find_broken_names.py", line 6, in <module>
+            import petl as etl
+        #\highlight{ModuleNotFoundError: No module named 'petl'}#
+    \end{tcblisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Meanwhile\ldots}
+
+    \begin{columns}
+        \begin{column}{0.5\paperwidth}
+            \includegraphics[width=\columnwidth, keepaspectratio]{mac_1.png}
+        \end{column}
+        \begin{column}{0.5\paperwidth}
+            \includegraphics[width=\columnwidth, keepaspectratio]{mac_2.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \centering
+    \bigskip
+    \bigskip
+    {\Huge\structurebf{Thank you}}
+    \bigskip
+
+    Questions?
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
