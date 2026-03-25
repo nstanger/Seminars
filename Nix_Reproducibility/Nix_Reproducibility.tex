@@ -4,8 +4,9 @@
 
 
 \usepackage{booktabs}
+\usepackage{emoji}
 \usepackage{minted}
-% \usepackage[mode=text]{siunitx}
+\usepackage[mode=text]{siunitx}
 \usepackage{tcolorbox}
 \usepackage{tikz}
 
@@ -21,6 +22,10 @@
 \definecolor{vsstring}{HTML}{a31515}
 \newcommand{\vskeyword}[1]{\textcolor{vskeyword}{#1}}
 \newcommand{\vsstring}[1]{\textcolor{vsstring}{#1}}
+
+
+% emoji
+\setemojifont{Noto Color Emoji}
 
 
 
@@ -41,6 +46,22 @@
 \newcommand{\todo}[1]{\textcolor{red!65!black}{\textbf{!!TODO!! [#1] !!}}}
 
 
+\newcommand{\NixLogoBackground}{%
+    \begin{tikzpicture}[remember picture, overlay]%
+        \node[nearly transparent] at (current page) {%
+            \includegraphics[height=0.9\paperheight, keepaspectratio]{Nix_snowflake.pdf}%
+        };%
+    \end{tikzpicture}%
+}
+
+
+% Increase item separation of level 1 list items. Can't use enumitem because it breaks beamer lists :(.
+% See: <https://tex.stackexchange.com/a/31524>
+\makeatletter
+\patchcmd{\@listI}{\itemsep6\p@}{\itemsep12\p@}{}{}
+\makeatother
+
+
 % preamble
 \title{Adventures in Reproducibility with Nix}
 \subtitle{~}
@@ -54,16 +75,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\setbeamertemplate{background canvas}{
-    \begin{tikzpicture}[remember picture, overlay]
-        \node[nearly transparent] at (current page) {
-            \includegraphics[height=0.9\paperheight, keepaspectratio]{Nix_snowflake.pdf}
-        };
-    \end{tikzpicture}
-}
-% to create image:
-%   1. export data-wrangler.xcf as PNG from GIMP
-%   2. convert data-wrangler.png -fill white -colorize 67% data-wrangler-BG.jpg
+\setbeamertemplate{background canvas}{\NixLogoBackground}
 
 \begin{frame}
     \thispagestyle{empty}
@@ -76,7 +88,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{The problem}
+\section{The problem: Reproducibility}
 
 \begin{frame}
     \sectionpage
@@ -116,6 +128,7 @@
 
         #\textcolor{red!65!black}{FAILURE: Build failed with an exception.}#
     \end{tcblisting}
+    \noteitem{Working fine until it suddenly didn't. An unexpected consequence of upgrading to Java 25. The somewhat old version of the Jooby framework this application depends on uses deprecated reflection APIs. The quick fix was to switch the runtime to Java 21, but the better term fix is to upgrade the Jooby version.}
 \end{frame}
 
 
@@ -131,6 +144,7 @@
     
         \includegraphics[width=0.8\columnwidth, keepaspectratio]{r_2.png}
     \end{center}
+    \noteitem{I use this script maybe 2--3 times per year to generate boxplots for results processing. Usually a consequence of R being quietly upgraded in the background. Versioned library directories force reinstallation and/or upgrade of all the required libraries.}
     
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -154,6 +168,7 @@
             import petl as etl
         #\highlight{ModuleNotFoundError: No module named 'petl'}#
     \end{tcblisting}
+    \noteitem{cf. Peter's complaint in last week's seminar. Similar to the R situation.}
 \end{frame}
 
 
@@ -171,6 +186,248 @@
             \includegraphics[width=\columnwidth, keepaspectratio]{mac_2.png}
         \end{column}
     \end{columns}
+    \noteitem{Different settings on different machines I control because I can't remember how I configured the more obscure things. The old fix was tedious manual comparison.}
+    \noteitem{This is something I've been wrestling with for decades. It was even worse in the days of Classic Mac OS.}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Some workarounds}
+
+\begin{frame}
+    \sectionpage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Synchronisation}
+
+    \begin{columns}[T]
+        \begin{column}{0.4\paperwidth}
+            \begin{center}
+                Vivaldi
+    
+                \includegraphics[width=\columnwidth, keepaspectratio]{sync_vivaldi.png}
+            \end{center}
+        \end{column}
+        \begin{column}{0.4\paperwidth}
+            \begin{center}
+                Visual Studio Code
+    
+                \includegraphics[width=\columnwidth, keepaspectratio]{sync_vscode.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+
+    \begin{itemize}
+        \item Needs some kind of account.
+        \item Application specific vs.\ general (e.g., OneDrive \emoji{scream}, \ldots).
+        \item Breaks inconveniently, sometimes silently \emoji{confounded-face}.
+        \item Really only useful for settings.
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Git}
+
+    \begin{itemize}
+        \item Store your configurations in a Git repo, clone as needed.
+        \item Kind of workable for Linux/Unix-likes (most things are text), but:
+        \begin{itemize}
+            \item what about system-level configurations (e.g., \texttt{/etc})?
+            \noteitem{You can easily clone a repo into your home directory, but system directories are tricky.}
+            \item macOS is a mishmash of POSIX, the \texttt{defaults} database, and custom blobs
+            \item Windows? \emoji{shrug}
+        \end{itemize}
+        \item Still really only helps with settings.
+        \noteitem{This feels only marginally better than synchronisation, and only for Linux-like contexts.}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Virtual machines}
+
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at (current page) {
+            \includegraphics[width=0.95\paperwidth, keepaspectratio]{vm.png}
+        };
+    \end{tikzpicture}
+    \noteitem{This can be effective, but requires careful management. Otherwise you've just inceptioned the problem down a level. This is also quite resource intensive (esp.\ storage), even with lightweight virtualisation.}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Containers}
+
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at (current page) {
+            \includegraphics[width=0.95\paperwidth, keepaspectratio]{containers.png}
+        };
+    \end{tikzpicture}
+    \noteitem{This can be very effective and is less resource intensive than full VMs, but now you have to keep track of all the containers. Tends to work better for server-style operation, but can work well for CLI and and GUI apps if done right.}
+    \noteitem{This is great for library reproducibility, but perhaps less so for consistent settings unless you make your own custom containers.}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{A solution? Nix}
+
+\begin{frame}
+    \sectionpage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setbeamertemplate{background canvas}{\NixLogoBackground}
+
+\begin{frame}
+    \frametitle{What is Nix?}
+
+    \begin{itemize}
+        \item A Linux distro (NixOS). \faLinux\ {\tiny (also see NixBSD)}
+        \noteitem{NixBSD is a fork to make a BSD equivalent of NixOS. Nix the package manager isn't available, though (somewhat surprising given that Darwin is mostly BSD-ish).}
+        \item A package manager (Nix)\ldots\ \faLinux~\faApple\ {\tiny (technically Darwin)}
+        \item \ldots based on a pure functional programming language \newline
+        (also named Nix \emoji{face-with-rolling-eyes}). \faLinux~\faApple
+        \noteitem{No Windows, but will work under WSL. There is a Nix community module to install NixOS.}
+        \item Reproducibility is baked into all three.
+    \end{itemize}
+\end{frame}
+
+\setbeamertemplate{background canvas}[default]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setbeamertemplate{background canvas}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \node at (current page) {
+            \includegraphics[height=\paperheight, keepaspectratio]{test_pattern.pdf}
+        };
+        \node[fill=white] at (current page) {\Huge\textbf{Please stand by\ldots}};
+    \end{tikzpicture}
+}
+
+\begin{frame}[plain]
+    \noteitem{Full disclaimer: The demo might or might not work properly. I also haven't updated my VM configuration in quite a while, so it's a little wonky in places. It's enough to get the idea across though. I'll need to pause occasionally to answer prompts and enter passwords.}
+    \noteitem{The base VM configuration is a mostly vanilla installation of macOS 26 Tahoe plus Xcode. Everything else is pretty much out of the box.}
+\end{frame}
+
+\setbeamertemplate{background canvas}[default]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Some basic terminology}
+    \framesubtitle{(\url{https://nixos.org/guides/how-nix-works/})}
+
+    \begin{itemize}
+        \item Packages are specified using \textbf{derivations}.
+        \begin{itemize}
+            \item pure functional (Nix the language)
+            \item variants are easy
+            \noteitem{Define the derivation as a function and pass arguments per variant.}
+        \end{itemize}
+        \item Packages are distributed via \textbf{channels}.
+        \begin{itemize}
+            \item e.g., \texttt{nixos-25.11}, \texttt{nixpkgs-25.11-darwin}, \texttt{nixpkgs-unstable}
+            \item ``more than \num{120000} packages'' in \texttt{nixpkgs}
+            \noteitem{This is the largest collection of any package manager I know of.}
+        \end{itemize}
+        \noteitem{cf.\ Debian stable, unstable.}
+        \item Packages are installed locally in the \textbf{Nix store}.
+        \begin{itemize}
+            \item binary or source installs
+            \item paths are hash based {\tiny (e.g., \texttt{/nix/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1/})}
+            \noteitem{The hash is of all inputs used to build the package.}
+            \item all dependencies are included under the same path
+            \noteitem{Versioned accordingly. The obvious downside is storage usage, but eh\ldots}
+            \item multiple different versions is easy
+            \noteitem{Each version goes into a unique path and is isolated from all others. You can switch versions on the fly and specify the preferred version.}
+            \item package upgrades and rollbacks are atomic
+            \noteitem{Different inputs \(\Rightarrow\) different path.}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Deploying configurations and packages}
+
+    \begin{itemize}
+        \item NixOS:
+        \begin{itemize}
+            \item \texttt{/etc/nixos/configuration.nix}
+            \item \texttt{nixos-rebuild switch}
+            \item entire OS (including packages) is (re)built by the package manager!
+            \noteitem{Your entire system specification becomes a single Nix derivation.}
+        \end{itemize}
+        \item Temporarily install/activate packages:
+        \begin{itemize}
+            \item \texttt{nix-shell -p firefox} {\tiny (old style)}
+            \item \texttt{nix shell nixpkgs\#firefox} {\tiny (with ``flakes'')}
+            \item automatically using tools like \texttt{direnv}
+        \end{itemize}
+        \item Many users now use Nix \textbf{flakes}.
+        \begin{itemize}
+            \item effectively a collection of derivations wrapped in a Git repo
+            \item you can effectively install flakes like packages
+            \noteitem{I'm over-simplifying.}
+            \item building \texttt{flake.nix} \(\Rightarrow\) \texttt{flake.lock} ensures reproducibility
+            \noteitem{It's a bit like running on stable Debian, but you can more easily update to newer packages.}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{How effective is Nix on macOS?}
+
+    \begin{itemize}
+        \item Darwin requires the \texttt{nix-darwin} module.
+        \begin{itemize}
+            \item support for Homebrew, which supports the Mac App Store \tinyskip
+            {\tiny (mainly useful for GUI apps and some fonts)}
+            \item exposes a bunch of system-level settings
+        \end{itemize}
+        \item Settings configuration is somewhat patchy:
+        \begin{itemize}
+            \item CLI configs are usually straightforward
+            \item \texttt{nix-darwin} exposes some things but not all
+            \item using the \texttt{defaults} database is somewhat limited
+            \item many apps still do their own thing
+        \end{itemize}
+        \item Package reproducibility is great! \tinyskip
+        {\tiny(except Homebrew package versions can get ``stuck in time'')}
+    \end{itemize}
 \end{frame}
 
 
