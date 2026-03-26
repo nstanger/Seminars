@@ -80,6 +80,7 @@
 \begin{frame}
     \thispagestyle{empty}
     \titlepage
+    \noteitem{This was originally going to be the first seminar for 2025, but I got my OUDW laptop the week before and then OneDrive crapped all over everything.}
 \end{frame}
 
 \setbeamertemplate{background canvas}[default]
@@ -180,10 +181,12 @@
 
     \begin{columns}
         \begin{column}{0.5\paperwidth}
-            \includegraphics[width=\columnwidth, keepaspectratio]{mac_1.png}
+            \centering
+            \includegraphics[height=5.65cm, keepaspectratio]{mac_1.png}
         \end{column}
         \begin{column}{0.5\paperwidth}
-            \includegraphics[width=\columnwidth, keepaspectratio]{mac_2.png}
+            \centering
+            \includegraphics[height=5.65cm, keepaspectratio]{mac_2.png}
         \end{column}
     \end{columns}
     \noteitem{Different settings on different machines I control because I can't remember how I configured the more obscure things. The old fix was tedious manual comparison.}
@@ -210,6 +213,7 @@
         \begin{column}{0.4\paperwidth}
             \begin{center}
                 Vivaldi
+                \smallskip
     
                 \includegraphics[width=\columnwidth, keepaspectratio]{sync_vivaldi.png}
             \end{center}
@@ -217,6 +221,7 @@
         \begin{column}{0.4\paperwidth}
             \begin{center}
                 Visual Studio Code
+                \smallskip
     
                 \includegraphics[width=\columnwidth, keepaspectratio]{sync_vscode.png}
             \end{center}
@@ -265,6 +270,7 @@
         };
     \end{tikzpicture}
     \noteitem{This can be effective, but requires careful management. Otherwise you've just inceptioned the problem down a level. This is also quite resource intensive (esp.\ storage), even with lightweight virtualisation.}
+    \noteitem{Although ironically this is how I've done the demo.}
 \end{frame}
 
 
@@ -305,11 +311,17 @@
     \begin{itemize}
         \item A Linux distro (NixOS). \faLinux\ {\tiny (also see NixBSD)}
         \noteitem{NixBSD is a fork to make a BSD equivalent of NixOS. Nix the package manager isn't available, though (somewhat surprising given that Darwin is mostly BSD-ish).}
-        \item A package manager (Nix)\ldots\ \faLinux~\faApple\ {\tiny (technically Darwin)}
+        \item A pure functional package manager (Nix)\ldots\ \faLinux~\faApple\ {\tiny (technically Darwin)}
         \item \ldots based on a pure functional programming language \newline
         (also named Nix \emoji{face-with-rolling-eyes}). \faLinux~\faApple
-        \noteitem{No Windows, but will work under WSL. There is a Nix community module to install NixOS.}
+        \noteitem{No Windows, but works under WSL. There's a Nix community module to install NixOS.}
         \item Reproducibility is baked into all three.
+        \item Created by Eelco Dolstra in 2003.
+        \begin{tcolorbox}{}
+            \small
+            ``The name \emph{Nix} is derived from the Dutch word \emph{niks}, meaning \emph{nothing}; build actions do not see anything that has not been explicitly declared as an input.'' \hfill{\tiny (\url{https://edolstra.github.io/pubs/nspfssd-lisa2004-final.pdf}, p.\ 81)}
+        \end{tcolorbox}
+        \noteitem{Fun fact: The logo was originally created for the Haskell logo competition, hence the lambdas. ``The snowflake motif is even more appropriate for Nix, because \emph{nix} is Latin for \emph{snow}.''}
     \end{itemize}
 \end{frame}
 
@@ -330,7 +342,7 @@
 
 \begin{frame}[plain]
     \noteitem{Full disclaimer: The demo might or might not work properly. I also haven't updated my VM configuration in quite a while, so it's a little wonky in places. It's enough to get the idea across though. I'll need to pause occasionally to answer prompts and enter passwords.}
-    \noteitem{The base VM configuration is a mostly vanilla installation of macOS 26 Tahoe plus Xcode. Everything else is pretty much out of the box.}
+    \noteitem{The base VM configuration is a mostly vanilla installation of macOS 26 Tahoe plus Xcode, the VM guest tools, and a couple of tweaks to Privacy & Security settings to avoid roadblocks. Everything else is pretty should be out of the box.}
 \end{frame}
 
 \setbeamertemplate{background canvas}[default]
@@ -364,7 +376,7 @@
             \noteitem{The hash is of all inputs used to build the package.}
             \item all dependencies are included under the same path
             \noteitem{Versioned accordingly. The obvious downside is storage usage, but eh\ldots}
-            \item multiple different versions is easy
+            \item trivial to install multiple different versions
             \noteitem{Each version goes into a unique path and is isolated from all others. You can switch versions on the fly and specify the preferred version.}
             \item package upgrades and rollbacks are atomic
             \noteitem{Different inputs \(\Rightarrow\) different path.}
@@ -384,22 +396,134 @@
         \begin{itemize}
             \item \texttt{/etc/nixos/configuration.nix}
             \item \texttt{nixos-rebuild switch}
-            \item entire OS (including packages) is (re)built by the package manager!
+            \item entire OS---including packages---is (re)built by the package manager!
             \noteitem{Your entire system specification becomes a single Nix derivation.}
         \end{itemize}
         \item Temporarily install/activate packages:
         \begin{itemize}
             \item \texttt{nix-shell -p firefox} {\tiny (old style)}
-            \item \texttt{nix shell nixpkgs\#firefox} {\tiny (with ``flakes'')}
+            \item \texttt{nix shell nixpkgs\#firefox} {\tiny (new style, using ``flakes'')}
             \item automatically using tools like \texttt{direnv}
         \end{itemize}
         \item Many users now use Nix \textbf{flakes}.
         \begin{itemize}
             \item effectively a collection of derivations wrapped in a Git repo
-            \item you can effectively install flakes like packages
             \noteitem{I'm over-simplifying.}
+            \item you can import flakes at any time
             \item building \texttt{flake.nix} \(\Rightarrow\) \texttt{flake.lock} ensures reproducibility
-            \noteitem{It's a bit like running on stable Debian, but you can more easily update to newer packages.}
+            \noteitem{cf.\ similar concept in other environments. It's a bit like running on stable Debian, but you can more easily update to newer packages.}
+        \end{itemize}
+        \item Many extension modules, e.g., \texttt{home-manager}, \texttt{nix-darwin}, \ldots.
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+    \frametitle{The language experience}
+
+
+    \begin{tikzpicture}[remember picture, overlay]
+        \node (listing) at ($(current page) + (0,-0.25)$) {
+            \begin{tcblisting}{minted language=nix, minted options={fontsize=\fontsize{7.25pt}{8.25pt}\selectfont}}
+                {
+                    inputs = {
+                        nixpkgs.url = "github:nixos/nixpkgs";
+                        flake-utils.url = "github:numtide/flake-utils";
+                    };
+
+                    outputs = { self, nixpkgs, flake-utils }:
+                        flake-utils.lib.eachDefaultSystem (system:
+                            let pkgs = nixpkgs.legacyPackages.${system};
+                            in {
+                                # nix build .#hello
+                                packages.hello = pkgs.hello;
+
+                                # nix build
+                                defaultPackage = self.packages.${system}.hello;
+
+                                # nix develop .#hello or nix shell .#hello
+                                devShells.hello = pkgs.mkShell {
+                                    buildInputs = [ pkgs.hello pkgs.cowsay ];
+                                };
+                                
+                                # nix develop or nix shell
+                                devShell = self.devShells.${system}.hello;
+                            });
+                }
+            \end{tcblisting}\mintinline{text}|$| % hack for wonky math mode in VSC, somehow this isn't visible \o/
+        };
+        \node[below left] at ($(listing.north east) + (-0.2,-0.5)$) {
+            \begin{minipage}{3.5cm}
+                \footnotesize
+                \begin{itemize}
+                    \item pure functional \tinyskip
+                    {\tiny (but you can go impure)}
+                    \noteitem{The implication being that impurity implies non-reproducibility.}
+                    \item inputs \(\Rightarrow\) outputs \tinyskip
+                    {\tiny (effectively lambdas)}
+                    \item lazy evaluation
+                    \item dynamically typed
+                    \item \texttt{\{\ldots\}} = \textbf{attribute set}
+                    \noteitem{aka hash or dictionary.}
+                    \item \texttt{[\ldots]} = list
+                \end{itemize}
+            \end{minipage}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Nix + \texttt{direnv} = reproducibility superpowers}
+
+    \begin{itemize}
+        \item \texttt{direnv} lets you create per-directory reproducible environments. \tinyskip
+        {\tiny (cf.\ rbenv, pyenv, phpenv)}
+        \begin{itemize}
+            \item \texttt{.envrc} contains shell code, run when you enter the directory
+            \item dynamically load and unload environment variables {\tiny (subshell)}
+        \end{itemize}
+        \item To integrate with Nix:
+        \begin{enumerate}
+            \item add \texttt{use flake .} to your \texttt{.envrc}
+            \item specify requirements in \texttt{flake.nix}
+            \item \texttt{direnv allow .}
+            \item \ldots profit!
+        \end{enumerate}
+        \noteitem{This a much more general solution than the language-specific tools. You can install \emph{any} dependencies, not just language modules. Everything resets when you leave (or deny) the directory.}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{The installation landscape is slightly messy}
+    \framesubtitle{(outside NixOS)}
+
+    \begin{itemize}
+        \item Official Nix installer is a bit bare bones.
+        \item Determinate Systems created a ``batteries included'' installer:
+        \begin{itemize}
+            \item installed either ``vanilla'' or ``Determinate'' Nix {\tiny (= ``enterprise'' Nix)}
+            \noteitem{This is somewhat analogous to Red Hat vs.\ Fedora, but different organisations.}
+            \noteitem{The default switched from vanilla to Determinate in late 2025.}
+            \item Determinate Nix clashes with \texttt{nix-darwin}
+            \noteitem{As I discovered once when I inadvertently installed it.}
+            \item recently (2026) dropped ``vanilla'' Nix support
+        \end{itemize}
+        \item Forks of the Determinate installer:
+        \begin{itemize}
+            \item ``official'' but experimental installer
+            \item Lix installer {\tiny (\url{https://lix.systems})}
+            \noteitem{I used to use Determinate, but have switched to Lix.}
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -409,7 +533,7 @@
 
 
 \begin{frame}
-    \frametitle{How effective is Nix on macOS?}
+    \frametitle{The experience on macOS}
 
     \begin{itemize}
         \item Darwin requires the \texttt{nix-darwin} module.
@@ -419,14 +543,45 @@
             \item exposes a bunch of system-level settings
         \end{itemize}
         \item Settings configuration is somewhat patchy:
+        \noteitem{But this is still a massive improvement over the previous state of affairs.}
         \begin{itemize}
-            \item CLI configs are usually straightforward
+            \item CLI configs are mostly straightforward {\tiny (via \texttt{home-manager})}
+            \noteitem{Creating your own derivations for edge cases is relatively simple.}
             \item \texttt{nix-darwin} exposes some things but not all
-            \item using the \texttt{defaults} database is somewhat limited
+            \item writing to the \texttt{defaults} database can be limited
+            \noteitem{Probably not too dissimilar to the Windows Registry. Some items are opaque blobs, some are read only, some you write to and nothing happens, \ldots.}
             \item many apps still do their own thing
         \end{itemize}
         \item Package reproducibility is great! \tinyskip
-        {\tiny(except Homebrew package versions can get ``stuck in time'')}
+        {\tiny(but Homebrew package versions can get ``stuck in time'')}
+        \item External interference:
+        \begin{itemize}
+            \item system updates occasionally stomp on things {\tiny (mainly \texttt{/etc})}
+            \noteitem{e.g., automount configuration.}
+            \item OUDW regularly gets in the way \emoji{face-with-rolling-eyes}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Where to next?}
+    \framesubtitle{(\url{https://github.com/nstanger/nix/issues} \emoji{grinning-squinting-face})}
+
+    \begin{itemize}
+        \item My personal flake is now quite large and probably needs refactoring.
+        \noteitem{You've already seen how long it takes even for a cut-down version!}
+        \item Still working on some trickier software configurations:
+        \begin{itemize}
+            \item NetBeans {\tiny (versioned preference directories \emoji{confounded-face})}
+            \item Postfix {\tiny (pre-installed on macOS)}
+            \item web browsers
+        \end{itemize}
+        \item Reproducible Docker images?
+        \item More \texttt{direnv}. \raisebox{-0.9em}{\includegraphics[width=2em, keepaspectratio]{cattle-more-cowbell.png}}
     \end{itemize}
 \end{frame}
 
