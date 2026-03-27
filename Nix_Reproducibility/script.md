@@ -22,7 +22,7 @@ The Tart images aren’t large enough (45GB), use UTM instead (default 64GB, ≈
 **Clone the VM image before continuing.** Delete and re-clone to start from a clean slate.
 
 * `ping cache.nixos.org` just to check (otherwise it will build from source—SLOW).
-* `curl -sSf -L https://install.lix.systems/lix | sh -s -- install` (≈ 1:15)
+* `curl -sSf -L https://install.lix.systems/lix | sh -s -- install` (≈ 1:15 wired or wifi)
 * Open new Terminal window to update path (or run `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh`).
 * `cd Documents`
 * `nix shell nixpkgs#git` (≈ 2:30?)
@@ -40,5 +40,5 @@ The Tart images aren’t large enough (45GB), use UTM instead (default 64GB, ≈
     sudo mv /etc/zshenv /etc/zshenv.before-nix-darwin
     ```
 * `nix build --extra-experimental-features "nix-command flakes" --extra-deprecated-features broken-string-escape ./#darwinConfigurations.Nigels-Virtual-Machine.system` (≈ 4:00)
-* `sudo ./result/sw/bin/darwin-rebuild switch --flake ~/Documents/nix/.#` (≈ 11:00)
+* `sudo ./result/sw/bin/darwin-rebuild switch --flake ~/Documents/nix/.#` (≈ 5:00)
 * Open new Terminal window.
